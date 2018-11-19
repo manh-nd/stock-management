@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.org/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<mapping class="model.Account" />
+		<mapping class="model.Category" />
+		<mapping class="model.Goods" />
+		<mapping class="model.Inventory" />
+		<mapping class="model.Producer" />
+		<mapping class="model.Reference" />
+		<mapping class="model.Stock" />
+		<mapping class="model.Supplier" />
+	</session-factory>
+</hibernate-configuration>

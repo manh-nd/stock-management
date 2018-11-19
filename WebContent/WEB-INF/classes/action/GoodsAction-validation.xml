@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN" 
+"http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+<validators>
+	<field name="goodsBean.category.id">
+		<field-validator type="required">
+			<message key="errors.not-select" />
+		</field-validator>
+	</field>
+	<field name="goodsBean.stock.id">
+		<field-validator type="required">
+			<message key="errors.not-select" />
+		</field-validator>
+	</field>
+	<field name="goodsBean.producer.id">
+		<field-validator type="required">
+			<message key="errors.not-select" />
+		</field-validator>
+	</field>
+	<field name="goodsBean.supplier.id">
+		<field-validator type="required">
+			<message key="errors.not-select" />
+		</field-validator>
+	</field>
+</validators>
