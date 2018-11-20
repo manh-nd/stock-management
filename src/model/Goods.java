@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,54 +31,54 @@ public class Goods implements Serializable {
 	private Integer id;
 
 	@NotEmpty(message = "Mã hàng hóa không được trống!")
-	@Column(name = "GOODS_CODE", nullable = false, length = 8)
+	@Column(name = "GOODS_CODE", unique = true, nullable = false, length = 8)
 	private String code;
 
-	@NotEmpty(message = "Ngày hết hạn không được trống!")
-	@Temporal(TemporalType.DATE)
-	@Column(name = "GOODS_EXPIRATION", nullable = false)
-	private Date expiration;
-
-	@NotEmpty(message = "Giá bán không được để được trống!")
-	@Column(name = "GOODS_EXPORT_PRICE", nullable = false)
-	private Integer exportPrice;
-
-	@Column(name = "GOODS_FEATURE", nullable = false, length = 45)
-	private String feature;
-
-	@Column(name = "GOODS_IMPORT_PRICE", nullable = false)
-	private Integer importPrice;
-
-	@Column(name = "GOODS_LOTNUMBER", length = 16)
-	private String lotNumber;
-
-	@NotNull(message="Tên hàng hóa không được để trống!")
-	@Column(name = "GOODS_NAME", nullable = false, length = 64)
-	private String name;
-
-	@Column(name = "GOODS_NEW_BRAND", nullable = false)
-	private Boolean newBrand;
-
-	@NotNull(message="Đơn vị không được để trống!")
-	@Column(name = "GOODS_UNIT", nullable = false, length = 16)
-	private String unit;
-
-	@NotNull(message="Phân loại không được để trống!")
+	@NotNull(message = "Phân loại không được để trống!")
 	@ManyToOne
 	@JoinColumn(name = "CATEGORY_ID", nullable = false)
 	private Category category;
 
-	@NotNull(message="Hãng sản xuất không được để trống!")
+	@NotNull(message = "Hãng sản xuất không được để trống!")
 	@ManyToOne
 	@JoinColumn(name = "PRODUCER_ID", nullable = false)
 	private Producer producer;
 
-	@NotNull(message="Nhà cung cấp không được để trống!")
+	@NotNull(message = "Nhà cung cấp không được để trống!")
 	@ManyToOne
 	@JoinColumn(name = "SUPPLIER_ID", nullable = false)
 	private Supplier supplier;
 
-	@OneToMany(mappedBy = "goods")
+	@NotNull(message = "Tên hàng hóa không được để trống!")
+	@Column(name = "GOODS_NAME", nullable = false, length = 64)
+	private String name;
+
+	@Column(name = "GOODS_FEATURE", length = 45)
+	private String feature;
+
+	@Column(name = "GOODS_LOTNUMBER", length = 16)
+	private String lotNumber;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "GOODS_EXPIRATION")
+	private Date expiration;
+
+	@NotNull(message = "Giá nhập không được để được trống!")
+	@Column(name = "GOODS_IMPORT_PRICE", nullable = false)
+	private Integer importPrice;
+
+	@NotNull(message = "Giá bán không được để được trống!")
+	@Column(name = "GOODS_EXPORT_PRICE", nullable = false)
+	private Integer exportPrice;
+
+	@NotEmpty(message = "Đơn vị không được để trống!")
+	@Column(name = "GOODS_UNIT", nullable = false, length = 16)
+	private String unit;
+
+	@Column(name = "GOODS_NEW_BRAND", nullable = false)
+	private Boolean newBrand;
+
+	@OneToMany(mappedBy = "goods", cascade = CascadeType.ALL)
 	private Set<Inventory> inventories;
 
 	public Goods() {
@@ -197,14 +198,14 @@ public class Goods implements Serializable {
 
 	public Inventory addInventory(Inventory inventory) {
 		getInventories().add(inventory);
-		inventory.setGood(this);
+		inventory.setGoods(this);
 
 		return inventory;
 	}
 
 	public Inventory removeInventory(Inventory inventory) {
 		getInventories().remove(inventory);
-		inventory.setGood(null);
+		inventory.setGoods(null);
 
 		return inventory;
 	}
@@ -212,9 +213,9 @@ public class Goods implements Serializable {
 	@Override
 	public String toString() {
 		return String.format(
-				"Goods [id=%s, code=%s, expiration=%s, exportPrice=%s, feature=%s, importPrice=%s, lotNumber=%s, name=%s, newBrand=%s, unit=%s, category=%s, producer=%s, supplier=%s]",
-				id, code, expiration, exportPrice, feature, importPrice, lotNumber, name, newBrand, unit, category,
-				producer, supplier);
+				"Goods(id=%s, code=%s, category=%s, producer=%s, supplier=%s, name=%s, feature=%s, lotNumber=%s, expiration=%s, importPrice=%s, exportPrice=%s, unit=%s, newBrand=%s)",
+				id, code, category, producer, supplier, name, feature, lotNumber, expiration, importPrice, exportPrice,
+				unit, newBrand);
 	}
 
 }

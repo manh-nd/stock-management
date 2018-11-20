@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Stock implements Serializable {
 
 	@NotNull(message = "Mã kho không được để trống!")
 	@Length(min = 3, max = 6, message = "Mã kho từ 3 - 6 ký tự!")
-	@Column(name = "STOCK_CODE", nullable = false, length = 6)
+	@Column(name = "STOCK_CODE", unique = true, nullable = false, length = 6)
 	private String code;
 
 	@NotNull(message = "Tên kho không được để trống!")
@@ -40,7 +41,7 @@ public class Stock implements Serializable {
 	@Column(name = "STOCK_NAME", nullable = false, length = 45)
 	private String name;
 
-	@OneToMany(mappedBy = "stock")
+	@OneToMany(mappedBy = "stock", cascade = CascadeType.ALL)
 	private Set<Inventory> inventories;
 
 	public Stock() {
@@ -94,7 +95,7 @@ public class Stock implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("Stock [id=%s, code=%s, name=%s, inventories=%s]", id, code, name, inventories);
+		return String.format("Stock(id=%s, code=%s, name=%s)", id, code, name);
 	}
 
 }

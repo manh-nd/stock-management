@@ -2,24 +2,44 @@
 <!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN" 
 "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
 <validators>
-	<field name="goodsBean.category.id">
-		<field-validator type="required">
-			<message key="errors.not-select" />
+	<field name="goodsBean.code">
+		<field-validator type="requiredstring">
+			<message key="errors.goodsBean.code" />
 		</field-validator>
 	</field>
-	<field name="goodsBean.stock.id">
+	<field name="goodsBean.category.id">
 		<field-validator type="required">
-			<message key="errors.not-select" />
+			<message key="errors.goodsBean.category" />
 		</field-validator>
 	</field>
 	<field name="goodsBean.producer.id">
 		<field-validator type="required">
-			<message key="errors.not-select" />
+			<message key="errors.goodsBean.producer" />
 		</field-validator>
 	</field>
 	<field name="goodsBean.supplier.id">
 		<field-validator type="required">
-			<message key="errors.not-select" />
+			<message key="errors.goodsBean.supplier" />
+		</field-validator>
+	</field>
+	<field name="goodsBean.name">
+		<field-validator type="requiredstring">
+			<message key="errors.goodsBean.name" />
+		</field-validator>
+	</field>
+	<field name="goodsBean.exportPrice">
+		<field-validator type="required">
+			<message key="errors.goodsBean.exportPrice" />
+		</field-validator>
+	</field>
+	<field name="goodsBean.importPrice">
+		<field-validator type="required">
+			<message key="errors.goodsBean.importPrice" />
+		</field-validator>
+	</field>
+	<field name="goodsBean.unit">
+		<field-validator type="requiredstring">
+			<message key="errors.goodsBean.unit" />
 		</field-validator>
 	</field>
 </validators>

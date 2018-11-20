@@ -15,6 +15,7 @@ public class ProducerDaoImpl extends BasicCrudImplDao<Producer, Integer> impleme
 			Producer object = (Producer) query.uniqueResult();
 			return object;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

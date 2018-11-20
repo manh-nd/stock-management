@@ -58,6 +58,7 @@ public class BasicCrudImplDao<T, ID extends Serializable> implements BasicCrudDa
 	@Override
 	public void saveOrUpdate(T object) {
 		try {
+			System.out.println(object);
 			session.saveOrUpdate(object);
 		} catch (Exception e) {
 			e.printStackTrace();

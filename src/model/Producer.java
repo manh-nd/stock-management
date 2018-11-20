@@ -4,30 +4,26 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Set;
 
-
 /**
- * The persistent class for the producer database table.
- * 
+ * Hãng sản xuất
  */
 @Entity
-@Table(name="producer")
-@NamedQuery(name="Producer.findAll", query="SELECT p FROM Producer p")
+@Table(name = "producer")
 public class Producer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="PRODUCER_ID", unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "PRODUCER_ID", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name="PRODUCER_CODE", nullable=false, length=6)
+	@Column(name = "PRODUCER_CODE", unique = true, nullable = false, length = 6)
 	private String code;
 
-	@Column(name="PRODUCER_NAME", nullable=false, length=45)
+	@Column(name = "PRODUCER_NAME", unique = true, nullable = false, length = 45)
 	private String name;
 
-	//bi-directional many-to-one association to Good
-	@OneToMany(mappedBy="producer")
+	@OneToMany(mappedBy = "producer", cascade = CascadeType.ALL)
 	private Set<Goods> goods;
 
 	public Producer() {
@@ -77,6 +73,11 @@ public class Producer implements Serializable {
 		good.setProducer(null);
 
 		return good;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Producer(id=%s, code=%s, name=%s)", id, code, name);
 	}
 
 }

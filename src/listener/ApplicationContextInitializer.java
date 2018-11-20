@@ -3,6 +3,12 @@ package listener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+/**
+ * Lớp này chỉ chạy một lần khi chạy webapp
+ * 
+ * @author Manh Nguyen
+ *
+ */
 public class ApplicationContextInitializer implements ServletContextListener {
 
 	@Override
@@ -14,5 +20,5 @@ public class ApplicationContextInitializer implements ServletContextListener {
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 	}
-	
+
 }

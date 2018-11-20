@@ -9,7 +9,6 @@
 		<mapping class="model.Goods" />
 		<mapping class="model.Inventory" />
 		<mapping class="model.Producer" />
-		<mapping class="model.Reference" />
 		<mapping class="model.Stock" />
 		<mapping class="model.Supplier" />
 	</session-factory>

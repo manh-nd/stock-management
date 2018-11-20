@@ -1,6 +1,9 @@
 package action;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
@@ -13,21 +16,15 @@ import org.hibernate.validator.Valid;
 import com.opensymphony.xwork2.ActionSupport;
 
 import constant.Page;
-import dao.CategoryDao;
-import dao.GoodsDao;
-import dao.ProducerDao;
-import dao.StockDao;
-import dao.SupplierDao;
-import dao.impl.CategoryDaoImpl;
-import dao.impl.GoodsDaoImpl;
-import dao.impl.ProducerDaoImpl;
-import dao.impl.StockDaoImpl;
-import dao.impl.SupplierDaoImpl;
+import dto.GoodsDto;
 import model.Category;
 import model.Goods;
+import model.Inventory;
 import model.Producer;
 import model.Stock;
 import model.Supplier;
+import service.GoodsService;
+import service.GoodsServiceImpl;
 import util.WebUtil;
 
 /**
@@ -44,60 +41,71 @@ public class GoodsAction extends ActionSupport implements IAction {
 
 	private static final long serialVersionUID = -5799607767607577952L;
 
-	private static GoodsDao goodsDao = new GoodsDaoImpl();
-	private static StockDao stockDao = new StockDaoImpl();
-	private static SupplierDao supplierDao = new SupplierDaoImpl();
-	private static CategoryDao categoryDao = new CategoryDaoImpl();
-	private static ProducerDao producerDao = new ProducerDaoImpl();
+	// Goods service
+	private GoodsService goodsService = new GoodsServiceImpl();
+
+	private List<GoodsDto> goodsList = new ArrayList<>();
 
 	@Valid
 	private Goods goodsBean = new Goods();
+	private Stock stockBean = new Stock();
+	private Inventory inventoryBean = new Inventory();
 
-	@Action(value = "list", results = { @Result(name = SUCCESS, location = Page.TEMPLATE_PAGE) })
+	@Action(value = "list", results = { @Result(name = SUCCESS, location = Page.GOODS_LIST_PAGE) })
 	public String list() {
-		System.out.println("goods list");
-		WebUtil.setTitleAndPage("Danh sách hàng hóa", Page.GOODS_LIST_PAGE);
+		String stockIdParam = WebUtil.getHttpServletRequest().getParameter("stockId");
+		if (stockIdParam != null) {
+			try {
+				Integer stockId = Integer.parseInt(stockIdParam);
+				goodsList = goodsService.findGoodsByStockId(stockId);
+			} catch (Exception e) {
+			}
+		}
 		return SUCCESS;
 	}
 
-	@Action(value = "add", results = { @Result(name = SUCCESS, location = Page.TEMPLATE_PAGE) })
+	@Action(value = "add", results = { @Result(name = SUCCESS, location = Page.GOODS_FORM_PAGE) })
 	public String add() {
-		WebUtil.setTitleAndPage("Thêm mới hàng hóa", Page.GOODS_FORM_PAGE);
+		String stockIdParam = WebUtil.getHttpServletRequest().getParameter("stockId");
+		Integer stockId = Integer.parseInt(stockIdParam);
+		stockBean = goodsService.findByStockId(stockId);
+		inventoryBean = new Inventory();
 		return SUCCESS;
 	}
 
-	@Action(value = "edit", results = { @Result(name = SUCCESS, location = Page.TEMPLATE_PAGE) })
+	@Action(value = "edit", results = { @Result(name = SUCCESS, location = Page.GOODS_FORM_PAGE) })
 	public String edit() {
-		WebUtil.setTitleAndPage("Sửa hàng hóa", Page.GOODS_FORM_PAGE);
+		Integer stockId = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("stockId"));
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
-		goodsBean = goodsDao.findById(Goods.class, id);
+		stockBean = goodsService.findByStockId(stockId);
+		goodsBean = goodsService.findById(id);
+		inventoryBean = goodsService.findInventoryByStockIdAndGoodsId(stockId, id);
 		return SUCCESS;
 	}
 
 	@Action(value = "delete", results = { @Result(name = SUCCESS, location = "list", type = "redirect") })
 	public String delete() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
-		goodsBean = goodsDao.findById(Goods.class, id);
-		goodsDao.delete(goodsBean);
+		goodsService.delete(id);
 		return SUCCESS;
 	}
 
 	@Action(value = "save", interceptorRefs = @InterceptorRef("defaultStackHibernateStrutsValidation"), results = {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
-			@Result(name = INPUT, location = Page.TEMPLATE_PAGE) })
+			@Result(name = INPUT, location = Page.GOODS_FORM_PAGE) })
 	public String save() {
-		try {
-			System.out.println(goodsBean);
-			goodsDao.saveOrUpdate(goodsBean);
-			return SUCCESS;
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (goodsBean.getId() == null)
-				WebUtil.setTitleAndPage("Thêm hàng hóa", Page.GOODS_FORM_PAGE);
-			else
-				WebUtil.setTitleAndPage("Sửa hàng hóa", Page.GOODS_FORM_PAGE);
-			return INPUT;
-		}
+
+		inventoryBean.setGoods(goodsBean);
+		inventoryBean.setStock(stockBean);
+
+		Set<Inventory> inventories = new HashSet<>();
+		inventories.add(inventoryBean);
+		goodsBean.setInventories(inventories);
+
+		System.out.println("Goods Bean: " + goodsBean);
+		goodsService.saveOrUpdate(goodsBean);
+
+		return SUCCESS;
 	}
 
 	public Goods getGoodsBean() {
@@ -108,24 +116,40 @@ public class GoodsAction extends ActionSupport implements IAction {
 		this.goodsBean = goodsBean;
 	}
 
-	public List<Goods> getGoodsList() {
-		return goodsDao.findAll(Goods.class);
+	public List<GoodsDto> getGoodsList() {
+		return goodsList;
 	}
 
 	public List<Stock> getStockList() {
-		return stockDao.findAll(Stock.class);
+		return goodsService.getStocks();
 	}
 
 	public List<Category> getCategoryList() {
-		return categoryDao.findAll(Category.class);
+		return goodsService.getCategories();
 	}
 
 	public List<Supplier> getSupplierList() {
-		return supplierDao.findAll(Supplier.class);
+		return goodsService.getSuppliers();
 	}
 
 	public List<Producer> getProducerList() {
-		return producerDao.findAll(Producer.class);
+		return goodsService.getProducers();
+	}
+
+	public Stock getStockBean() {
+		return stockBean;
+	}
+
+	public void setStockBean(Stock stockBean) {
+		this.stockBean = stockBean;
+	}
+
+	public Inventory getInventoryBean() {
+		return inventoryBean;
+	}
+
+	public void setInventoryBean(Inventory inventoryBean) {
+		this.inventoryBean = inventoryBean;
 	}
 
 	@Override
