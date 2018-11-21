@@ -9,6 +9,7 @@
 <title>${title}</title>
 </head>
 <body>
+	<jsp:include page="fragment/navbar.jsp" />
 	<jsp:include page="${page}" />
 	<jsp:include page="fragment/js.jsp" />
 </body>

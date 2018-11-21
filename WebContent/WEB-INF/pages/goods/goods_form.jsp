@@ -17,6 +17,7 @@
 </style>
 </head>
 <body>
+	<jsp:include page="../fragment/navbar.jsp" />
 	<div class="container pt-5 pb-5">
 		<s:form action="save" namespace="/goods">
 			<s:hidden name="goodsBean.id" />

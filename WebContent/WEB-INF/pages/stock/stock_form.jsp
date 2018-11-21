@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="../fragment/head.jsp" />
-<title>Stock form</title>
+<title>Kho hàng - Biểu mẫu</title>
 <style type="text/css">
 .errorMessage {
 	color: red;
@@ -17,8 +17,9 @@
 </style>
 </head>
 <body>
+	<jsp:include page="../fragment/navbar.jsp" />
 	<div class="container pt-5 pb-5">
-		<h1>Form Kho hàng</h1>
+		<h1>Biểu mẫu kho hàng</h1>
 		<hr>
 		<s:fielderror />
 		<s:form action="save" namespace="/stock">
