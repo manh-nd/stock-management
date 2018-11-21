@@ -34,11 +34,11 @@
 			</div>
 
 			<div class="col-md-9">
-				<s:url action="add" namespace="/goods" var="addURL">
-					<s:param name="stockId" value="%{#parameters.stockId}" />
-				</s:url>
-				<s:a href="%{#addURL}" cssClass="btn btn-primary">Thêm mới hàng hóa</s:a>
-				<c:if test="${param.stockId != null}">
+				<s:if test="%{#parameters.stockId != NULL}">
+					<s:url action="add" namespace="/goods" var="addURL">
+						<s:param name="stockId" value="%{#parameters.stockId}" />
+					</s:url>
+					<s:a href="%{#addURL}" cssClass="btn btn-primary">Thêm mới hàng hóa</s:a>
 					<s:if test="goodsList.size() > 0">
 						<table class="table mt-3">
 							<tr>
@@ -52,20 +52,35 @@
 							</tr>
 							<s:iterator value="goodsList" status="status">
 								<tr>
-									<td><s:property value="#status.count" /></td>
-									<td><s:property value="code" /></td>
-									<td><s:property value="name" /></td>
-									<td><s:date name="expiration" format="dd/MM/yyyy" /></td>
-									<td><s:property value="inStock" /></td>
-									<td><s:url action="edit" var="editURL" namespace="/goods">
+									<td>
+										<s:property value="#status.count" />
+									</td>
+									<td>
+										<s:property value="code" />
+									</td>
+									<td>
+										<s:property value="name" />
+									</td>
+									<td>
+										<s:date name="expiration" format="dd/MM/yyyy" />
+									</td>
+									<td>
+										<s:property value="inStock" />
+									</td>
+									<td>
+										<s:url action="edit" var="editURL" namespace="/goods">
 											<s:param name="id" value="id" />
 											<s:param name="stockId" value="%{#parameters.stockId}" />
-										</s:url> <s:a href="%{editURL}">Sửa</s:a></td>
-									<td><s:url action="delete" var="deleteURL"
-											namespace="/goods">
+										</s:url>
+										<s:a href="%{editURL}">Sửa</s:a>
+									</td>
+									<td>
+										<s:url action="delete" var="deleteURL" namespace="/goods">
 											<s:param name="id" value="id" />
 											<s:param name="stockId" value="%{#parameters.stockId}" />
-										</s:url> <s:a href="%{deleteURL}">Xóa</s:a></td>
+										</s:url>
+										<s:a href="%{deleteURL}">Xóa</s:a>
+									</td>
 								</tr>
 							</s:iterator>
 						</table>
@@ -74,11 +89,12 @@
 						<div class="alert alert-danger mt-3" role="alert">Kho hàng
 							trống.</div>
 					</s:else>
-				</c:if>
+				</s:if>
+				<s:else>
+					<h3>Chọn một kho hàng để xem thông tin về hàng hóa!</h3>
+				</s:else>
 			</div>
 		</div>
-
-
 	</div>
 	<jsp:include page="../fragment/js.jsp" />
 </body>

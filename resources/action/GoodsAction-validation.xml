@@ -42,4 +42,9 @@
 			<message key="errors.goodsBean.unit" />
 		</field-validator>
 	</field>
+	<field name="inventoryBean.quantity">
+		<field-validator type="required">
+			<message key="errors.inventoryBean.quantity" />
+		</field-validator>
+	</field>
 </validators>

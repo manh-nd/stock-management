@@ -116,6 +116,7 @@
 					<label>Số lượng tồn kho</label>
 					<s:textfield name="inventoryBean.quantity"
 						cssClass="form-control form-control-sm" />
+					<s:fielderror fieldName="inventoryBean.quantity" />
 				</div>
 			</div>
 

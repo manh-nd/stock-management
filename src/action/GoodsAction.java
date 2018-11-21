@@ -33,7 +33,6 @@ import util.WebUtil;
  * @author Manh Nguyen
  *
  */
-
 @ParentPackage("goods-package")
 @Namespace("/goods")
 @ResultPath("/")
