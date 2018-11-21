@@ -16,8 +16,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="../fragment/navbar.jsp" />
 	<div class="container pt-5 pb-5">
-		<s:form action="save" namespace="producer">
+		<s:form action="save" namespace="/producer">
 			<s:hidden name="producerBean.id" />
 
 			<div class="form-group">
@@ -32,7 +33,7 @@
 				<s:fielderror fieldName="producerBean.name" />
 			</div>
 			<div class="form-group">
-				<s:submit value="Manh lol`" cssClass="btn btn-success" />
+				<s:submit value="Lưu" cssClass="btn btn-success" />
 			</div>
 		</s:form>
 	</div>

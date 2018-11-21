@@ -15,6 +15,7 @@ import constant.Page;
 import dao.ProducerDao;
 import dao.impl.ProducerDaoImpl;
 import model.Producer;
+import util.WebUtil;
 
 @ParentPackage("producer-package")
 @Namespace("/producer")
@@ -43,23 +44,30 @@ public class ProducerAction extends ActionSupport implements IAction {
 
 	@Action(value = "save", interceptorRefs = @InterceptorRef("defaultStackHibernateStrutsValidation"), results = {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
-			@Result(name = INPUT, location = Page.PRODUCER_FORM_PAGE) })
+			@Result(name = INPUT, location = Page.PRODUCER_LIST_PAGE) })
 	@Override
 	public String save() {
 		producerDao.saveOrUpdate(producerBean);
 		return SUCCESS;
 	}
 
+	@Action(value = "editProducer", results = { @Result(name = SUCCESS, location = Page.PRODUCER_FORM_PAGE), })
 	@Override
 	public String edit() {
-		// TODO Auto-generated method stub
-		return null;
+		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
+		producerBean = producerDao.findById(Producer.class, id);
+		System.out.println("EDIT" + producerBean);
+		return SUCCESS;
 	}
-
+	
+	@Action(value = "deleteProducer", results = { @Result(name = SUCCESS, location = Page.PRODUCER_LIST_PAGE), })
 	@Override
 	public String delete() {
-		// TODO Auto-generated method stub
-		return null;
+		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
+		producerBean = producerDao.findById(Producer.class, id);
+		producerDao.delete(producerBean);
+		producerList = producerDao.findAll(Producer.class);
+		return SUCCESS;
 	}
 
 	public Producer getProducerBean() { // làm việc với producerBean bỏ "get" trong ProducerBean
