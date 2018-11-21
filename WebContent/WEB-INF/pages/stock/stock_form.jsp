@@ -21,16 +21,17 @@
 	<div class="container pt-5 pb-5">
 		<h1>Biểu mẫu kho hàng</h1>
 		<hr>
-		<s:fielderror />
 		<s:form action="save" namespace="/stock">
 			<s:hidden name="stockBean.id" />
 			<div class="form-group">
 				<label>Mã kho hàng</label>
 				<s:textfield name="stockBean.code" cssClass="form-control" />
+				<s:fielderror fieldName="stockBean.code"/>
 			</div>
 			<div class="form-group">
 				<label>Tên kho hàng</label>
 				<s:textfield name="stockBean.name" cssClass="form-control" />
+				<s:fielderror fieldName="stockBean.name"/>
 			</div>
 			<div class="form-group">
 				<s:submit value="Lưu" cssClass="btn btn-primary" />

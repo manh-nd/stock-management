@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,14 +11,17 @@
 	<jsp:include page="../fragment/navbar.jsp" />
 	<div class="container pt-5 pb-5">
 		<h1>Danh sách kho hàng</h1>
+		<hr>
+		
 		<s:a cssClass="btn btn-primary" href="add" name="/stock">Thêm kho mới</s:a>
-		<table class="table mt-3">
+		
+		<table class="table table-sm table-bordered mt-3">
 			<tr>
 				<th>STT</th>
 				<th>Mã kho</th>
 				<th>Tên kho</th>
-				<th>Sửa</th>
-				<th>Xóa</th>
+				<th width="60px">Sửa</th>
+				<th width="60px">Xóa</th>
 			</tr>
 			<s:iterator value="stockList" status="status">
 				<tr>
@@ -32,17 +34,17 @@
 					<td>
 						<s:property value="name" />
 					</td>
-					<td>
+					<td class="text-center">
 						<s:url action="edit" var="editURL" namespace="/stock">
 							<s:param name="id" value="id" />
 						</s:url>
-						<a href="${editURL}">Sửa</a>
+						<s:a href="%{editURL}" cssClass="btn btn-sm btn-warning">Sửa</s:a>
 					</td>
-					<td>
+					<td class="text-center">
 						<s:url action="delete" var="deleteURL" namespace="/stock">
 							<s:param name="id" value="id" />
 						</s:url>
-						<a href="${deleteURL}">Xóa</a>
+						<s:a href="%{deleteURL}" cssClass="btn btn-sm btn-danger">Xóa</s:a>
 					</td>
 				</tr>
 			</s:iterator>

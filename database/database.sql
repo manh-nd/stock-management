@@ -68,7 +68,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'CL01','Dien thoai'),(2,'CL02','Thuc pham'),(3,'CL03','Dien may'),(4,'CL04','Do gia dung'),(5,'CL05','May tinh');
+INSERT INTO `category` VALUES (1,'CL01','Điện thoại'),(2,'CL02','Thực phẩm'),(3,'CL03','Điện máy'),(4,'CL04','Gia dụng'),(5,'CL05','Nội thất');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -110,7 +110,7 @@ CREATE TABLE `goods` (
 
 LOCK TABLES `goods` WRITE;
 /*!40000 ALTER TABLE `goods` DISABLE KEYS */;
-INSERT INTO `goods` VALUES (1,1,1,2,'HH01','Iphone X',NULL,'L01','chiec','4inch',NULL,20000000,22000000),(2,1,1,2,'HH02','Iphone 6',NULL,'L01','chiec','4inch',NULL,15000000,18000000),(3,1,1,3,'HH03','Galaxy Note 9',NULL,'L02','chiec','9inch',NULL,20000000,22000000),(4,1,1,4,'HH04','Am sieu toc',NULL,'L02','chiec',NULL,NULL,2000000,2200000),(5,1,1,5,'HH05','TV LED',NULL,'L01','chiec','65inch',NULL,40000000,45000000);
+INSERT INTO `goods` VALUES (1,1,1,2,'HH01','iPhone X',0,'L01','Chiếc','5.7 Inch',NULL,20000000,22000000),(2,1,1,2,'HH02','Iphone 6',NULL,'L01','chiec','4inch',NULL,15000000,18000000),(3,1,1,3,'HH03','Galaxy Note 9',NULL,'L02','chiec','9inch',NULL,20000000,22000000),(4,1,4,4,'HH04','Ấm siêu tốc Lock v2.1',0,'L02','Chiếc','',NULL,2000000,2200000),(5,1,1,5,'HH05','TV Sony  OLED 65 Inch 2018',1,'L01','Chiếc','65 Inch',NULL,40000000,45000000);
 /*!40000 ALTER TABLE `goods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +132,7 @@ CREATE TABLE `inventory` (
   KEY `fk_inventory_stock1_idx` (`STOCK_ID`),
   CONSTRAINT `fk_inventory_goods` FOREIGN KEY (`GOODS_ID`) REFERENCES `goods` (`goods_id`),
   CONSTRAINT `fk_inventory_stock1` FOREIGN KEY (`STOCK_ID`) REFERENCES `stock` (`stock_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,6 +141,7 @@ CREATE TABLE `inventory` (
 
 LOCK TABLES `inventory` WRITE;
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
+INSERT INTO `inventory` VALUES (1,1,1,96),(2,2,1,100),(3,3,1,69),(4,4,4,43),(5,5,2,12);
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,7 +195,7 @@ CREATE TABLE `stock` (
 
 LOCK TABLES `stock` WRITE;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (1,'K01','Kho Dien thoai'),(2,'K02','Kho Dien may'),(3,'K03','Kho Thuc pham'),(4,'K04','Kho Gia dung'),(5,'K05','Kho May tinh');
+INSERT INTO `stock` VALUES (1,'K01','Kho điện thoại'),(2,'K02','Kho điện máy'),(3,'K03','Kho thực phẩm'),(4,'K04','Kho gia dụng'),(5,'K05','Kho nội thất');
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,7 +222,7 @@ CREATE TABLE `supplier` (
 
 LOCK TABLES `supplier` WRITE;
 /*!40000 ALTER TABLE `supplier` DISABLE KEYS */;
-INSERT INTO `supplier` VALUES (1,'CC01','Dien may xanh'),(2,'CC02','The gioi di dong'),(3,'CC03','Dien may Tran Anh'),(4,'CC04','Eco mart'),(5,'CC05','Vin mart');
+INSERT INTO `supplier` VALUES (1,'CC01','Điện máy xanh'),(2,'CC02','Thế giới di động'),(3,'CC03','Điện máy Trần Anh'),(4,'CC04','Eco mart'),(5,'CC05','Vin mart');
 /*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -234,4 +235,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-21 15:36:29
+-- Dump completed on 2018-11-21 16:13:00
