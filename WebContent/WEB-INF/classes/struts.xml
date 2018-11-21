@@ -17,7 +17,7 @@
 	<package name="stock-package" extends="hibernate-default"
 		namespace="/stock">
 	</package>
-	
+
 	<!-- producer package -->
 	<package name="producer-package" extends="hibernate-default"
 		namespace="/producer">
@@ -26,6 +26,16 @@
 	<!-- goods package -->
 	<package name="goods-package" extends="hibernate-default"
 		namespace="/goods">
+	</package>
+
+	<!-- supplier package -->
+	<package name="supplier-package" extends="hibernate-default"
+		namespace="/supplier">
+	</package>
+
+	<!-- category package -->
+	<package name="category-package" extends="hibernate-default"
+		namespace="/category">
 	</package>
 
 </struts>

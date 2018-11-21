@@ -14,7 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.Length;
-import org.hibernate.validator.NotNull;
 
 /**
  * The persistent class for the stock database table.
@@ -31,12 +30,10 @@ public class Stock implements Serializable {
 	@Column(name = "STOCK_ID", unique = true, nullable = false)
 	private Integer id;
 
-	@NotNull(message = "Mã kho không được để trống!")
 	@Length(min = 3, max = 6, message = "Mã kho từ 3 - 6 ký tự!")
 	@Column(name = "STOCK_CODE", unique = true, nullable = false, length = 6)
 	private String code;
 
-	@NotNull(message = "Tên kho không được để trống!")
 	@Length(min = 6, max = 45, message = "Mã kho từ 6 - 45 ký tự!")
 	@Column(name = "STOCK_NAME", nullable = false, length = 45)
 	private String name;

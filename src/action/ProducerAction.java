@@ -32,7 +32,7 @@ public class ProducerAction extends ActionSupport implements IAction {
 	@Action(value = "list", results = @Result(name = SUCCESS, location = Page.PRODUCER_LIST_PAGE))
 	@Override
 	public String list() {
-		producerList = producerDao.findAll(Producer.class);
+		producerList = producerDao.findAll();
 		return SUCCESS;
 	}
 
@@ -51,22 +51,21 @@ public class ProducerAction extends ActionSupport implements IAction {
 		return SUCCESS;
 	}
 
-	@Action(value = "editProducer", results = { @Result(name = SUCCESS, location = Page.PRODUCER_FORM_PAGE), })
+	@Action(value = "edit", results = { @Result(name = SUCCESS, location = Page.PRODUCER_FORM_PAGE), })
 	@Override
 	public String edit() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
-		producerBean = producerDao.findById(Producer.class, id);
+		producerBean = producerDao.findById(id);
 		System.out.println("EDIT" + producerBean);
 		return SUCCESS;
 	}
-	
-	@Action(value = "deleteProducer", results = { @Result(name = SUCCESS, location = Page.PRODUCER_LIST_PAGE), })
+
+	@Action(value = "delete", results = { @Result(name = SUCCESS, location = "list", type = "redirect") })
 	@Override
 	public String delete() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
-		producerBean = producerDao.findById(Producer.class, id);
+		producerBean = producerDao.findById(id);
 		producerDao.delete(producerBean);
-		producerList = producerDao.findAll(Producer.class);
 		return SUCCESS;
 	}
 

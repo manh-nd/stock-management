@@ -30,12 +30,16 @@ public interface BasicCrudDao<T, ID extends Serializable> { // Lưu ý, không s
 	 * @return
 	 */
 	T update(T object);
-
+	
 	void saveOrUpdate(T object);
 
 	boolean delete(T object);
 
+	T findById(ID id);
+	
 	T findById(Class<T> clazz, ID id);
+
+	List<T> findAll();
 
 	List<T> findAll(Class<T> clazz);
 

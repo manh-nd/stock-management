@@ -6,15 +6,17 @@
 <head>
 <jsp:include page="../fragment/head.jsp" />
 <style type="text/css">
-	#add_0{
-	}
+#add_0 {
+	
+}
 </style>
 <title>Danh sách hãng sản xuất</title>
 </head>
 <body>
 	<jsp:include page="../fragment/navbar.jsp" />
 	<div class="container pt-5 pb-5">
-		<h2>Danh sách Nhà sản xuất</h2><br>
+		<h2>Danh sách Nhà sản xuất</h2>
+		<br>
 		<div class="addProducer">
 			<s:a cssClass="btn btn-primary" href="add" namespace="/producer">Thêm mới nhà sản xuất</s:a>
 		</div>
@@ -32,11 +34,10 @@
 					<td><s:property value="%{#statusProducerList.count}" /></td>
 					<td><s:property value="code" /></td>
 					<td><s:property value="name" /></td>
-					<td><s:url id="editURL" action="editProducer"
-							namespace="/producer">
+					<td><s:url var="editURL" action="edit" namespace="/producer">
 							<s:param name="id" value="%{id}"></s:param>
 						</s:url> <s:a href="%{editURL}">Sửa</s:a></td>
-					<td><s:url id="deleteURL" action="deleteProducer">
+					<td><s:url var="deleteURL" action="delete">
 							<s:param name="id" value="%{id}"></s:param>
 						</s:url> <s:a href="%{deleteURL}">Xóa</s:a></td>
 

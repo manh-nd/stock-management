@@ -12,73 +12,68 @@ import org.hibernate.validator.Valid;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import dao.StockDao;
-import dao.impl.StockDaoImpl;
-import model.Stock;
+import dao.CategoryDao;
+import dao.impl.CategoryDaoImpl;
+import model.Category;
 import util.WebUtil;
 
-@ParentPackage("stock-package")
-@Namespace("/stock")
+@ParentPackage("category-package")
+@Namespace("/category")
 @ResultPath("/")
-public class StockAction extends ActionSupport  implements IAction  {
+public class CategoryAction extends ActionSupport implements IAction {
 
 	private static final long serialVersionUID = 8493665757717540594L;
 
-	private StockDao stockDao = new StockDaoImpl();
+	private CategoryDao categoryDao = new CategoryDaoImpl();
 
 	@Valid
-	private Stock stockBean = new Stock();
+	private Category categoryBean = new Category();
 
-	@Action(value = "list", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/stock/stock_list.jsp"))
+	@Action(value = "list", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/category/category_list.jsp"))
 	public String list() {
-		System.out.println("stock list");
+		System.out.println("category list");
 		return SUCCESS;
 	}
 
-	@Action(value = "add", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/stock/stock_form.jsp"))
+	@Action(value = "add", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/category/category_form.jsp"))
 	public String add() {
 		return SUCCESS;
 	}
 
-	@Action(value = "edit", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/stock/stock_form.jsp"))
+	@Action(value = "edit", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/category/category_form.jsp"))
 	public String edit() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
-		stockBean = stockDao.findById(Stock.class, id);
+		categoryBean = categoryDao.findById(id);
 		return SUCCESS;
 	}
 
 	@Action(value = "delete", results = @Result(name = SUCCESS, location = "list", type = "redirect"))
 	public String delete() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
-		stockBean = stockDao.findById(Stock.class, id);
-		stockDao.delete(stockBean);
+		categoryBean = categoryDao.findById(id);
+		categoryDao.delete(categoryBean);
 		return SUCCESS;
 	}
 
 	@Action(value = "save", interceptorRefs = @InterceptorRef("defaultStackHibernateStrutsValidation"), results = {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
-			@Result(name = INPUT, location = "/WEB-INF/pages/stock/stock_form.jsp") })
+			@Result(name = INPUT, location = "/WEB-INF/pages/category/category_form.jsp") })
 	public String save() {
-		System.out.println(stockBean);
-		stockDao.saveOrUpdate(stockBean);
+		System.out.println(categoryBean);
+		categoryDao.saveOrUpdate(categoryBean);
 		return SUCCESS;
 	}
 
-	public Stock getStockBean() {
-		return stockBean;
+	public Category getCategoryBean() {
+		return categoryBean;
 	}
 
-	public void setStockBean(Stock stockBean) {
-		this.stockBean = stockBean;
+	public void setCategoryBean(Category categoryBean) {
+		this.categoryBean = categoryBean;
 	}
 
-	public List<Stock> getStockList() {
-		return stockDao.findAll();
-	}
-	
-	@Override
-	public void validate() {
-		System.out.println("Validate Stock...");
+	public List<Category> getCategoryList() {
+		return categoryDao.findAll();
 	}
 
 }

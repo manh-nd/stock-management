@@ -16,7 +16,7 @@ import org.hibernate.validator.Valid;
 import com.opensymphony.xwork2.ActionSupport;
 
 import constant.Page;
-import dto.GoodsDto;
+import helper.GoodsHelper;
 import model.Category;
 import model.Goods;
 import model.Inventory;
@@ -43,7 +43,7 @@ public class GoodsAction extends ActionSupport implements IAction {
 	// Goods service
 	private GoodsService goodsService = new GoodsServiceImpl();
 
-	private List<GoodsDto> goodsList = new ArrayList<>();
+	private List<GoodsHelper> goodsList = new ArrayList<>();
 
 	@Valid
 	private Goods goodsBean = new Goods();
@@ -101,8 +101,8 @@ public class GoodsAction extends ActionSupport implements IAction {
 		inventories.add(inventoryBean);
 		goodsBean.setInventories(inventories);
 
-		System.out.println("Goods Bean: " + goodsBean);
 		goodsService.saveOrUpdate(goodsBean);
+		System.out.println("Saved Goods Bean: " + goodsBean);
 
 		return SUCCESS;
 	}
@@ -115,7 +115,7 @@ public class GoodsAction extends ActionSupport implements IAction {
 		this.goodsBean = goodsBean;
 	}
 
-	public List<GoodsDto> getGoodsList() {
+	public List<GoodsHelper> getGoodsList() {
 		return goodsList;
 	}
 
@@ -153,7 +153,7 @@ public class GoodsAction extends ActionSupport implements IAction {
 
 	@Override
 	public void validate() {
-		System.out.println("Validate....");
+		System.out.println("Validate Goods....");
 	}
 
 }

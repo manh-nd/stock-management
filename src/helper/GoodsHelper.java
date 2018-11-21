@@ -1,4 +1,4 @@
-package dto;
+package helper;
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import java.util.Date;
  * @author Manh Nguyen
  *
  */
-public class GoodsDto {
+public class GoodsHelper {
 
 	// ID hàng hóa
 	private Integer id;
@@ -25,11 +25,11 @@ public class GoodsDto {
 	// Hàng tồn kho lấy từ bảng Inventory
 	private Integer inStock;
 
-	public GoodsDto() {
+	public GoodsHelper() {
 		super();
 	}
 
-	public GoodsDto(Integer id, String code, String name, Date expiration, Integer inStock) {
+	public GoodsHelper(Integer id, String code, String name, Date expiration, Integer inStock) {
 		super();
 		this.id = id;
 		this.code = code;
@@ -80,7 +80,7 @@ public class GoodsDto {
 
 	@Override
 	public String toString() {
-		return String.format("GoodsDto(id=%s, code=%s, name=%s, expiration=%s, inStock=%s)", id, code, name,
+		return String.format("GoodsHelper(id=%s, code=%s, name=%s, expiration=%s, inStock=%s)", id, code, name,
 				expiration, inStock);
 	}
 

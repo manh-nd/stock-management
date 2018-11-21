@@ -2,7 +2,7 @@ package service;
 
 import java.util.List;
 
-import dto.GoodsDto;
+import helper.GoodsHelper;
 import model.Category;
 import model.Goods;
 import model.Inventory;
@@ -28,7 +28,7 @@ public interface GoodsService {
 
 	List<Goods> findAll();
 
-	List<GoodsDto> findGoodsByStockId(Integer stockId);
+	List<GoodsHelper> findGoodsByStockId(Integer stockId);
 
 	List<Stock> getStocks();
 

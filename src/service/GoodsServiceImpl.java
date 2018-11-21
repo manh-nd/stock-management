@@ -14,7 +14,7 @@ import dao.impl.InventoryDaoImpl;
 import dao.impl.ProducerDaoImpl;
 import dao.impl.StockDaoImpl;
 import dao.impl.SupplierDaoImpl;
-import dto.GoodsDto;
+import helper.GoodsHelper;
 import model.Category;
 import model.Goods;
 import model.Inventory;
@@ -44,12 +44,12 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	public void delete(Integer goodsId) {
-		goodsDao.delete(goodsDao.findById(Goods.class, goodsId));
+		goodsDao.delete(goodsDao.findById(goodsId));
 	}
 
 	@Override
 	public Goods findById(Integer goodsId) {
-		return goodsDao.findById(Goods.class, goodsId);
+		return goodsDao.findById(goodsId);
 	}
 
 	@Override
@@ -59,37 +59,37 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	public List<Goods> findAll() {
-		return goodsDao.findAll(Goods.class);
+		return goodsDao.findAll();
 	}
 
 	@Override
-	public List<GoodsDto> findGoodsByStockId(Integer stockId) {
+	public List<GoodsHelper> findGoodsByStockId(Integer stockId) {
 		return goodsDao.findByStockId(stockId);
 	}
 
 	@Override
 	public List<Stock> getStocks() {
-		return stockDao.findAll(Stock.class);
+		return stockDao.findAll();
 	}
 
 	@Override
 	public List<Supplier> getSuppliers() {
-		return supplierDao.findAll(Supplier.class);
+		return supplierDao.findAll();
 	}
 
 	@Override
 	public List<Category> getCategories() {
-		return categoryDao.findAll(Category.class);
+		return categoryDao.findAll();
 	}
 
 	@Override
 	public List<Producer> getProducers() {
-		return producerDao.findAll(Producer.class);
+		return producerDao.findAll();
 	}
 
 	@Override
 	public Stock findByStockId(Integer id) {
-		return stockDao.findById(Stock.class, id);
+		return stockDao.findById(id);
 	}
 
 	@Override

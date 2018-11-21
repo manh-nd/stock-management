@@ -4,8 +4,10 @@
 
 <s:url action="" namespace="/" var="homePageURL" />
 <s:url action="list" namespace="/stock" var="stockListURL" />
+<s:url action="list" namespace="/supplier" var="supplierListURL" />
 <s:url action="list" namespace="/producer" var="producerListURL" />
 <s:url action="list" namespace="/goods" var="goodsListURL" />
+<s:url action="list" namespace="/category" var="categoryListURL" />
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<s:a cssClass="navbar-brand" href="%{homePageURL}">QUẢN LÝ KHO HÀNG</s:a>

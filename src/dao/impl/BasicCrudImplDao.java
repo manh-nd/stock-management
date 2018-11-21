@@ -1,6 +1,7 @@
 package dao.impl;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -22,6 +23,13 @@ import dao.BasicCrudDao;
  */
 public class BasicCrudImplDao<T, ID extends Serializable> implements BasicCrudDao<T, ID> { // Lưu ý, không sửa hay thêm
 																							// gì vào đây
+
+	private final Class<T> clazz;
+
+	@SuppressWarnings("unchecked")
+	public BasicCrudImplDao() {
+		this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	}
 
 	@SessionTarget
 	protected Session session;
@@ -58,7 +66,6 @@ public class BasicCrudImplDao<T, ID extends Serializable> implements BasicCrudDa
 	@Override
 	public void saveOrUpdate(T object) {
 		try {
-			System.out.println(object);
 			session.saveOrUpdate(object);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,15 +86,40 @@ public class BasicCrudImplDao<T, ID extends Serializable> implements BasicCrudDa
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public T findById(Class<T> clazz, ID id) {
+	public T findById(ID id) {
 		try {
+			@SuppressWarnings("unchecked")
 			T t = (T) session.get(clazz, id);
 			return t;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+
+	@Override
+	public T findById(Class<T> clazz, ID id) {
+		try {
+			@SuppressWarnings("unchecked")
+			T t = (T) session.get(clazz, id);
+			return t;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<T> findAll() {
+		try {
+			Query query = session.createQuery(String.format("FROM %s", clazz.getName()));
+			@SuppressWarnings("unchecked")
+			List<T> result = query.list();
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		}
 	}
 

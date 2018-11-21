@@ -1,14 +1,15 @@
 package action;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
 import constant.Page;
 import util.WebUtil;
 
+@ParentPackage("default-package")
 @Result(name = "indexPage", location = Page.TEMPLATE_PAGE)
 public class HomeAction {
 
