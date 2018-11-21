@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div class="container pt-5 pb-5">
-		<s:form action="save" namespace="producer">
+		<s:form action="save" namespace="/producer">
 			<s:hidden name="producerBean.id" />
 
 			<div class="form-group">

@@ -26,6 +26,13 @@
 					<td><s:property value="%{#statusProducerList.count}" /></td>
 					<td><s:property value="code" /></td>
 					<td><s:property value="name" /></td>
+					<td><s:url id="editURL" action="editProducer" namespace="/producer">
+							<s:param name="id" value="%{id}"></s:param>
+							</s:url> <s:a href="%{editURL}">Sửa</s:a></td>
+					<td><s:url id="deleteURL" action="deleteProducer">
+							<s:param name="id" value="%{id}"></s:param>
+							</s:url> <s:a href="%{deleteURL}">Xóa</s:a></td>		
+
 				</tr>
 			</s:iterator>
 		</table>
