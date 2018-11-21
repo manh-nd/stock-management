@@ -4,15 +4,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<jsp:include page="../fragment/head.jsp"></jsp:include>
+<style type="text/css">
+.errorMessage {
+	color: red;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+</style>
 <title>Insert title here</title>
 </head>
 <body>
-	<s:form action="save" namespace="producer">
-		<s:hidden name="producerBean.id" />
-		<s:textfield name="producerBean.code" label="Mã nhà cung cấp" />
-		<s:textfield name="producerBean.name" label="Tên nhà cung cấp" />
-		<s:submit value="Manh lol`" />
-	</s:form>
+	<div class="container pt-5 pb-5">
+		<s:form action="save" namespace="producer">
+			<s:hidden name="producerBean.id" />
+
+			<div class="form-group">
+				<label>Mã Nhà sản xuất</label>
+				<s:textfield name="producerBean.code" cssClass="form-control" />
+				<s:fielderror fieldName="producerBean.code" />
+			</div>
+
+			<div class="form-group">
+				<label>Tên Nhà sản xuất</label>
+				<s:textfield name="producerBean.name" cssClass="form-control" />
+				<s:fielderror fieldName="producerBean.name" />
+			</div>
+			<div class="form-group">
+				<s:submit value="Manh lol`" cssClass="btn btn-success" />
+			</div>
+		</s:form>
+	</div>
+	<jsp:include page="../fragment/js.jsp"></jsp:include>
 </body>
 </html>
