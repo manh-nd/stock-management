@@ -12,7 +12,7 @@ USE `stock_management`;
  SET NAMES utf8 ;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_UNaccountIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
@@ -228,4 +228,101 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+
+
 -- Dump completed on 2018-11-20 20:52:10
+-- them du lieu vao bang account
+insert into account 
+(account_fullname,account_username,account_password,account_active)
+values('Dinh Khanh Duong','duongdk','123','1');
+insert into account 
+(account_fullname,account_username,account_password,account_active)
+values('Do Duy Mau','maudd','123','1');
+insert into account 
+(account_fullname,account_username,account_password,account_active)
+values('Nguyen Duc Manh','manhnd','123','1');
+insert into account 
+(account_fullname,account_username,account_password,account_active)
+values('Vu Van','Vanv','123','1');
+
+-- them du lieu bang category
+insert into category
+(category_code,category_name)
+values('CL01','Dien thoai');
+insert into category
+(category_code,category_name)
+values('CL02','Thuc pham');
+insert into category
+(category_code,category_name)
+values('CL03','Dien may');
+insert into category
+(category_code,category_name)
+values('CL04','Do gia dung');
+insert into category
+(category_code,category_name)
+values('CL05','May tinh');
+-- thm du lieu bang producer
+insert into producer
+(producer_code,producer_name)
+values('SX01','VinGroup');
+insert into producer
+(producer_code,producer_name)
+values('SX02','Apple');
+insert into producer
+(producer_code,producer_name)
+values('SX03','SamSung');
+insert into producer
+(producer_code,producer_name)
+values('SX04','Lock&Lock');
+insert into producer
+(producer_code,producer_name)
+values('SX05','Sony');
+
+-- thm du lieu bang supplier
+insert into supplier
+(supplier_code,supplier_name)
+values('CC01','Dien may xanh');
+insert into supplier
+(supplier_code,supplier_name)
+values('CC02','The gioi di dong');
+insert into supplier
+(supplier_code,supplier_name)
+values('CC03','Dien may Tran Anh');
+insert into supplier
+(supplier_code,supplier_name)
+values('CC04','Eco mart');
+insert into supplier
+(supplier_code,supplier_name)
+values('CC05','Vin mart');
+-- them du lieu bang stock
+insert into stock
+(stock_code,stock_name)
+values('K01','Kho Dien thoai');
+insert into stock
+(stock_code,stock_name)
+values('K02','Kho Dien may');
+insert into stock
+(stock_code,stock_name)
+values('K03','Kho Thuc pham');
+insert into stock
+(stock_code,stock_name)
+values('K04','Kho Gia dung');
+insert into stock
+(stock_code,stock_name)
+values('K05','Kho May tinh');
+-- them du lieu bang goods
+insert into goods
+(supplier_id,category_id,producer_id,goods_code,goods_name,goods_new_brand,goods_lotnumber,goods_unit,goods_feature,goods_expiration,goods_import_price,goods_export_price)
+values(1,1,2,'HH01','Iphone X',null,'L01','chiec','4inch',null,20000000,22000000);
+insert into goods
+(supplier_id,category_id,producer_id,goods_code,goods_name,goods_new_brand,goods_lotnumber,goods_unit,goods_feature,goods_expiration,goods_import_price,goods_export_price)
+values(1,1,2,'HH02','Iphone 6',null,'L01','chiec','4inch',null,15000000,18000000);
+insert into goods
+(supplier_id,category_id,producer_id,goods_code,goods_name,goods_new_brand,goods_lotnumber,goods_unit,goods_feature,goods_expiration,goods_import_price,goods_export_price)
+values(1,1,3,'HH03','Galaxy Note 9',null,'L02','chiec','9inch',null,20000000,22000000);
+insert into goods
+(supplier_id,category_id,producer_id,goods_code,goods_name,goods_new_brand,goods_lotnumber,goods_unit,goods_feature,goods_expiration,goods_import_price,goods_export_price)
+values(1,1,4,'HH04','Am sieu toc',null,'L02','chiec',null,null,2000000,2200000);
+insert into goods
+(supplier_id,category_id,producer_id,goods_code,goods_name,goods_new_brand,goods_lotnumber,goods_unit,goods_feature,goods_expiration,goods_import_price,goods_export_price)
+values(1,1,5,'HH05','TV LED',null,'L01','chiec','65inch',null,40000000,45000000);
