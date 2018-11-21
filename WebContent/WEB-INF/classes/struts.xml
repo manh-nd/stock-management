@@ -8,7 +8,7 @@
 	<constant name="struts.custom.i18n.resources"
 		value="application" />
 
-	<!-- goods package -->
+	<!-- default package -->
 	<package name="default-package" extends="struts-default"
 		namespace="/">
 	</package>
@@ -16,6 +16,11 @@
 	<!-- stock package -->
 	<package name="stock-package" extends="hibernate-default"
 		namespace="/stock">
+	</package>
+	
+	<!-- producer package -->
+	<package name="producer-package" extends="hibernate-default"
+		namespace="/producer">
 	</package>
 
 	<!-- goods package -->

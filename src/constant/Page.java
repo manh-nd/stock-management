@@ -19,6 +19,6 @@ public interface Page {
 	String GOODS_FORM_PAGE = "/WEB-INF/pages/goods/goods_form.jsp";
 
 	// Mậu - Producer
-	String PRODUCER_INDEX_PAGE = "/WEB-INF/pages/producer/producer_index.jsp";
+	String PRODUCER_LIST_PAGE = "/WEB-INF/pages/producer/producer_list.jsp";
 	String PRODUCER_FORM_PAGE = "/WEB-INF/pages/producer/producer_form.jsp";
 }
