@@ -1,8 +1,13 @@
 package action;
 
+import java.util.List;
+
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
+import org.apache.struts2.convention.annotation.ResultPath;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -11,38 +16,62 @@ import dao.ProducerDao;
 import dao.impl.ProducerDaoImpl;
 import model.Producer;
 
-@Results(value = { @Result(name = "producerIndex", location = Page.PRODUCER_INDEX_PAGE),
-		@Result(name = "producerForm", location = Page.PRODUCER_FORM_PAGE),
-})
-public class ProducerAction extends ActionSupport {
+@ParentPackage("producer-package")
+@Namespace("/producer")
+@ResultPath("/")
+public class ProducerAction extends ActionSupport implements IAction {
 
 	private static final long serialVersionUID = -5252328907327276691L;
 
 	private Producer producerBean = new Producer();
-	private ProducerDao producerDao = new ProducerDaoImpl() ;
+	private ProducerDao producerDao = new ProducerDaoImpl();
 
-	@Action("/producers")
-	public String producerIndex() {
-		return "producerIndex";
+	private List<Producer> producerList;
+
+	@Action(value = "list", results = @Result(name = SUCCESS, location = Page.PRODUCER_LIST_PAGE))
+	@Override
+	public String list() {
+		producerList = producerDao.findAll(Producer.class);
+		return SUCCESS;
 	}
 
-	@Action(value = "/producer/add") 
-	public String addProducer() {
-		return "producerForm";
+	@Action(value = "add", results = @Result(name = SUCCESS, location = Page.PRODUCER_FORM_PAGE))
+	@Override
+	public String add() {
+		return SUCCESS;
 	}
-	
-	@Action(value = "/producer/save")
-	public String saveProducer() {
-		
-		return "producerIndex";
+
+	@Action(value = "save", interceptorRefs = @InterceptorRef("defaultStackHibernateStrutsValidation"), results = {
+			@Result(name = SUCCESS, location = "list", type = "redirect"),
+			@Result(name = INPUT, location = Page.PRODUCER_FORM_PAGE) })
+	@Override
+	public String save() {
+		producerDao.saveOrUpdate(producerBean);
+		return SUCCESS;
 	}
-	
-	public Producer getProducerBean() { // làm việc với producerBean bỏ  "get" trong ProducerBean
+
+	@Override
+	public String edit() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String delete() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Producer getProducerBean() { // làm việc với producerBean bỏ "get" trong ProducerBean
 		return producerBean;
 	}
 
 	public void setProducerBean(Producer producerBean) { // setMauLol => mauLol
 		this.producerBean = producerBean;
+	}
+
+	public List<Producer> getProducerList() {
+		return producerList;
 	}
 
 }
