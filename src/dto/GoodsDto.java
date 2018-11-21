@@ -10,10 +10,19 @@ import java.util.Date;
  */
 public class GoodsDto {
 
+	// ID hàng hóa
 	private Integer id;
+	
+	// Mã hàng hóa
 	private String code;
+	
+	// Tên hàng hóa
 	private String name;
+	
+	// Hạn sử dụng
 	private Date expiration;
+	
+	// Hàng tồn kho lấy từ bảng Inventory
 	private Integer inStock;
 
 	public GoodsDto() {
@@ -67,6 +76,12 @@ public class GoodsDto {
 
 	public void setInStock(Integer inStock) {
 		this.inStock = inStock;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("GoodsDto(id=%s, code=%s, name=%s, expiration=%s, inStock=%s)", id, code, name,
+				expiration, inStock);
 	}
 
 }

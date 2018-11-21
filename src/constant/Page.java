@@ -8,6 +8,7 @@ package constant;
  */
 public interface Page {
 
+	// Dùng chung
 	String TEMPLATE_PAGE = "/WEB-INF/pages/template.jsp";
 
 	String INDEX_PAGE = "/WEB-INF/pages/index.jsp";
@@ -21,4 +22,8 @@ public interface Page {
 	// Mậu - Producer
 	String PRODUCER_LIST_PAGE = "/WEB-INF/pages/producer/producer_list.jsp";
 	String PRODUCER_FORM_PAGE = "/WEB-INF/pages/producer/producer_form.jsp";
+	
+	// Dương
+	
+	// Văn 
 }
