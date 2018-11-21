@@ -6,14 +6,14 @@
 		<field-validator type="stringlength">
 			<param name="minLength">3</param>
 			<param name="maxLength">6</param>
-			<message>Mã kho hàng phải từ 3 - 6 ký tự</message>
+			<message key="errors.stockBean.code" />
 		</field-validator>
 	</field>
 	<field name="stockBean.name">
 		<field-validator type="stringlength">
 			<param name="minLength">6</param>
 			<param name="maxLength">45</param>
-			<message>Mã kho hàng phải từ 6 - 45 ký tự</message>
+			<message key="errors.stockBean.name" />
 		</field-validator>
 	</field>
 </validators>

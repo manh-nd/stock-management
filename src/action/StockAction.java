@@ -55,7 +55,7 @@ public class StockAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	@Action(value = "save", interceptorRefs = @InterceptorRef("defaultStackHibernate"), results = {
+	@Action(value = "save", interceptorRefs = @InterceptorRef("defaultStackHibernateStrutsValidation"), results = {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
 			@Result(name = INPUT, location = "/WEB-INF/pages/stock/stock_form.jsp") })
 	public String save() {
