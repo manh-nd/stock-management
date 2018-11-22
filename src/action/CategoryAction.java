@@ -61,6 +61,7 @@ public class CategoryAction extends ActionSupport implements IAction {
 	public String save() {
 		System.out.println(categoryBean);
 		categoryDao.saveOrUpdate(categoryBean);
+		System.out.println("insert finish");
 		return SUCCESS;
 	}
 
