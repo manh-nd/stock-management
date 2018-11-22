@@ -4,15 +4,12 @@
 <validators>
 	<field name="producerBean.code">
 		<field-validator type="requiredstring">
-			<message>Manh la thang lol`</message>
+			<message key="errors.producerBean.code"/>
 		</field-validator>
-		
-		<field-validator type="stringlength">
-			<param name="trim">true</param>
-			<param name="minLenght">1</param>
-			<param name="maxLenght">6</param>
-			<message>Thang lol manh trong khoang 1 - 6</message>
+	</field>
+	<field name="producerBean.name">
+		<field-validator type="requiredstring">
+			<message key="errors.producerBean.name"/>
 		</field-validator>
-		
 	</field>
 </validators>

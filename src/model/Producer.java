@@ -2,6 +2,9 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.validator.NotNull;
+
 import java.util.Set;
 
 /**
@@ -17,9 +20,11 @@ public class Producer implements Serializable {
 	@Column(name = "PRODUCER_ID", unique = true, nullable = false)
 	private Integer id;
 
+	@NotNull(message="Mã nhà cung cấp không thể để trống!")
 	@Column(name = "PRODUCER_CODE", unique = true, nullable = false, length = 6)
 	private String code;
 
+	@NotNull(message="Tên nhà cung cấp không thể để trống!")
 	@Column(name = "PRODUCER_NAME", unique = true, nullable = false, length = 45)
 	private String name;
 

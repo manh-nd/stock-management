@@ -83,8 +83,8 @@ public class GoodsDaoImpl extends BasicCrudImplDao<Goods, Integer> implements Go
 		try {
 			Query query = session.createQuery(
 					"SELECT new dto.ExpirationGoodsReport(g.code, g.name, g.category.name, g.supplier.name, s.name, g.expiration, i.quantity) "
-							+ "FROM Category c JOIN c.goods g JOIN g.supplier JOIN g.inventories i JOIN i.stock s "
-							+ "WHERE g.expiration - current_date() <=30 AND g.expiration - current_date() >0");
+							+ "FROM Goods g JOIN g.inventories i JOIN i.stock s "
+							+ "WHERE g.expiration - current_date() <=30");
 			List<ExpirationGoodsReport> list = query.list();
 			return list;
 		} catch (Exception e) {

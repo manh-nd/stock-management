@@ -8,6 +8,7 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
+import org.hibernate.validator.Valid;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -24,6 +25,7 @@ public class ProducerAction extends ActionSupport implements IAction {
 
 	private static final long serialVersionUID = -5252328907327276691L;
 
+	@Valid
 	private Producer producerBean = new Producer();
 	private ProducerDao producerDao = new ProducerDaoImpl();
 
@@ -44,9 +46,10 @@ public class ProducerAction extends ActionSupport implements IAction {
 
 	@Action(value = "save", interceptorRefs = @InterceptorRef("defaultStackHibernateStrutsValidation"), results = {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
-			@Result(name = INPUT, location = Page.PRODUCER_LIST_PAGE) })
+			@Result(name = INPUT, location = Page.PRODUCER_FORM_PAGE) })
 	@Override
 	public String save() {
+		System.out.println("Producer Bean: " + producerBean);
 		producerDao.saveOrUpdate(producerBean);
 		return SUCCESS;
 	}
@@ -81,4 +84,8 @@ public class ProducerAction extends ActionSupport implements IAction {
 		return producerList;
 	}
 
+	@Override
+	public void validate() {
+		System.out.println("Validate Producer....");
+	}
 }
