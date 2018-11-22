@@ -1,16 +1,16 @@
-package helper;
+package dto;
 
 public class CategoryGoodsReport {
 
 	private String name;
-	private Integer quantity;
-	private Integer totalValue;
+	private Long quantity;
+	private Long totalValue;
 
 	public CategoryGoodsReport() {
 		super();
 	}
 
-	public CategoryGoodsReport(String name, Integer quantity, Integer totalValue) {
+	public CategoryGoodsReport(String name, Long quantity, Long totalValue) {
 		super();
 		this.name = name;
 		this.quantity = quantity;
@@ -25,19 +25,19 @@ public class CategoryGoodsReport {
 		this.name = name;
 	}
 
-	public Integer getQuantity() {
+	public Long getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(Integer quantity) {
+	public void setQuantity(Long quantity) {
 		this.quantity = quantity;
 	}
 
-	public Integer getTotalValue() {
+	public Long getTotalValue() {
 		return totalValue;
 	}
 
-	public void setTotalValue(Integer totalValue) {
+	public void setTotalValue(Long totalValue) {
 		this.totalValue = totalValue;
 	}
 

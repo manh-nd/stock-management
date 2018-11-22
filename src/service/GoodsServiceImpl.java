@@ -14,7 +14,7 @@ import dao.impl.InventoryDaoImpl;
 import dao.impl.ProducerDaoImpl;
 import dao.impl.StockDaoImpl;
 import dao.impl.SupplierDaoImpl;
-import helper.GoodsHelper;
+import dto.GoodsDto;
 import model.Category;
 import model.Goods;
 import model.Inventory;
@@ -63,7 +63,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public List<GoodsHelper> findGoodsByStockId(Integer stockId) {
+	public List<GoodsDto> findGoodsByStockId(Integer stockId) {
 		return goodsDao.findByStockId(stockId);
 	}
 

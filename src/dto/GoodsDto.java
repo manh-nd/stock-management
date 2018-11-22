@@ -1,4 +1,4 @@
-package helper;
+package dto;
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import java.util.Date;
  * @author Manh Nguyen
  *
  */
-public class GoodsHelper {
+public class GoodsDto {
 
 	// ID hàng hóa
 	private Integer id;
@@ -25,11 +25,11 @@ public class GoodsHelper {
 	// Hàng tồn kho lấy từ bảng Inventory
 	private Integer inStock;
 
-	public GoodsHelper() {
+	public GoodsDto() {
 		super();
 	}
 
-	public GoodsHelper(Integer id, String code, String name, Date expiration, Integer inStock) {
+	public GoodsDto(Integer id, String code, String name, Date expiration, Integer inStock) {
 		super();
 		this.id = id;
 		this.code = code;

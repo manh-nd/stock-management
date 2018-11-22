@@ -2,16 +2,22 @@ package dao;
 
 import java.util.List;
 
-import helper.CategoryGoodsReport;
-import helper.GoodsHelper;
+import dto.CategoryGoodsReport;
+import dto.ExpirationGoodsReport;
+import dto.GoodsDto;
+import dto.SupplierGoodsReport;
 import model.Goods;
 
 public interface GoodsDao extends BasicCrudDao<Goods, Integer>{
 
 	Goods findByGoodsCode(String goodsCode);
 	
-	List<GoodsHelper> findByStockId(Integer stockId);
+	List<GoodsDto> findByStockId(Integer stockId);
 	
 	List<CategoryGoodsReport> getCategoryGoodsReport();
+
+	List<SupplierGoodsReport> getSupplierGoodsReport();
+	
+	List<ExpirationGoodsReport> getExpirationGoodsReport();
 
 }

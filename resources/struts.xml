@@ -9,7 +9,7 @@
 		value="application" />
 
 	<!-- default package -->
-	<package name="default-package" extends="struts-default"
+	<package name="default-package" extends="hibernate-default"
 		namespace="/">
 	</package>
 
@@ -36,6 +36,11 @@
 	<!-- category package -->
 	<package name="category-package" extends="hibernate-default"
 		namespace="/category">
+	</package>
+
+	<!-- report package -->
+	<package name="report-package" extends="hibernate-default"
+		namespace="/report">
 	</package>
 
 </struts>

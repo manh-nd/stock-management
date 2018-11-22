@@ -5,8 +5,10 @@ import java.util.List;
 import org.hibernate.Query;
 
 import dao.GoodsDao;
-import helper.CategoryGoodsReport;
-import helper.GoodsHelper;
+import dto.CategoryGoodsReport;
+import dto.ExpirationGoodsReport;
+import dto.GoodsDto;
+import dto.SupplierGoodsReport;
 import model.Goods;
 
 /**
@@ -32,12 +34,12 @@ public class GoodsDaoImpl extends BasicCrudImplDao<Goods, Integer> implements Go
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<GoodsHelper> findByStockId(Integer stockId) {
+	public List<GoodsDto> findByStockId(Integer stockId) {
 		try {
 			Query query = session.createQuery(
-					"SELECT new helper.GoodsHelper(g.id, g.code, g.name, g.expiration, i.quantity) FROM Stock s INNER JOIN s.inventories i INNER JOIN i.goods g WHERE s.id = :stockId");
+					"SELECT new dto.GoodsDto(g.id, g.code, g.name, g.expiration, i.quantity) FROM Stock s INNER JOIN s.inventories i INNER JOIN i.goods g WHERE s.id = :stockId");
 			query.setParameter("stockId", stockId);
-			List<GoodsHelper> list = (List<GoodsHelper>) query.list();
+			List<GoodsDto> list = (List<GoodsDto>) query.list();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,14 +47,45 @@ public class GoodsDaoImpl extends BasicCrudImplDao<Goods, Integer> implements Go
 		}
 	}
 
-	// chưa xong
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<CategoryGoodsReport> getCategoryGoodsReport() {
 		try {
 			Query query = session.createQuery(
-					"SELECT new helper.CategoryGoodsReport(g.category.name, sum(), ) FROM Goods g INNER JOIN g.inventories i");
-			@SuppressWarnings("unchecked")
-			List<CategoryGoodsReport> list = (List<CategoryGoodsReport>) query.list();
+					"SELECT new dto.CategoryGoodsReport(c.name, sum(i.quantity), sum(g.exportPrice * i.quantity)) "
+							+ "FROM Category c LEFT JOIN c.goods g LEFT JOIN g.inventories i " + "GROUP BY c.name");
+			List<CategoryGoodsReport> list = query.list();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SupplierGoodsReport> getSupplierGoodsReport() {
+		try {
+			Query query = session.createQuery(
+					"SELECT new dto.SupplierGoodsReport(s.name, sum(i.quantity), sum(g.exportPrice * i.quantity)) "
+							+ "FROM Supplier s LEFT JOIN s.goods g LEFT JOIN g.inventories i GROUP BY s.name");
+			List<SupplierGoodsReport> list = query.list();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ExpirationGoodsReport> getExpirationGoodsReport() {
+		try {
+			Query query = session.createQuery(
+					"SELECT new dto.ExpirationGoodsReport(g.code, g.name, g.category.name, g.supplier.name, s.name, g.expiration, i.quantity) "
+							+ "FROM Category c JOIN c.goods g JOIN g.supplier JOIN g.inventories i JOIN i.stock s "
+							+ "WHERE g.expiration - current_date() <=30 AND g.expiration - current_date() >0");
+			List<ExpirationGoodsReport> list = query.list();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
