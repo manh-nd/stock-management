@@ -17,6 +17,7 @@ import dao.impl.CategoryDaoImpl;
 import model.Category;
 import util.WebUtil;
 
+
 @ParentPackage("category-package")
 @Namespace("/category")
 @ResultPath("/")

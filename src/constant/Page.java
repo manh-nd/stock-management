@@ -18,6 +18,13 @@ public interface Page {
 	// Manh - Goods
 	String GOODS_LIST_PAGE = "/WEB-INF/pages/goods/goods_list.jsp";
 	String GOODS_FORM_PAGE = "/WEB-INF/pages/goods/goods_form.jsp";
+	
+	String CATEGORY_LIST_PAGE =  "/WEB-INF/pages/category/category_list.jsp";
+	String CATEGORY_FORM_PAGE = "/WEB-INF/pages/category/category_form.jsp";
+	
+	String SUPPLIER_LIST_PAGE =  "/WEB-INF/pages/supplier/supplier_list.jsp";
+	String SUPPLIER_FORM_PAGE = "/WEB-INF/pages/supplier/supplier_form.jsp";
+	
 	String CATEGORY_REPORT = "/WEB-INF/pages/report/category_report.jsp";
 	String SUPPLIER_REPORT = "/WEB-INF/pages/report/supplier_report.jsp";
 	String EXPIRATION_GOODS_REPORT = "/WEB-INF/pages/report/expiration_goods_report.jsp";
