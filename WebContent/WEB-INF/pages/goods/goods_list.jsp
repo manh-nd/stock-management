@@ -53,38 +53,27 @@
 							</tr>
 							<s:iterator value="goodsList" status="status">
 								<tr>
-									<td>
-										<s:property value="#status.count" />
-									</td>
-									<td>
-										<s:property value="code" />
-									</td>
-									<td>
-										<s:property value="name" />
-									</td>
-									<td>
-										<s:date name="expiration" format="dd/MM/yyyy" />
-									</td>
-									<td>
-										<s:property value="inStock" />
-									</td>
-									<td>
-										<s:url action="edit" var="editURL" namespace="/goods">
+									<td><s:property value="#status.count" /></td>
+									<td><s:property value="code" /></td>
+									<td><s:property value="name" /></td>
+									<td><s:date name="expiration" format="dd/MM/yyyy" /></td>
+									<td><s:property value="inStock" /></td>
+									<td><s:url action="edit" var="editURL" namespace="/goods">
 											<s:param name="id" value="id" />
 											<s:param name="stockId" value="%{#parameters.stockId}" />
-										</s:url>
-										<s:a href="%{editURL}">Sửa</s:a>
-									</td>
-									<td>
-										<s:url action="delete" var="deleteURL" namespace="/goods">
+										</s:url> <s:a href="%{editURL}">Sửa</s:a></td>
+									<td><s:url action="delete" var="deleteURL"
+											namespace="/goods">
 											<s:param name="id" value="id" />
 											<s:param name="stockId" value="%{#parameters.stockId}" />
-										</s:url>
-										<s:a href="%{deleteURL}">Xóa</s:a>
-									</td>
+										</s:url> <s:a href="%{deleteURL}">Xóa</s:a></td>
 								</tr>
 							</s:iterator>
 						</table>
+						<s:url action="export" namespace="/goods" var="exportURL">
+							<s:param name="stockId" value="%{#parameters.stockId}" />
+						</s:url>
+						<s:a href="%{exportURL}">Kết xuất</s:a>
 					</s:if>
 					<s:else>
 						<div class="alert alert-danger mt-3" role="alert">Kho hàng

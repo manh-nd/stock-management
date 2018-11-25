@@ -1,10 +1,17 @@
 package action;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -49,6 +56,7 @@ public class GoodsAction extends ActionSupport implements IAction {
 	private Goods goodsBean = new Goods();
 	private Stock stockBean = new Stock();
 	private Inventory inventoryBean = new Inventory();
+	private InputStream inputStream;
 
 	@Action(value = "list", results = { @Result(name = SUCCESS, location = Page.GOODS_LIST_PAGE) })
 	public String list() {
@@ -107,6 +115,41 @@ public class GoodsAction extends ActionSupport implements IAction {
 		return SUCCESS;
 	}
 
+	@Action(value = "/export", results = @Result(name = SUCCESS, type = "stream", params = { "contentType",
+			"application/vnd.ms-excel", "inputName", "inputStream", "contentDisposition",
+			"attachment;filename=\"export.xls\"", "bufferSize", "1024" }))
+	public String exportInExcel() {
+		try (HSSFWorkbook workbook = new HSSFWorkbook()) {
+			HSSFSheet sheet = workbook.createSheet("Danh sách hàng hóa trong kho");
+			Row rowHeading = sheet.createRow(0);
+			rowHeading.createCell(0).setCellValue("STT");
+			rowHeading.createCell(1).setCellValue("Mã hàng hóa");
+			rowHeading.createCell(2).setCellValue("Tên hàng hóa");
+			rowHeading.createCell(3).setCellValue("Hạn sử dụng");
+			rowHeading.createCell(4).setCellValue("Tồn kho");
+
+			Integer stockId = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("stockId"));
+			goodsList = goodsService.findGoodsByStockId(stockId);
+
+			for (int rowIndex = 1; rowIndex <= goodsList.size(); rowIndex++) {
+				Row row = sheet.createRow(rowIndex);
+				GoodsDto g = goodsList.get(rowIndex - 1);
+				row.createCell(0).setCellValue(rowIndex);
+				row.createCell(1).setCellValue(g.getCode());
+				row.createCell(2).setCellValue(g.getName());
+				row.createCell(3).setCellValue(g.getExpiration());
+				row.createCell(4).setCellValue(g.getInStock());
+			}
+			
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			workbook.write(outputStream);
+			setInputStream(new ByteArrayInputStream(outputStream.toByteArray()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+
 	public Goods getGoodsBean() {
 		return goodsBean;
 	}
@@ -149,6 +192,14 @@ public class GoodsAction extends ActionSupport implements IAction {
 
 	public void setInventoryBean(Inventory inventoryBean) {
 		this.inventoryBean = inventoryBean;
+	}
+
+	public InputStream getInputStream() {
+		return inputStream;
+	}
+
+	public void setInputStream(InputStream inputStream) {
+		this.inputStream = inputStream;
 	}
 
 	@Override
