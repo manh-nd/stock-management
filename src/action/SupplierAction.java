@@ -12,6 +12,7 @@ import org.hibernate.validator.Valid;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import constant.Page;
 import dao.SupplierDao;
 import dao.impl.SupplierDaoImpl;
 import model.Supplier;
@@ -20,7 +21,7 @@ import util.WebUtil;
 @ParentPackage("supplier-package")
 @Namespace("/supplier")
 @ResultPath("/")
-public class SupplierAction extends ActionSupport  implements IAction  {
+public class SupplierAction extends ActionSupport implements IAction {
 
 	private static final long serialVersionUID = 8493665757717540594L;
 
@@ -29,18 +30,17 @@ public class SupplierAction extends ActionSupport  implements IAction  {
 	@Valid
 	private Supplier supplierBean = new Supplier();
 
-	@Action(value = "list", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/supplier/supplier_list.jsp"))
+	@Action(value = "list", results = @Result(name = SUCCESS, location = Page.SUPPLIER_LIST_PAGE))
 	public String list() {
-		System.out.println("supplier list");
 		return SUCCESS;
 	}
 
-	@Action(value = "add", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/supplier/supplier_form.jsp"))
+	@Action(value = "add", results = @Result(name = SUCCESS, location = Page.SUPPLIER_FORM_PAGE))
 	public String add() {
 		return SUCCESS;
 	}
 
-	@Action(value = "edit", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/supplier/supplier_form.jsp"))
+	@Action(value = "edit", results = @Result(name = SUCCESS, location = Page.SUPPLIER_FORM_PAGE))
 	public String edit() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
 		supplierBean = supplierDao.findById(id);
@@ -57,7 +57,7 @@ public class SupplierAction extends ActionSupport  implements IAction  {
 
 	@Action(value = "save", interceptorRefs = @InterceptorRef("defaultStackHibernateStrutsValidation"), results = {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
-			@Result(name = INPUT, location = "/WEB-INF/pages/supplier/supplier_form.jsp") })
+			@Result(name = INPUT, location = Page.SUPPLIER_FORM_PAGE) })
 	public String save() {
 		System.out.println(supplierBean);
 		supplierDao.saveOrUpdate(supplierBean);
@@ -75,7 +75,7 @@ public class SupplierAction extends ActionSupport  implements IAction  {
 	public List<Supplier> getSupplierList() {
 		return supplierDao.findAll();
 	}
-	
+
 	@Override
 	public void validate() {
 		System.err.println("Validate Supplier.....");

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div class="container pt-5 pb-5">
-	<h1>Thống kê số lượng và tổng giá trị hàng hóa theo chủng loại</h1>
+	<h3>Thống kê số lượng và tổng giá trị hàng hóa theo chủng loại</h3>
 	<br>
 	<table class="table table-sm">
 		<tr>

@@ -16,7 +16,6 @@ import dao.impl.GoodsDaoImpl;
 import dto.CategoryGoodsReport;
 import dto.ExpirationGoodsReport;
 import dto.SupplierGoodsReport;
-import util.WebUtil;
 
 @ParentPackage("report-package")
 @Namespace("/report")
@@ -27,21 +26,27 @@ public class ReportAction extends ActionSupport {
 
 	private GoodsDao goodsDao = new GoodsDaoImpl();
 
+	private String title;
+	private String page;
+
 	@Action(value = "category-report", results = @Result(name = SUCCESS, location = Page.TEMPLATE_PAGE))
 	public String reportQuantityAndTotalByCategory() {
-		WebUtil.setTitleAndPage("Báo cáo phân loại", Page.CATEGORY_REPORT);
+		title = "Báo cáo phân loại";
+		page = Page.CATEGORY_REPORT;
 		return SUCCESS;
 	}
 
 	@Action(value = "supplier-report", results = @Result(name = SUCCESS, location = Page.TEMPLATE_PAGE))
 	public String reportQuantityAndTotalBySupplier() {
-		WebUtil.setTitleAndPage("Báo cáo nhà cung cấp", Page.SUPPLIER_REPORT);
+		title = "Báo cáo nhà cung cấp";
+		page = Page.SUPPLIER_REPORT;
 		return SUCCESS;
 	}
 
 	@Action(value = "expiration-goods-report", results = @Result(name = SUCCESS, location = Page.TEMPLATE_PAGE))
 	public String reportExpirationGoodsNext30Days() {
-		WebUtil.setTitleAndPage("Liệt kê hàng hóa sẽ hết hạn trong 30 ngày tới", Page.EXPIRATION_GOODS_REPORT);
+		title = "Liệt kê hàng hóa sẽ hết hạn trong 30 ngày tới";
+		page = Page.EXPIRATION_GOODS_REPORT;
 		return SUCCESS;
 	}
 
@@ -55,6 +60,14 @@ public class ReportAction extends ActionSupport {
 
 	public List<ExpirationGoodsReport> getExpirationGoodsReport() {
 		return goodsDao.getExpirationGoodsReport();
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getPage() {
+		return page;
 	}
 
 }

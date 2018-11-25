@@ -50,7 +50,7 @@
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<s:a cssClass="dropdown-item" href="%{categoryReportURL}"> Chủng loại </s:a>
 					<s:a cssClass="dropdown-item" href="%{supplierReportURL}"> Nhà cung cấp </s:a>
-					<s:a cssClass="dropdown-item" href="%{expirationGoodsReportURL}"> Hàng hết hạn </s:a>
+					<s:a cssClass="dropdown-item" href="%{expirationGoodsReportURL}"> Hàng sắp hết hạn </s:a>
 				</div>
 			</li>
 		</ul>

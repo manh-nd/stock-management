@@ -12,11 +12,11 @@ import org.hibernate.validator.Valid;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import constant.Page;
 import dao.CategoryDao;
 import dao.impl.CategoryDaoImpl;
 import model.Category;
 import util.WebUtil;
-
 
 @ParentPackage("category-package")
 @Namespace("/category")
@@ -30,18 +30,18 @@ public class CategoryAction extends ActionSupport implements IAction {
 	@Valid
 	private Category categoryBean = new Category();
 
-	@Action(value = "list", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/category/category_list.jsp"))
+	@Action(value = "list", results = @Result(name = SUCCESS, location = Page.CATEGORY_LIST_PAGE))
 	public String list() {
 		System.out.println("category list");
 		return SUCCESS;
 	}
 
-	@Action(value = "add", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/category/category_form.jsp"))
+	@Action(value = "add", results = @Result(name = SUCCESS, location = Page.CATEGORY_FORM_PAGE))
 	public String add() {
 		return SUCCESS;
 	}
 
-	@Action(value = "edit", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/category/category_form.jsp"))
+	@Action(value = "edit", results = @Result(name = SUCCESS, location = Page.CATEGORY_FORM_PAGE))
 	public String edit() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
 		categoryBean = categoryDao.findById(id);
@@ -58,11 +58,9 @@ public class CategoryAction extends ActionSupport implements IAction {
 
 	@Action(value = "save", interceptorRefs = @InterceptorRef("defaultStackHibernateStrutsValidation"), results = {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
-			@Result(name = INPUT, location = "/WEB-INF/pages/category/category_form.jsp") })
+			@Result(name = INPUT, location = Page.CATEGORY_FORM_PAGE) })
 	public String save() {
-		System.out.println(categoryBean);
 		categoryDao.saveOrUpdate(categoryBean);
-		System.out.println("insert");
 		return SUCCESS;
 	}
 

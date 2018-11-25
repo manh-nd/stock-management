@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -120,7 +122,12 @@ public class GoodsAction extends ActionSupport implements IAction {
 			"attachment;filename=\"export.xls\"", "bufferSize", "1024" }))
 	public String exportInExcel() {
 		try (HSSFWorkbook workbook = new HSSFWorkbook()) {
-			HSSFSheet sheet = workbook.createSheet("Danh sách hàng hóa trong kho");
+			Integer stockId = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("stockId"));
+			String stockName = goodsService.findByStockId(stockId).getName();
+			goodsList = goodsService.findGoodsByStockId(stockId);
+
+			HSSFSheet sheet = workbook.createSheet("Danh sách hàng hóa trong kho " + stockName);
+
 			Row rowHeading = sheet.createRow(0);
 			rowHeading.createCell(0).setCellValue("STT");
 			rowHeading.createCell(1).setCellValue("Mã hàng hóa");
@@ -128,19 +135,16 @@ public class GoodsAction extends ActionSupport implements IAction {
 			rowHeading.createCell(3).setCellValue("Hạn sử dụng");
 			rowHeading.createCell(4).setCellValue("Tồn kho");
 
-			Integer stockId = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("stockId"));
-			goodsList = goodsService.findGoodsByStockId(stockId);
-
 			for (int rowIndex = 1; rowIndex <= goodsList.size(); rowIndex++) {
 				Row row = sheet.createRow(rowIndex);
 				GoodsDto g = goodsList.get(rowIndex - 1);
 				row.createCell(0).setCellValue(rowIndex);
 				row.createCell(1).setCellValue(g.getCode());
 				row.createCell(2).setCellValue(g.getName());
-				row.createCell(3).setCellValue(g.getExpiration());
+				row.createCell(3).setCellValue(new SimpleDateFormat("dd/MM/yyy").format(g.getExpiration()));
 				row.createCell(4).setCellValue(g.getInStock());
 			}
-			
+
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			workbook.write(outputStream);
 			setInputStream(new ByteArrayInputStream(outputStream.toByteArray()));

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div class="container pt-5 pb-5">
-	<h1>Danh sách hàng hóa sẽ hết hạn trong vòng 30 ngày tới</h1>
+	<h3>Danh sách hàng hóa sẽ hết hạn trong vòng 30 ngày tới</h3>
 	<br>
 	<table class="table table-sm">
 		<tr>

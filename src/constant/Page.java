@@ -25,6 +25,9 @@ public interface Page {
 	String SUPPLIER_LIST_PAGE =  "/WEB-INF/pages/supplier/supplier_list.jsp";
 	String SUPPLIER_FORM_PAGE = "/WEB-INF/pages/supplier/supplier_form.jsp";
 	
+	String STOCK_LIST_PAGE =  "/WEB-INF/pages/stock/stock_list.jsp";
+	String STOCK_FORM_PAGE = "/WEB-INF/pages/stock/stock_form.jsp";
+	
 	String CATEGORY_REPORT = "/WEB-INF/pages/report/category_report.jsp";
 	String SUPPLIER_REPORT = "/WEB-INF/pages/report/supplier_report.jsp";
 	String EXPIRATION_GOODS_REPORT = "/WEB-INF/pages/report/expiration_goods_report.jsp";

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +8,8 @@
 <title>${title}</title>
 </head>
 <body>
-	<jsp:include page="fragment/navbar.jsp" />
-	<jsp:include page="${page}" />
-	<jsp:include page="fragment/js.jsp" />
+	<s:include value="fragment/navbar.jsp" />
+	<s:include value="%{page}" />
+	<s:include value="fragment/js.jsp" />
 </body>
 </html>

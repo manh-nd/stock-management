@@ -12,6 +12,7 @@ import org.hibernate.validator.Valid;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import constant.Page;
 import dao.StockDao;
 import dao.impl.StockDaoImpl;
 import model.Stock;
@@ -20,7 +21,7 @@ import util.WebUtil;
 @ParentPackage("stock-package")
 @Namespace("/stock")
 @ResultPath("/")
-public class StockAction extends ActionSupport  implements IAction  {
+public class StockAction extends ActionSupport implements IAction {
 
 	private static final long serialVersionUID = 8493665757717540594L;
 
@@ -29,18 +30,18 @@ public class StockAction extends ActionSupport  implements IAction  {
 	@Valid
 	private Stock stockBean = new Stock();
 
-	@Action(value = "list", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/stock/stock_list.jsp"))
+	@Action(value = "list", results = @Result(name = SUCCESS, location = Page.STOCK_LIST_PAGE))
 	public String list() {
 		System.out.println("stock list");
 		return SUCCESS;
 	}
 
-	@Action(value = "add", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/stock/stock_form.jsp"))
+	@Action(value = "add", results = @Result(name = SUCCESS, location = Page.STOCK_FORM_PAGE))
 	public String add() {
 		return SUCCESS;
 	}
 
-	@Action(value = "edit", results = @Result(name = SUCCESS, location = "/WEB-INF/pages/stock/stock_form.jsp"))
+	@Action(value = "edit", results = @Result(name = SUCCESS, location = Page.STOCK_FORM_PAGE))
 	public String edit() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
 		stockBean = stockDao.findById(Stock.class, id);
@@ -57,9 +58,8 @@ public class StockAction extends ActionSupport  implements IAction  {
 
 	@Action(value = "save", interceptorRefs = @InterceptorRef("defaultStackHibernateStrutsValidation"), results = {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
-			@Result(name = INPUT, location = "/WEB-INF/pages/stock/stock_form.jsp") })
+			@Result(name = INPUT, location = Page.STOCK_FORM_PAGE) })
 	public String save() {
-		System.out.println(stockBean);
 		stockDao.saveOrUpdate(stockBean);
 		return SUCCESS;
 	}
@@ -75,7 +75,7 @@ public class StockAction extends ActionSupport  implements IAction  {
 	public List<Stock> getStockList() {
 		return stockDao.findAll();
 	}
-	
+
 	@Override
 	public void validate() {
 		System.out.println("Validate Stock...");

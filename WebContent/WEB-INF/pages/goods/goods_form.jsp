@@ -86,8 +86,9 @@
 
 				<div class="form-group col-md-2">
 					<label>Hạn sử dụng</label>
+					<s:date name="goodsBean.expiration" format="dd/MM/yyyy" var="dateFormat"/>
 					<s:textfield name="goodsBean.expiration"
-						cssClass="form-control form-control-sm" />
+						cssClass="form-control form-control-sm" value="%{dateFormat}" />
 				</div>
 
 				<div class="form-group col-md-3">
