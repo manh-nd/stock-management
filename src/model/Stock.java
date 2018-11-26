@@ -38,6 +38,9 @@ public class Stock implements Serializable {
 	@Column(name = "STOCK_NAME", nullable = false, length = 45)
 	private String name;
 
+	@Column(name = "STOCK_ACTIVE")
+	private Boolean active;
+
 	@OneToMany(mappedBy = "stock", cascade = CascadeType.ALL)
 	private Set<Inventory> inventories;
 
@@ -90,9 +93,17 @@ public class Stock implements Serializable {
 		return inventory;
 	}
 
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("Stock(id=%s, code=%s, name=%s)", id, code, name);
+		return String.format("Stock (id=%s, code=%s, name=%s, active=%s)", id, code, name, active);
 	}
 
 }

@@ -43,8 +43,8 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public void delete(Integer goodsId) {
-		goodsDao.delete(goodsDao.findById(goodsId));
+	public boolean delete(Goods goods, boolean active) {
+		return goodsDao.delete(goods, active);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	public List<Stock> getStocks() {
-		return stockDao.findAll();
+		return stockDao.findAll(true);
 	}
 
 	@Override

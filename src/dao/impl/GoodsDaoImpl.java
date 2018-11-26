@@ -93,4 +93,16 @@ public class GoodsDaoImpl extends BasicCrudImplDao<Goods, Integer> implements Go
 		}
 	}
 
+	@Override
+	public boolean delete(Goods object, boolean active) {
+		try {
+			object.setActive(active);
+			session.update(object);
+			return true;
+		} catch (Exception e) {
+			transaction.rollback();
+			return false;
+		}
+	}
+
 }

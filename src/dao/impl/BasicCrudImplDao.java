@@ -99,18 +99,6 @@ public class BasicCrudImplDao<T, ID extends Serializable> implements BasicCrudDa
 	}
 
 	@Override
-	public T findById(Class<T> clazz, ID id) {
-		try {
-			@SuppressWarnings("unchecked")
-			T t = (T) session.get(clazz, id);
-			return t;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	@Override
 	public List<T> findAll() {
 		try {
 			Query query = session.createQuery(String.format("FROM %s", clazz.getName()));
@@ -119,20 +107,21 @@ public class BasicCrudImplDao<T, ID extends Serializable> implements BasicCrudDa
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			return null;
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> findAll(Class<T> clazz) {
+	public List<T> findAll(boolean active) {
 		try {
-			Query query = session.createQuery(String.format("FROM %s", clazz.getName()));
-			@SuppressWarnings("unchecked")
+			Query query = session.createQuery(String.format("FROM %s o WHERE o.active = :active", clazz.getName()));
+			query.setParameter("active", active);
 			List<T> result = query.list();
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			return null;
 		}
 	}
 

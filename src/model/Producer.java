@@ -20,13 +20,16 @@ public class Producer implements Serializable {
 	@Column(name = "PRODUCER_ID", unique = true, nullable = false)
 	private Integer id;
 
-	@NotNull(message="Mã nhà cung cấp không thể để trống!")
+	@NotNull(message = "Mã nhà cung cấp không thể để trống!")
 	@Column(name = "PRODUCER_CODE", unique = true, nullable = false, length = 6)
 	private String code;
 
-	@NotNull(message="Tên nhà cung cấp không thể để trống!")
+	@NotNull(message = "Tên nhà cung cấp không thể để trống!")
 	@Column(name = "PRODUCER_NAME", unique = true, nullable = false, length = 45)
 	private String name;
+
+	@Column(name = "PRODUCER_ACTIVE")
+	private Boolean active;
 
 	@OneToMany(mappedBy = "producer", cascade = CascadeType.ALL)
 	private Set<Goods> goods;
@@ -80,9 +83,17 @@ public class Producer implements Serializable {
 		return good;
 	}
 
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("Producer(id=%s, code=%s, name=%s)", id, code, name);
+		return String.format("Producer (id=%s, code=%s, name=%s, active=%s)", id, code, name, active);
 	}
 
 }

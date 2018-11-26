@@ -20,6 +20,9 @@ public class Category implements Serializable {
 	@Column(name = "CATEGORY_NAME", unique = true, nullable = false, length = 45)
 	private String name;
 
+	@Column(name = "CATEGORY_ACTIVE")
+	private Boolean active;
+
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
 	private Set<Goods> goods;
 
@@ -72,9 +75,17 @@ public class Category implements Serializable {
 		return good;
 	}
 
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("Category(id=%s, code=%s, name=%s)", id, code, name);
+		return String.format("Category (id=%s, code=%s, name=%s, active=%s)", id, code, name, active);
 	}
 
 }

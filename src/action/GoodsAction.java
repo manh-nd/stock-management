@@ -94,7 +94,8 @@ public class GoodsAction extends ActionSupport implements IAction {
 	@Action(value = "delete", results = { @Result(name = SUCCESS, location = "list", type = "redirect") })
 	public String delete() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
-		goodsService.delete(id);
+		goodsBean = goodsService.findById(id);
+		goodsService.delete(goodsBean, false);
 		return SUCCESS;
 	}
 

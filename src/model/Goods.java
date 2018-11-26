@@ -78,6 +78,9 @@ public class Goods implements Serializable {
 	@Column(name = "GOODS_NEW_BRAND", nullable = false)
 	private Boolean newBrand;
 
+	@Column(name = "GOODS_ACTIVE")
+	private Boolean active;
+
 	@OneToMany(mappedBy = "goods", cascade = CascadeType.ALL)
 	private Set<Inventory> inventories;
 
@@ -210,12 +213,20 @@ public class Goods implements Serializable {
 		return inventory;
 	}
 
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public String toString() {
 		return String.format(
-				"Goods(id=%s, code=%s, category=%s, producer=%s, supplier=%s, name=%s, feature=%s, lotNumber=%s, expiration=%s, importPrice=%s, exportPrice=%s, unit=%s, newBrand=%s)",
+				"Goods (id=%s, code=%s, category=%s, producer=%s, supplier=%s, name=%s, feature=%s, lotNumber=%s, expiration=%s, importPrice=%s, exportPrice=%s, unit=%s, newBrand=%s, active=%s)",
 				id, code, category, producer, supplier, name, feature, lotNumber, expiration, importPrice, exportPrice,
-				unit, newBrand);
+				unit, newBrand, active);
 	}
 
 }

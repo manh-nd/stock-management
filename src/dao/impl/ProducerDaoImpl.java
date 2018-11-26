@@ -20,4 +20,16 @@ public class ProducerDaoImpl extends BasicCrudImplDao<Producer, Integer> impleme
 		}
 	}
 
+	@Override
+	public boolean delete(Producer object, boolean active) {
+		try {
+			object.setActive(active);
+			session.update(object);
+			return true;
+		} catch (Exception e) {
+			transaction.rollback();
+			return false;
+		}
+	}
+	
 }

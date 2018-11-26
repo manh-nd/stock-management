@@ -18,7 +18,6 @@ public interface BasicCrudDao<T, ID extends Serializable> { // Lưu ý, không s
 	 * 
 	 * @param object tham số truyền vào là 1 đối tượng kiểu <code>&ltT&gt</code>
 	 * @return Trả về một đối tượng có kiểu <code>&ltT&gt</code>, bao gồm cả ID
-	 * @throws Exception
 	 * @author Manh Nguyen
 	 */
 	T save(T object);
@@ -30,17 +29,37 @@ public interface BasicCrudDao<T, ID extends Serializable> { // Lưu ý, không s
 	 * @return
 	 */
 	T update(T object);
-	
+
+	/**
+	 * Lưu đối tượng object vào csdl
+	 * 
+	 * @param object
+	 */
 	void saveOrUpdate(T object);
 
+	/**
+	 * Xóa đối tượng object ra khỏi csdl
+	 * 
+	 * @param object
+	 * @return
+	 */
 	boolean delete(T object);
 
+	/**
+	 * Tìm đối tượng có kiểu T theo ID
+	 * 
+	 * @param id
+	 * @return
+	 */
 	T findById(ID id);
-	
-	T findById(Class<T> clazz, ID id);
 
+	/**
+	 * Tìm tất cả
+	 * 
+	 * @return
+	 */
 	List<T> findAll();
 
-	List<T> findAll(Class<T> clazz);
+	List<T> findAll(boolean active);
 
 }

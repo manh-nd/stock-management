@@ -8,16 +8,16 @@ import dto.GoodsDto;
 import dto.SupplierGoodsReport;
 import model.Goods;
 
-public interface GoodsDao extends BasicCrudDao<Goods, Integer>{
+public interface GoodsDao extends BasicCrudDao<Goods, Integer>, LogicDao<Goods> {
 
 	Goods findByGoodsCode(String goodsCode);
-	
+
 	List<GoodsDto> findByStockId(Integer stockId);
-	
+
 	List<CategoryGoodsReport> getCategoryGoodsReport();
 
 	List<SupplierGoodsReport> getSupplierGoodsReport();
-	
+
 	List<ExpirationGoodsReport> getExpirationGoodsReport();
 
 }

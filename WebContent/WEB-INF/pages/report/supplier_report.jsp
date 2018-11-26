@@ -19,11 +19,11 @@
 				<td>
 					<s:property value="name" />
 				</td>
-				<td>
-					<s:property value="quantity" default="0" />
+				<td><s:property
+						value="getText('{0,number, #,##0}',{quantity == null ? 0 : quantity})" />
 				</td>
-				<td>
-					<s:property value="totalValue" default="0" />
+				<td><s:property
+						value="getText('{0,number, #,##0}', {totalValue == null ? 0 : totalValue})" />
 				</td>
 			</tr>
 		</s:iterator>

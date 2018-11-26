@@ -44,15 +44,15 @@ public class StockAction extends ActionSupport implements IAction {
 	@Action(value = "edit", results = @Result(name = SUCCESS, location = Page.STOCK_FORM_PAGE))
 	public String edit() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
-		stockBean = stockDao.findById(Stock.class, id);
+		stockBean = stockDao.findById(id);
 		return SUCCESS;
 	}
 
 	@Action(value = "delete", results = @Result(name = SUCCESS, location = "list", type = "redirect"))
 	public String delete() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
-		stockBean = stockDao.findById(Stock.class, id);
-		stockDao.delete(stockBean);
+		stockBean = stockDao.findById(id);
+		stockDao.delete(stockBean, false);
 		return SUCCESS;
 	}
 
@@ -73,7 +73,7 @@ public class StockAction extends ActionSupport implements IAction {
 	}
 
 	public List<Stock> getStockList() {
-		return stockDao.findAll();
+		return stockDao.findAll(true);
 	}
 
 	@Override

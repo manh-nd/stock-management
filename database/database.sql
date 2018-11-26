@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `stock_management` /*!40100 DEFAULT CHARACTER SET
 USE `stock_management`;
 -- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: stock_management
+-- Host: 127.0.0.1    Database: stock_management
 -- ------------------------------------------------------
 -- Server version	8.0.12
 
@@ -56,6 +56,7 @@ CREATE TABLE `category` (
   `CATEGORY_ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `CATEGORY_CODE` varchar(6) NOT NULL,
   `CATEGORY_NAME` varchar(45) NOT NULL,
+  `CATEGORY_ACTIVE` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`CATEGORY_ID`),
   UNIQUE KEY `CATEGORY_CODE_UNIQUE` (`CATEGORY_CODE`),
   UNIQUE KEY `CATEGORY_NAME_UNIQUE` (`CATEGORY_NAME`)
@@ -68,7 +69,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'CL01','Điện thoại'),(2,'CL02','Thực phẩm'),(3,'CL03','Điện máy'),(4,'CL04','Gia dụng'),(5,'CL05','Nội thất');
+INSERT INTO `category` VALUES (1,'CL01','Điện thoại',1),(2,'CL02','Thực phẩm',1),(3,'CL03','Điện máy',1),(4,'CL04','Gia dụng',1),(5,'CL05','Nội thất',1);
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,6 +94,7 @@ CREATE TABLE `goods` (
   `GOODS_EXPIRATION` date DEFAULT NULL,
   `GOODS_IMPORT_PRICE` int(11) unsigned NOT NULL DEFAULT '0',
   `GOODS_EXPORT_PRICE` int(11) unsigned NOT NULL DEFAULT '0',
+  `GOODS_ACTIVE` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`GOODS_ID`),
   UNIQUE KEY `GOODS_CODE_UNIQUE` (`GOODS_CODE`),
   KEY `fk_goods_supplier1_idx` (`SUPPLIER_ID`),
@@ -110,7 +112,7 @@ CREATE TABLE `goods` (
 
 LOCK TABLES `goods` WRITE;
 /*!40000 ALTER TABLE `goods` DISABLE KEYS */;
-INSERT INTO `goods` VALUES (1,1,1,2,'HH01','iPhone X',0,'L01','Chiếc','5.7 Inch',NULL,20000000,22000000),(2,1,1,2,'HH02','Iphone 6',NULL,'L01','chiec','4inch',NULL,15000000,18000000),(3,1,1,3,'HH03','Galaxy Note 9',NULL,'L02','chiec','9inch',NULL,20000000,22000000),(4,1,4,4,'HH04','Ấm siêu tốc Lock v2.1',0,'L02','Chiếc','',NULL,2000000,2200000),(5,1,1,5,'HH05','TV Sony  OLED 65 Inch 2018',1,'L01','Chiếc','65 Inch',NULL,40000000,45000000);
+INSERT INTO `goods` VALUES (1,1,1,2,'HH01','iPhone X',0,'L01','Chiếc','5.7 Inch','2018-12-12',20000000,22000000,NULL),(2,1,1,2,'HH02','Iphone 6',0,'L01','chiec','4inch','2018-12-22',15000000,18000000,NULL),(3,1,1,3,'HH03','Galaxy Note 9',0,'L02','chiec','9inch','2019-12-01',20000000,22000000,NULL),(4,1,4,4,'HH04','Ấm siêu tốc Lock v2.1',0,'L02','Chiếc','','2019-12-30',2000000,2200000,NULL),(5,1,1,5,'HH05','TV Sony  OLED 65 Inch 2018',1,'L01','Chiếc','65 Inch','2018-01-12',40000000,45000000,NULL);
 /*!40000 ALTER TABLE `goods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,6 +158,7 @@ CREATE TABLE `producer` (
   `PRODUCER_ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `PRODUCER_CODE` varchar(6) NOT NULL,
   `PRODUCER_NAME` varchar(45) NOT NULL,
+  `PRODUCER_ACTIVE` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`PRODUCER_ID`),
   UNIQUE KEY `PRODUCER_CODE_UNIQUE` (`PRODUCER_CODE`),
   UNIQUE KEY `PRODUCER_NAME_UNIQUE` (`PRODUCER_NAME`)
@@ -168,7 +171,7 @@ CREATE TABLE `producer` (
 
 LOCK TABLES `producer` WRITE;
 /*!40000 ALTER TABLE `producer` DISABLE KEYS */;
-INSERT INTO `producer` VALUES (1,'SX01','VinGroup'),(2,'SX02','Apple'),(3,'SX03','SamSung'),(4,'SX04','Lock&Lock'),(5,'SX05','Sony');
+INSERT INTO `producer` VALUES (1,'SX01','VinGroup',1),(2,'SX02','Apple',1),(3,'SX03','SamSung',1),(4,'SX04','Lock&Lock',1),(5,'SX05','Sony',1);
 /*!40000 ALTER TABLE `producer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,6 +186,7 @@ CREATE TABLE `stock` (
   `STOCK_ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `STOCK_CODE` varchar(6) NOT NULL,
   `STOCK_NAME` varchar(45) NOT NULL,
+  `STOCK_ACTIVE` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`STOCK_ID`),
   UNIQUE KEY `STOCK_CODE_UNIQUE` (`STOCK_CODE`),
   UNIQUE KEY `STOCK_NAME_UNIQUE` (`STOCK_NAME`)
@@ -195,7 +199,7 @@ CREATE TABLE `stock` (
 
 LOCK TABLES `stock` WRITE;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (1,'K01','Kho điện thoại'),(2,'K02','Kho điện máy'),(3,'K03','Kho thực phẩm'),(4,'K04','Kho gia dụng'),(5,'K05','Kho nội thất');
+INSERT INTO `stock` VALUES (1,'K01','Kho điện thoại',1),(2,'K02','Kho điện máy',1),(3,'K03','Kho thực phẩm',1),(4,'K04','Kho gia dụng',1),(5,'K05','Kho nội thất',1);
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,6 +214,7 @@ CREATE TABLE `supplier` (
   `SUPPLIER_ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `SUPPLIER_CODE` varchar(6) NOT NULL,
   `SUPPLIER_NAME` varchar(45) NOT NULL,
+  `SUPPLIER_ACTIVE` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`SUPPLIER_ID`),
   UNIQUE KEY `SUPPLIER_CODE_UNIQUE` (`SUPPLIER_CODE`),
   UNIQUE KEY `SUPPLIER_NAME_UNIQUE` (`SUPPLIER_NAME`)
@@ -222,7 +227,7 @@ CREATE TABLE `supplier` (
 
 LOCK TABLES `supplier` WRITE;
 /*!40000 ALTER TABLE `supplier` DISABLE KEYS */;
-INSERT INTO `supplier` VALUES (1,'CC01','Điện máy xanh'),(2,'CC02','Thế giới di động'),(3,'CC03','Điện máy Trần Anh'),(4,'CC04','Eco mart'),(5,'CC05','Vin mart');
+INSERT INTO `supplier` VALUES (1,'CC01','Điện máy xanh',1),(2,'CC02','Thế giới di động',1),(3,'CC03','Điện máy Trần Anh',1),(4,'CC04','Eco mart',1),(5,'CC05','Vin mart',1);
 /*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -235,4 +240,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-21 16:13:00
+-- Dump completed on 2018-11-26 17:48:18

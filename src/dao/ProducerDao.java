@@ -9,7 +9,7 @@ import model.Producer;
  * @author maudd
  *
  */
-public interface ProducerDao extends BasicCrudDao<Producer, Integer> {
+public interface ProducerDao extends BasicCrudDao<Producer, Integer>, LogicDao<Producer> {
 
 	/**
 	 * Tìm nhà cung cấp <code>Producer</code> bằng mã <code>code</code>

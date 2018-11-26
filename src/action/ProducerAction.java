@@ -29,12 +29,9 @@ public class ProducerAction extends ActionSupport implements IAction {
 	private Producer producerBean = new Producer();
 	private ProducerDao producerDao = new ProducerDaoImpl();
 
-	private List<Producer> producerList;
-
 	@Action(value = "list", results = @Result(name = SUCCESS, location = Page.PRODUCER_LIST_PAGE))
 	@Override
 	public String list() {
-		producerList = producerDao.findAll();
 		return SUCCESS;
 	}
 
@@ -68,20 +65,20 @@ public class ProducerAction extends ActionSupport implements IAction {
 	public String delete() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
 		producerBean = producerDao.findById(id);
-		producerDao.delete(producerBean);
+		producerDao.delete(producerBean, false);
 		return SUCCESS;
 	}
 
-	public Producer getProducerBean() { // làm việc với producerBean bỏ "get" trong ProducerBean
+	public Producer getProducerBean() { 
 		return producerBean;
 	}
 
-	public void setProducerBean(Producer producerBean) { // setMauLol => mauLol
+	public void setProducerBean(Producer producerBean) {
 		this.producerBean = producerBean;
 	}
 
 	public List<Producer> getProducerList() {
-		return producerList;
+		return producerDao.findAll(true);
 	}
 
 	@Override

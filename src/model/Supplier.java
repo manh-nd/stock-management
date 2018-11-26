@@ -23,6 +23,9 @@ public class Supplier implements Serializable {
 	@Column(name = "SUPPLIER_NAME", unique = true, nullable = false, length = 45)
 	private String name;
 
+	@Column(name = "SUPPLIER_ACTIVE")
+	private Boolean active;
+
 	@OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
 	private Set<Goods> goods;
 
@@ -75,9 +78,17 @@ public class Supplier implements Serializable {
 		return good;
 	}
 
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("Supplier(id=%s, code=%s, name=%s)", id, code, name);
+		return String.format("Supplier (id=%s, code=%s, name=%s, active=%s)", id, code, name, active);
 	}
 
 }

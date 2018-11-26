@@ -20,7 +20,7 @@ public interface GoodsService {
 
 	void saveOrUpdate(Goods goods);
 
-	void delete(Integer goodsId);
+	boolean delete(Goods goods, boolean active);
 
 	Goods findById(Integer goodsId);
 

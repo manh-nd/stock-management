@@ -51,7 +51,7 @@ public class SupplierAction extends ActionSupport implements IAction {
 	public String delete() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
 		supplierBean = supplierDao.findById(id);
-		supplierDao.delete(supplierBean);
+		supplierDao.delete(supplierBean, false);
 		return SUCCESS;
 	}
 
@@ -73,7 +73,7 @@ public class SupplierAction extends ActionSupport implements IAction {
 	}
 
 	public List<Supplier> getSupplierList() {
-		return supplierDao.findAll();
+		return supplierDao.findAll(true);
 	}
 
 	@Override
