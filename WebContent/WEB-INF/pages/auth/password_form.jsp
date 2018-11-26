@@ -5,15 +5,8 @@
 <html>
 <head>
 <jsp:include page="../fragment/head.jsp" />
-<title>Đăng nhập</title>
+<title>Đổi mật khẩu</title>
 <style type="text/css">
-.actionMessage {
-	color: red;
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-
 .errorMessage {
 	color: red;
 	list-style-type: none;
@@ -25,17 +18,22 @@
 <body>
 	<jsp:include page="../fragment/navbar.jsp" />
 	<div class="container pt-5 pb-5">
-		<s:form action="login" namespace="/">
+		<s:actionmessage />
+		<s:form action="change" namespace="/account">
 			<div class="form-group">
-				<label>Tài khoản</label>
-				<s:textfield name="username" cssClass="form-control" />
-				<s:fielderror fieldName="username" />
-				<s:actionmessage />
+				<label>Mật khẩu hiện tại</label>
+				<s:password name="currentPassword" cssClass="form-control" />
+				<s:fielderror fieldName="currentPassword" />
 			</div>
 			<div class="form-group">
-				<label>Mật khẩu</label>
-				<s:password name="password" cssClass="form-control" />
-				<s:fielderror fieldName="password" />
+				<label>Mật khẩu mới</label>
+				<s:password name="newPassword" cssClass="form-control" />
+				<s:fielderror fieldName="newPassword" />
+			</div>
+			<div class="form-group">
+				<label>Nhập lại mật khẩu mới</label>
+				<s:password name="verifyPassword" cssClass="form-control" />
+				<s:fielderror fieldName="verifyPassword" />
 			</div>
 			<div class="form-group">
 				<s:submit value="Đăng nhập" cssClass="btn btn-primary" />

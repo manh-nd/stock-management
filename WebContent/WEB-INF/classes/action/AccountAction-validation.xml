@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN" 
+"http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+<validators>
+	<field name="currentPassword">
+		<field-validator type="requiredstring">
+			<message>Bạn chưa nhập mật khẩu hiện tại</message>
+		</field-validator>
+	</field>
+	<field name="newPassword">
+		<field-validator type="requiredstring">
+			<message>Bạn chưa nhập mật khẩu mới</message>
+		</field-validator>
+	</field>
+	<field name="verifyPassword">
+		<field-validator type="requiredstring">
+			<message>Bạn chưa nhập mật khẩu xác thực</message>
+		</field-validator>
+		<field-validator type="fieldexpression">
+			<param name="expression"><![CDATA[newPassword == verifyPassword]]></param>
+			<message>Mật khẩu mới và mật khẩu xác thực phải trùng nhau</message>
+		</field-validator>
+	</field>
+</validators>

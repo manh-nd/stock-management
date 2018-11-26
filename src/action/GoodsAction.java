@@ -140,7 +140,8 @@ public class GoodsAction extends ActionSupport implements IAction {
 				row.createCell(0).setCellValue(rowIndex);
 				row.createCell(1).setCellValue(g.getCode());
 				row.createCell(2).setCellValue(g.getName());
-				row.createCell(3).setCellValue(new SimpleDateFormat("dd/MM/yyy").format(g.getExpiration()));
+				if (g.getExpiration() != null)
+					row.createCell(3).setCellValue(new SimpleDateFormat("dd/MM/yyy").format(g.getExpiration()));
 				row.createCell(4).setCellValue(g.getInStock());
 			}
 

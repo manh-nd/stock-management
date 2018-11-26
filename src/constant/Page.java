@@ -13,7 +13,7 @@ public interface Page {
 
 	String INDEX_PAGE = "/WEB-INF/pages/index.jsp";
 
-	String LOGIN_PAGE = "/WEB-INF/pages/login.jsp";
+	String LOGIN_PAGE = "/WEB-INF/pages/auth/login.jsp";
 
 	// Manh - Goods
 	String GOODS_LIST_PAGE = "/WEB-INF/pages/goods/goods_list.jsp";

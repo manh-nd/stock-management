@@ -9,47 +9,80 @@
 		value="application" />
 
 	<!-- default package -->
-	<package name="default-package" extends="struts-default"
+	<package name="webapp-package" extends="hibernate-default"
 		namespace="/">
+		<interceptors>
+			<interceptor name="authentication"
+				class="interceptor.LoginInterceptor" />
+			<interceptor-stack name="securityStack">
+				<interceptor-ref name="authentication" />
+				<interceptor-ref name="hibernateSessionInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="securityStack" />
+
+		<global-results>
+			<result name="login">/WEB-INF/pages/auth/login.jsp</result>
+		</global-results>
+
+		<action name="login" class="action.LoginAction" method="login">
+			<interceptor-ref
+				name="defaultStackHibernateStrutsValidation" />
+			<result name="success" type="redirect">/</result>
+			<result name="input">/WEB-INF/pages/auth/login.jsp</result>
+		</action>
+
 	</package>
 
 	<!-- stock package -->
-	<package name="stock-package" extends="hibernate-default"
+	<package name="stock-package" extends="webapp-package"
 		namespace="/stock">
 	</package>
 
 	<!-- producer package -->
-	<package name="producer-package" extends="hibernate-default"
+	<package name="producer-package" extends="webapp-package"
 		namespace="/producer">
 	</package>
 
 	<!-- goods package -->
-	<package name="goods-package" extends="hibernate-default"
+	<package name="goods-package" extends="webapp-package"
 		namespace="/goods">
-		<!-- <action name="exportInExcel" class="action.GoodsAction"
-			method="exportInExcel">
-			<result name="success" type="stream">
-				<param name="contentType">application/vnd.ms-excel</param>
-				<param name="inputName">inputStream</param>
-				<param name="contentDisposition">attachment;filename="export.xls"</param>
-				<param name="bufferSize">4096</param>
-			</result>
-		</action> -->
 	</package>
 
 	<!-- supplier package -->
-	<package name="supplier-package" extends="hibernate-default"
+	<package name="supplier-package" extends="webapp-package"
 		namespace="/supplier">
 	</package>
 
 	<!-- category package -->
-	<package name="category-package" extends="hibernate-default"
+	<package name="category-package" extends="webapp-package"
 		namespace="/category">
 	</package>
 
 	<!-- report package -->
-	<package name="report-package" extends="hibernate-default"
+	<package name="report-package" extends="webapp-package"
 		namespace="/report">
+	</package>
+
+	<!-- account package -->
+	<package name="account-package" extends="webapp-package"
+		namespace="/account">
+		<action name="logout" class="action.AccountAction"
+			method="logout">
+			<result name="success" type="redirect">/</result>
+		</action>
+		<action name="change-password" class="action.AccountAction"
+			method="goPasswordForm">
+			<result name="success">/WEB-INF/pages/auth/password_form.jsp</result>
+		</action>
+		<action name="change" class="action.AccountAction"
+			method="changePassword">
+			<interceptor-ref name="securityStack"/>
+			<interceptor-ref name="defaultStackHibernateStrutsValidation" />
+			<result name="input">/WEB-INF/pages/auth/password_form.jsp</result>
+			<result name="success" type="redirect">/</result>
+		</action>
 	</package>
 
 </struts>
