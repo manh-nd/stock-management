@@ -125,8 +125,7 @@ public class GoodsAction extends ActionSupport implements IAction {
 			Integer stockId = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("stockId"));
 			String stockName = goodsService.findByStockId(stockId).getName();
 			goodsList = goodsService.findGoodsByStockId(stockId);
-
-			HSSFSheet sheet = workbook.createSheet("Danh sách hàng hóa trong kho " + stockName);
+			HSSFSheet sheet = workbook.createSheet(stockName);
 
 			Row rowHeading = sheet.createRow(0);
 			rowHeading.createCell(0).setCellValue("STT");
