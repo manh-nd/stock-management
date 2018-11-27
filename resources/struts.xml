@@ -24,7 +24,13 @@
 
 		<global-results>
 			<result name="login">/WEB-INF/pages/auth/login.jsp</result>
+			<result name="error">/WEB-INF/pages/java_error.jsp</result>
 		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping result="error"
+				exception="java.lang.exception" />
+		</global-exception-mappings>
 
 		<action name="login" class="action.LoginAction" method="login">
 			<interceptor-ref
@@ -78,8 +84,9 @@
 		</action>
 		<action name="change" class="action.AccountAction"
 			method="changePassword">
-			<interceptor-ref name="securityStack"/>
-			<interceptor-ref name="defaultStackHibernateStrutsValidation" />
+			<interceptor-ref name="securityStack" />
+			<interceptor-ref
+				name="defaultStackHibernateStrutsValidation" />
 			<result name="input">/WEB-INF/pages/auth/password_form.jsp</result>
 			<result name="success" type="redirect">/</result>
 		</action>

@@ -40,7 +40,12 @@ public class AccountAction extends ActionSupport {
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
 				.get(ServletActionContext.HTTP_REQUEST);
 		Account account = (Account) request.getSession().getAttribute("user");
-		accountDao.changePassword(account.getId(), newPassword);
+		account = accountDao.changePassword(account.getId(), newPassword);
+		if(account==null) {
+			addActionMessage("Đổi mật khẩu thất bại!");
+			return INPUT;
+		}
+		request.getSession().setAttribute("user", account);
 		return SUCCESS;
 	}
 

@@ -57,9 +57,9 @@
 				</div></li>
 			<s:if test="%{#session.user != null}">
 				<li class="nav-item"><s:a cssClass="nav-link"
-						href="%{logoutURL}">Đăng xuất</s:a></li>
-				<li class="nav-item"><s:a cssClass="nav-link"
 						href="%{changePasswordURL}">Đổi mật khẩu</s:a></li>
+				<li class="nav-item"><s:a cssClass="nav-link"
+						href="%{logoutURL}">Đăng xuất</s:a></li>
 			</s:if>
 		</ul>
 	</div>

@@ -9,19 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.Length;
 
-/**
- * The persistent class for the stock database table.
- * 
- */
 @Entity
 @Table(name = "stock")
-@NamedQuery(name = "Stock.findAll", query = "SELECT s FROM Stock s")
 public class Stock implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +32,7 @@ public class Stock implements Serializable {
 	@Column(name = "STOCK_NAME", nullable = false, length = 45)
 	private String name;
 
-	@Column(name = "STOCK_ACTIVE")
+	@Column(name = "STOCK_ACTIVE", insertable=false)
 	private Boolean active;
 
 	@OneToMany(mappedBy = "stock", cascade = CascadeType.ALL)

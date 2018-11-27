@@ -78,7 +78,7 @@ public class Goods implements Serializable {
 	@Column(name = "GOODS_NEW_BRAND", nullable = false)
 	private Boolean newBrand;
 
-	@Column(name = "GOODS_ACTIVE")
+	@Column(name = "GOODS_ACTIVE", insertable=false)
 	private Boolean active;
 
 	@OneToMany(mappedBy = "goods", cascade = CascadeType.ALL)

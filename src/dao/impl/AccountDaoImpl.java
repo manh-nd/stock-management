@@ -13,16 +13,16 @@ public class AccountDaoImpl extends BasicCrudImplDao<Account, Integer> implement
 	}
 
 	@Override
-	public boolean changePassword(Integer id, String password) {
+	public Account changePassword(Integer id, String password) {
 		try {
 			int rowAffected = session.createQuery("UPDATE Account a SET a.password = :password WHERE a.id = :id")
 					.setParameter("password", password).setParameter("id", id).executeUpdate();
 			if (rowAffected > 0)
-				return true;
+				return (Account) session.get(Account.class, id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false;
+		return null;
 	}
 
 }

@@ -28,7 +28,7 @@ public class Producer implements Serializable {
 	@Column(name = "PRODUCER_NAME", unique = true, nullable = false, length = 45)
 	private String name;
 
-	@Column(name = "PRODUCER_ACTIVE")
+	@Column(name = "PRODUCER_ACTIVE", insertable=false)
 	private Boolean active;
 
 	@OneToMany(mappedBy = "producer", cascade = CascadeType.ALL)

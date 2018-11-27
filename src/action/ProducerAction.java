@@ -65,7 +65,7 @@ public class ProducerAction extends ActionSupport implements IAction {
 	public String delete() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
 		producerBean = producerDao.findById(id);
-		producerDao.delete(producerBean, false);
+		producerDao.delete(producerBean);
 		return SUCCESS;
 	}
 

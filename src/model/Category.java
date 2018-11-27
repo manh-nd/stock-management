@@ -20,7 +20,7 @@ public class Category implements Serializable {
 	@Column(name = "CATEGORY_NAME", unique = true, nullable = false, length = 45)
 	private String name;
 
-	@Column(name = "CATEGORY_ACTIVE")
+	@Column(name = "CATEGORY_ACTIVE", insertable=false)
 	private Boolean active;
 
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)

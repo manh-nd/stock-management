@@ -51,7 +51,7 @@ public class SupplierAction extends ActionSupport implements IAction {
 	public String delete() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
 		supplierBean = supplierDao.findById(id);
-		supplierDao.delete(supplierBean, false);
+		supplierDao.delete(supplierBean);
 		return SUCCESS;
 	}
 

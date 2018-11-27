@@ -6,11 +6,14 @@ import model.Stock;
 public class StockDaoImpl extends BasicCrudImplDao<Stock, Integer> implements StockDao {
 
 	@Override
-	public boolean delete(Stock object, boolean active) {
+	public boolean delete(Stock object) {
 		try {
-			object.setActive(active);
-			session.update(object);
-			return true;
+			int rowAffected = session.createQuery("UPDATE Stock s SET s.active = false WHERE s.id = :id")
+					.setParameter("id", object.getId()).executeUpdate();
+			if (rowAffected > 0)
+				return true;
+			else
+				return false;
 		} catch (Exception e) {
 			transaction.rollback();
 			return false;

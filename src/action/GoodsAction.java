@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -95,7 +97,7 @@ public class GoodsAction extends ActionSupport implements IAction {
 	public String delete() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
 		goodsBean = goodsService.findById(id);
-		goodsService.delete(goodsBean, false);
+		goodsService.delete(goodsBean);
 		return SUCCESS;
 	}
 
@@ -204,6 +206,16 @@ public class GoodsAction extends ActionSupport implements IAction {
 
 	public void setInputStream(InputStream inputStream) {
 		this.inputStream = inputStream;
+	}
+	
+	public Date getMinValue() {
+		return new Date();
+	}
+	
+	public Date getMaxValue() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2020, 11, 30);
+		return calendar.getTime();
 	}
 
 	@Override

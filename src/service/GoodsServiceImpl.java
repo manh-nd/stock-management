@@ -43,8 +43,8 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public boolean delete(Goods goods, boolean active) {
-		return goodsDao.delete(goods, active);
+	public boolean delete(Goods goods) {
+		return goodsDao.delete(goods);
 	}
 
 	@Override
@@ -74,17 +74,17 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	public List<Supplier> getSuppliers() {
-		return supplierDao.findAll();
+		return supplierDao.findAll(true);
 	}
 
 	@Override
 	public List<Category> getCategories() {
-		return categoryDao.findAll();
+		return categoryDao.findAll(true);
 	}
 
 	@Override
 	public List<Producer> getProducers() {
-		return producerDao.findAll();
+		return producerDao.findAll(true);
 	}
 
 	@Override

@@ -52,7 +52,7 @@ public class CategoryAction extends ActionSupport implements IAction {
 	public String delete() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
 		categoryBean = categoryDao.findById(id);
-		categoryDao.delete(categoryBean, false);
+		categoryDao.delete(categoryBean);
 		return SUCCESS;
 	}
 

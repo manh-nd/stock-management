@@ -23,7 +23,7 @@ public class Supplier implements Serializable {
 	@Column(name = "SUPPLIER_NAME", unique = true, nullable = false, length = 45)
 	private String name;
 
-	@Column(name = "SUPPLIER_ACTIVE")
+	@Column(name = "SUPPLIER_ACTIVE", insertable=false)
 	private Boolean active;
 
 	@OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)

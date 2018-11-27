@@ -6,3 +6,4 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet"
 	href='<c:url value="/resources/css/bootstrap.min.css" />'>
+<link rel="icon" href='<c:url value="/resources/images/java.png" />'>

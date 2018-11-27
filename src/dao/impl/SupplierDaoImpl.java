@@ -6,11 +6,14 @@ import model.Supplier;
 public class SupplierDaoImpl extends BasicCrudImplDao<Supplier, Integer> implements SupplierDao {
 
 	@Override
-	public boolean delete(Supplier object, boolean active) {
+	public boolean delete(Supplier object) {
 		try {
-			object.setActive(active);
-			session.update(object);
-			return true;
+			int rowAffected = session.createQuery("UPDATE Supplier p SET p.active = false WHERE p.id = :id")
+					.setParameter("id", object.getId()).executeUpdate();
+			if (rowAffected > 0)
+				return true;
+			else
+				return false;
 		} catch (Exception e) {
 			transaction.rollback();
 			return false;

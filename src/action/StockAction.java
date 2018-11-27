@@ -52,7 +52,7 @@ public class StockAction extends ActionSupport implements IAction {
 	public String delete() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
 		stockBean = stockDao.findById(id);
-		stockDao.delete(stockBean, false);
+		stockDao.delete(stockBean);
 		return SUCCESS;
 	}
 

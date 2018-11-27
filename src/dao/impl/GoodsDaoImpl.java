@@ -37,8 +37,9 @@ public class GoodsDaoImpl extends BasicCrudImplDao<Goods, Integer> implements Go
 	public List<GoodsDto> findByStockId(Integer stockId) {
 		try {
 			Query query = session.createQuery(
-					"SELECT new dto.GoodsDto(g.id, g.code, g.name, g.expiration, i.quantity) FROM Stock s INNER JOIN s.inventories i INNER JOIN i.goods g WHERE s.id = :stockId");
+					"SELECT new dto.GoodsDto(g.id, g.code, g.name, g.expiration, i.quantity) FROM Stock s INNER JOIN s.inventories i INNER JOIN i.goods g WHERE s.id = :stockId AND g.active = :active");
 			query.setParameter("stockId", stockId);
+			query.setParameter("active", true);
 			List<GoodsDto> list = (List<GoodsDto>) query.list();
 			return list;
 		} catch (Exception e) {
@@ -53,7 +54,7 @@ public class GoodsDaoImpl extends BasicCrudImplDao<Goods, Integer> implements Go
 		try {
 			Query query = session.createQuery(
 					"SELECT new dto.CategoryGoodsReport(c.name, sum(i.quantity), sum(g.exportPrice * i.quantity)) "
-							+ "FROM Category c LEFT JOIN c.goods g LEFT JOIN g.inventories i " + "GROUP BY c.name");
+							+ "FROM Category c LEFT JOIN c.goods g LEFT JOIN g.inventories i GROUP BY c.name");
 			List<CategoryGoodsReport> list = query.list();
 			return list;
 		} catch (Exception e) {
@@ -94,11 +95,14 @@ public class GoodsDaoImpl extends BasicCrudImplDao<Goods, Integer> implements Go
 	}
 
 	@Override
-	public boolean delete(Goods object, boolean active) {
+	public boolean delete(Goods object) {
 		try {
-			object.setActive(active);
-			session.update(object);
-			return true;
+			int rowAffected = session.createQuery("UPDATE Goods g SET g.active = false WHERE g.id = :id")
+					.setParameter("id", object.getId()).executeUpdate();
+			if (rowAffected > 0)
+				return true;
+			else
+				return false;
 		} catch (Exception e) {
 			transaction.rollback();
 			return false;

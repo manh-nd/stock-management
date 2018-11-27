@@ -4,14 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-
-/**
- * The persistent class for the account database table.
- * 
- */
 @Entity
 @Table(name="account")
-@NamedQuery(name="Account.findAll", query="SELECT a FROM Account a")
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,9 +13,6 @@ public class Account implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ACCOUNT_ID", unique=true, nullable=false)
 	private Integer id;
-
-	@Column(name="ACCOUNT_ACTIVE", nullable=false)
-	private Boolean active;
 
 	@Column(name="ACCOUNT_FULLNAME", nullable=false, length=40)
 	private String fullname;
@@ -31,6 +22,9 @@ public class Account implements Serializable {
 
 	@Column(name="ACCOUNT_USERNAME", nullable=false, length=16)
 	private String username;
+	
+	@Column(name="ACCOUNT_ACTIVE", nullable=false)
+	private Boolean active;
 
 	public Account() {
 	}
@@ -73,6 +67,12 @@ public class Account implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Account (id=%s, fullname=%s, password=%s, username=%s, active=%s)", id, fullname,
+				password, username, active);
 	}
 
 }

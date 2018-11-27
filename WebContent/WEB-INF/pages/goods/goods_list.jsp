@@ -66,7 +66,7 @@
 											namespace="/goods">
 											<s:param name="id" value="id" />
 											<s:param name="stockId" value="%{#parameters.stockId}" />
-										</s:url> <s:a href="%{deleteURL}">Xóa</s:a></td>
+										</s:url> <s:a href="%{deleteURL}" cssClass="delete">Xóa</s:a></td>
 								</tr>
 							</s:iterator>
 						</table>
@@ -87,5 +87,16 @@
 		</div>
 	</div>
 	<jsp:include page="../fragment/js.jsp" />
+	<script>
+		$(document).ready(function() {
+			$(".delete").click(function(e) {
+				var result = confirm("Bạn có muốn xóa hàng hóa này không?");
+				if (result) {
+					return true;
+				}
+				return false;
+			});
+		});
+	</script>
 </body>
 </html>

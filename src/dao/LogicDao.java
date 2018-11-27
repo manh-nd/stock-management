@@ -2,6 +2,6 @@ package dao;
 
 public interface LogicDao<T> {
 
-	boolean delete(T object, boolean active);
+	boolean delete(T object);
 	
 }

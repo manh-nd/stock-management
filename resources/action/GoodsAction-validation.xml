@@ -42,6 +42,13 @@
 			<message key="errors.goodsBean.unit" />
 		</field-validator>
 	</field>
+	<field name="goodsBean.expiration">
+		<field-validator type="date">
+            <param name="minExpression">${minValue}</param> <!-- will be evaluated as: Date getMinValue() -->
+            <param name="maxExpression">${maxValue}</param> <!-- will be evaluated as: Date getMaxValue() -->
+            <message>Ngày hết hạn phải trong khoảng từ ${min} đến ${max}</message>
+        </field-validator>
+	</field>
 	<field name="inventoryBean.quantity">
 		<field-validator type="required">
 			<message key="errors.inventoryBean.quantity" />
