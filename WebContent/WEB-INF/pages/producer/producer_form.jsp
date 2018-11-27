@@ -13,7 +13,7 @@
 	list-style-type: none;
 }
 </style>
-<title>Insert title here</title>
+<title>Hãng sản xuất</title>
 </head>
 <body>
 	<jsp:include page="../fragment/navbar.jsp" />
@@ -31,6 +31,10 @@
 				<label>Tên Nhà sản xuất</label>
 				<s:textfield name="producerBean.name" cssClass="form-control" />
 				<s:fielderror fieldName="producerBean.name" />
+			</div>
+			<div class="form-group">
+				<label>Trạng thái</label>
+				<s:radio list="actives" name="producerBean.active" value="producerBean.active"/>
 			</div>
 			<div class="form-group">
 				<s:submit value="Lưu" cssClass="btn btn-success" />

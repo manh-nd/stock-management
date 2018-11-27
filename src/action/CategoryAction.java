@@ -1,6 +1,8 @@
 package action;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
@@ -74,6 +76,13 @@ public class CategoryAction extends ActionSupport implements IAction {
 
 	public List<Category> getCategoryList() {
 		return categoryDao.findAll(true);
+	}
+	
+	public Map<Boolean, String> getActives() {
+		HashMap<Boolean, String> actives = new HashMap<>();
+		actives.put(true, "Hoạt động");
+		actives.put(false, "Tạm dừng");
+		return actives;
 	}
 
 }

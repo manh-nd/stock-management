@@ -8,8 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -216,6 +218,13 @@ public class GoodsAction extends ActionSupport implements IAction {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2020, 11, 30);
 		return calendar.getTime();
+	}
+	
+	public Map<Boolean, String> getActives() {
+		HashMap<Boolean, String> actives = new HashMap<>();
+		actives.put(true, "Hoạt động");
+		actives.put(false, "Tạm dừng");
+		return actives;
 	}
 
 	@Override

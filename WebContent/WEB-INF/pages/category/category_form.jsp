@@ -25,12 +25,17 @@
 			<div class="form-group">
 				<label>Mã danh mục phân loại</label>
 				<s:textfield name="categoryBean.code" cssClass="form-control" />
-				<s:fielderror fieldName="categoryBean.code"/>
+				<s:fielderror fieldName="categoryBean.code" />
 			</div>
 			<div class="form-group">
 				<label>Tên danh mục phân loại</label>
 				<s:textfield name="categoryBean.name" cssClass="form-control" />
-				<s:fielderror fieldName="categoryBean.name"/>
+				<s:fielderror fieldName="categoryBean.name" />
+			</div>
+			<div class="form-group">
+				<label>Trạng thái</label>
+				<s:radio list="actives" name="categoryBean.active"
+					value="categoryBean.active" />
 			</div>
 			<div class="form-group">
 				<s:submit value="Lưu" cssClass="btn btn-primary" />

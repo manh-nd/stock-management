@@ -130,14 +130,23 @@
 				<label for="newBrand">Nhãn hàng mới?</label>
 			</div>
 
+			<div class="form-group">
+				<label>Trạng thái</label>
+				<s:radio list="actives" name="goodsBean.active"
+					value="goodsBean.active" />
+			</div>
+
 			<s:submit value="Lưu" cssClass="btn btn-primary" />
-			<button id="backBtn" type="button" class="btn btn-success">Quay lại</button>
+			<button id="backBtn" type="button" class="btn btn-success">Quay
+				lại</button>
 		</s:form>
 	</div>
 	<jsp:include page="../fragment/js.jsp" />
 	<script>
-		$(document).ready(function(){
-			$("#backBtn").click(function(e){window.history.back()});
+		$(document).ready(function() {
+			$("#backBtn").click(function(e) {
+				window.history.back()
+			});
 		});
 	</script>
 </body>

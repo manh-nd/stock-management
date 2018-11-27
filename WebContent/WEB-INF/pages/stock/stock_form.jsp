@@ -34,6 +34,10 @@
 				<s:fielderror fieldName="stockBean.name"/>
 			</div>
 			<div class="form-group">
+				<label>Trạng thái</label>
+				<s:radio list="actives" name="stockBean.active" value="stockBean.active"/>
+			</div>
+			<div class="form-group">
 				<s:submit value="Lưu" cssClass="btn btn-primary" />
 			</div>
 		</s:form>
