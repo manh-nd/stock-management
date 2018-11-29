@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.apache.struts2.json.annotations.JSON;
 import org.hibernate.validator.NotNull;
 
 import java.util.Set;
@@ -28,7 +29,7 @@ public class Producer implements Serializable {
 	@Column(name = "PRODUCER_NAME", unique = true, nullable = false, length = 45)
 	private String name;
 
-	@Column(name = "PRODUCER_ACTIVE", insertable=false)
+	@Column(name = "PRODUCER_ACTIVE", insertable = false)
 	private Boolean active;
 
 	@OneToMany(mappedBy = "producer", cascade = CascadeType.ALL)
@@ -61,6 +62,7 @@ public class Producer implements Serializable {
 		this.name = name;
 	}
 
+	@JSON(serialize = false)
 	public Set<Goods> getGoods() {
 		return this.goods;
 	}

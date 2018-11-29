@@ -4,6 +4,12 @@
 <validators>
 	<field name="goodsBean.code">
 		<field-validator type="requiredstring">
+			<message>Bạn chưa nhập mã hàng hóa</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">3</param>
+			<param name="maxLength">8</param>
+			<param name="trim">true</param>
 			<message key="errors.goodsBean.code" />
 		</field-validator>
 	</field>
@@ -24,6 +30,12 @@
 	</field>
 	<field name="goodsBean.name">
 		<field-validator type="requiredstring">
+			<message>Bạn chưa nhập tên hàng hóa</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">6</param>
+			<param name="maxLength">64</param>
+			<param name="trim">true</param>
 			<message key="errors.goodsBean.name" />
 		</field-validator>
 	</field>
@@ -31,27 +43,49 @@
 		<field-validator type="required">
 			<message key="errors.goodsBean.exportPrice" />
 		</field-validator>
+		<field-validator type="int">
+			<param name="min">0</param>
+			<param name="max">1000000000</param>
+			<message>Giá nhập phải từ 0 - 1.000.000.000</message>
+		</field-validator>
 	</field>
 	<field name="goodsBean.importPrice">
 		<field-validator type="required">
 			<message key="errors.goodsBean.importPrice" />
 		</field-validator>
+		<field-validator type="int">
+			<param name="min">0</param>
+			<param name="max">1000000000</param>
+			<message>Giá bán phải từ 0 - 1.000.000.000</message>
+		</field-validator>
 	</field>
 	<field name="goodsBean.unit">
-		<field-validator type="requiredstring">
+		<field-validator type="stringlength">
+			<param name="minLength">3</param>
+			<param name="maxLength">16</param>
+			<param name="trim">true</param>
 			<message key="errors.goodsBean.unit" />
 		</field-validator>
 	</field>
 	<field name="goodsBean.expiration">
+		<field-validator type="required">
+			<message>Bạn chưa nhập hạn sử dụng</message>
+		</field-validator>
 		<field-validator type="date">
-            <param name="minExpression">${minValue}</param> <!-- will be evaluated as: Date getMinValue() -->
-            <param name="maxExpression">${maxValue}</param> <!-- will be evaluated as: Date getMaxValue() -->
-            <message>Ngày hết hạn phải trong khoảng từ ${min} đến ${max}</message>
-        </field-validator>
+			<param name="minExpression">${minValue}</param> <!-- will be evaluated as: Date getMinValue() -->
+			<param name="maxExpression">${maxValue}</param> <!-- will be evaluated as: Date getMaxValue() -->
+			<message>Ngày hết hạn phải trong khoảng từ ${min} đến ${max}
+			</message>
+		</field-validator>
 	</field>
 	<field name="inventoryBean.quantity">
 		<field-validator type="required">
 			<message key="errors.inventoryBean.quantity" />
+		</field-validator>
+		<field-validator type="int">
+			<param name="min">0</param>
+			<param name="max">10000</param>
+			<message>Số lượng phải từ 0 - 10.000</message>
 		</field-validator>
 	</field>
 </validators>

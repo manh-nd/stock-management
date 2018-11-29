@@ -17,8 +17,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.struts2.json.annotations.JSON;
+import org.hibernate.validator.Length;
 import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.NotNull;
+import org.hibernate.validator.Range;
 
 @Entity
 @Table(name = "goods")
@@ -31,6 +34,7 @@ public class Goods implements Serializable {
 	private Integer id;
 
 	@NotEmpty(message = "Mã hàng hóa không được trống!")
+	@Length(min = 3, max = 8, message = "Mã hàng hóa phải trong khoảng từ 3 - 8 ký tự!")
 	@Column(name = "GOODS_CODE", unique = true, nullable = false, length = 8)
 	private String code;
 
@@ -49,7 +53,8 @@ public class Goods implements Serializable {
 	@JoinColumn(name = "SUPPLIER_ID", nullable = false)
 	private Supplier supplier;
 
-	@NotNull(message = "Tên hàng hóa không được để trống!")
+	@NotEmpty(message = "Tên hàng hóa không được để trống!")
+	@Length(min = 6, max = 64, message = "Tên hàng hóa phải trong khoảng 6 - 64 ký tự!")
 	@Column(name = "GOODS_NAME", nullable = false, length = 64)
 	private String name;
 
@@ -64,21 +69,24 @@ public class Goods implements Serializable {
 	private Date expiration;
 
 	@NotNull(message = "Giá nhập không được để được trống!")
+	@Range(min = 0, max = Integer.MAX_VALUE, message = "Giá nhập không hợp lệ!")
 	@Column(name = "GOODS_IMPORT_PRICE", nullable = false)
 	private Integer importPrice;
 
 	@NotNull(message = "Giá bán không được để được trống!")
+	@Range(min = 0, max = Integer.MAX_VALUE, message = "Giá bán không hợp lệ!")
 	@Column(name = "GOODS_EXPORT_PRICE", nullable = false)
 	private Integer exportPrice;
 
 	@NotEmpty(message = "Đơn vị không được để trống!")
+	@Length(min = 5, max = 16, message = "Đơn vị tính phải từ 5 - 16 ký tự!")
 	@Column(name = "GOODS_UNIT", nullable = false, length = 16)
 	private String unit;
 
 	@Column(name = "GOODS_NEW_BRAND", nullable = false)
 	private Boolean newBrand;
 
-	@Column(name = "GOODS_ACTIVE", insertable=false)
+	@Column(name = "GOODS_ACTIVE", insertable = false)
 	private Boolean active;
 
 	@OneToMany(mappedBy = "goods", cascade = CascadeType.ALL)
@@ -191,6 +199,7 @@ public class Goods implements Serializable {
 		this.supplier = supplier;
 	}
 
+	@JSON(serialize = false)
 	public Set<Inventory> getInventories() {
 		return this.inventories;
 	}

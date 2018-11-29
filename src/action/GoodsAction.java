@@ -23,6 +23,7 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
+import org.apache.struts2.json.annotations.JSON;
 import org.hibernate.validator.Valid;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -62,6 +63,8 @@ public class GoodsAction extends ActionSupport implements IAction {
 	private Stock stockBean = new Stock();
 	private Inventory inventoryBean = new Inventory();
 	private InputStream inputStream;
+
+	Goods goodsExists = new Goods();
 
 	@Action(value = "list", results = { @Result(name = SUCCESS, location = Page.GOODS_LIST_PAGE) })
 	public String list() {
@@ -121,6 +124,16 @@ public class GoodsAction extends ActionSupport implements IAction {
 		return SUCCESS;
 	}
 
+	@Action(value = "checkExistsGoodsCode", results = @Result(name = SUCCESS, type = "json"))
+	public String findGoodsCode() {
+		String code = WebUtil.getHttpServletRequest().getParameter("goodsCode");
+		goodsExists = goodsService.findByGoodsCode(code);
+		if (goodsExists != null) {
+			
+		}
+		return SUCCESS;
+	}
+
 	@Action(value = "/export", results = @Result(name = SUCCESS, type = "stream", params = { "contentType",
 			"application/vnd.ms-excel", "inputName", "inputStream", "contentDisposition",
 			"attachment;filename=\"export.xls\"", "bufferSize", "1024" }))
@@ -158,6 +171,7 @@ public class GoodsAction extends ActionSupport implements IAction {
 		return SUCCESS;
 	}
 
+	@JSON(serialize = false)
 	public Goods getGoodsBean() {
 		return goodsBean;
 	}
@@ -166,26 +180,32 @@ public class GoodsAction extends ActionSupport implements IAction {
 		this.goodsBean = goodsBean;
 	}
 
+	@JSON(serialize = false)
 	public List<GoodsDto> getGoodsList() {
 		return goodsList;
 	}
 
+	@JSON(serialize = false)
 	public List<Stock> getStockList() {
 		return goodsService.getStocks();
 	}
 
+	@JSON(serialize = false)
 	public List<Category> getCategoryList() {
 		return goodsService.getCategories();
 	}
 
+	@JSON(serialize = false)
 	public List<Supplier> getSupplierList() {
 		return goodsService.getSuppliers();
 	}
 
+	@JSON(serialize = false)
 	public List<Producer> getProducerList() {
 		return goodsService.getProducers();
 	}
 
+	@JSON(serialize = false)
 	public Stock getStockBean() {
 		return stockBean;
 	}
@@ -194,6 +214,7 @@ public class GoodsAction extends ActionSupport implements IAction {
 		this.stockBean = stockBean;
 	}
 
+	@JSON(serialize = false)
 	public Inventory getInventoryBean() {
 		return inventoryBean;
 	}
@@ -202,6 +223,7 @@ public class GoodsAction extends ActionSupport implements IAction {
 		this.inventoryBean = inventoryBean;
 	}
 
+	@JSON(serialize = false)
 	public InputStream getInputStream() {
 		return inputStream;
 	}
@@ -209,17 +231,24 @@ public class GoodsAction extends ActionSupport implements IAction {
 	public void setInputStream(InputStream inputStream) {
 		this.inputStream = inputStream;
 	}
-	
+
+	@JSON(serialize = false)
 	public Date getMinValue() {
 		return new Date();
 	}
-	
+
+	@JSON(serialize = false)
 	public Date getMaxValue() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2020, 11, 30);
 		return calendar.getTime();
 	}
-	
+
+	public Goods getGoodsExists() {
+		return goodsExists;
+	}
+
+	@JSON(serialize = false)
 	public Map<Boolean, String> getActives() {
 		HashMap<Boolean, String> actives = new HashMap<>();
 		actives.put(true, "Hoạt động");
@@ -230,6 +259,12 @@ public class GoodsAction extends ActionSupport implements IAction {
 	@Override
 	public void validate() {
 		System.out.println("Validate Goods....");
+		if(goodsBean.getExpiration().before(new Date())) {
+			addFieldError("goodsBean.expiration", "Hạn sử dụng phải trước ngày hôm nay!");
+		}
+		if(goodsBean.getImportPrice() > goodsBean.getExportPrice()) {
+			addFieldError("goodsBean.importPrice", "Giá nhập phải nhỏ hơn giá bán!");
+		}
 	}
 
 }

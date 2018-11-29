@@ -8,7 +8,6 @@
 <head>
 <jsp:include page="../fragment/head.jsp" />
 <title>Goods form</title>
-<s:head />
 <sx:head />
 <style type="text/css">
 .errorMessage {
@@ -23,9 +22,9 @@
 	<jsp:include page="../fragment/navbar.jsp" />
 	<div class="container pt-5 pb-5">
 		<s:form action="save" namespace="/goods">
-			<s:hidden name="goodsBean.id" />
-			<s:hidden name="stockBean.id" />
-			<s:hidden name="inventoryBean.id" />
+			<s:hidden id="goodsId" name="goodsBean.id" />
+			<s:hidden id="stockId" name="stockBean.id" />
+			<s:hidden id="inventoryId" name="inventoryBean.id" />
 			<h3>
 				<s:property value="stockBean.name" />
 			</h3>
@@ -34,13 +33,13 @@
 			<div class="form-row">
 				<div class="form-group col-md-2">
 					<label>Mã hàng hóa</label>
-					<s:textfield name="goodsBean.code"
+					<s:textfield id="goodsCodeField" name="goodsBean.code"
 						cssClass="form-control form-control-sm" />
 					<s:fielderror fieldName="goodsBean.code" />
 				</div>
 				<div class="form-group col-md-4">
 					<label>Phân loại</label>
-					<s:select name="goodsBean.category.id" list="categoryList"
+					<s:select id="categoryId" name="goodsBean.category.id" list="categoryList"
 						listKey="id" listValue="name" value="goodsBean.category.id"
 						headerKey="" headerValue="Chọn phân loại"
 						cssClass="form-control form-control-sm" />
@@ -48,7 +47,7 @@
 				</div>
 				<div class="form-group col-md-3">
 					<label>Hãng sản xuất</label>
-					<s:select name="goodsBean.producer.id" list="producerList"
+					<s:select id="producerId" name="goodsBean.producer.id" list="producerList"
 						listKey="id" listValue="name" value="goodsBean.producer.id"
 						headerKey="" headerValue="Chọn hãng sản xuất"
 						cssClass="form-control form-control-sm" />
@@ -56,7 +55,7 @@
 				</div>
 				<div class="form-group col-md-3">
 					<label>Nhà cung cấp</label>
-					<s:select name="goodsBean.supplier.id" list="supplierList"
+					<s:select id="supplierId" name="goodsBean.supplier.id" list="supplierList"
 						listKey="id" listValue="name" value="goodsBean.supplier.id"
 						headerKey="" headerValue="Chọn nhà cung cấp"
 						cssClass="form-control form-control-sm" />
@@ -67,19 +66,19 @@
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label>Tên hàng hóa</label>
-					<s:textfield name="goodsBean.name"
+					<s:textfield id="goodsName" name="goodsBean.name"
 						cssClass="form-control form-control-sm" />
 					<s:fielderror fieldName="goodsBean.name" />
 				</div>
 				<div class="form-group col-md-4">
 					<label>Đặc tính</label>
-					<s:textfield name="goodsBean.feature"
+					<s:textfield id="goodsFeature" name="goodsBean.feature"
 						cssClass="form-control form-control-sm" />
 				</div>
 
 				<div class="form-group col-md-2">
 					<label>Đơn vị tính</label>
-					<s:textfield name="goodsBean.unit"
+					<s:textfield id="goodsUnit" name="goodsBean.unit"
 						cssClass="form-control form-control-sm" />
 					<s:fielderror fieldName="goodsBean.unit" />
 				</div>
@@ -90,21 +89,21 @@
 
 				<div class="form-group col-md-2">
 					<label>Hạn sử dụng</label>
-					<sx:datetimepicker id="expiration" name="goodsBean.expiration"
+					<sx:datetimepicker id="goodsExpiration" name="goodsBean.expiration"
 						displayFormat="dd/MM/yyyy" />
 					<s:fielderror fieldName="goodsBean.expiration" />
 				</div>
 
 				<div class="form-group col-md-3">
 					<label>Giá nhập</label>
-					<s:textfield name="goodsBean.importPrice"
+					<s:textfield id="goodsImportPrice" name="goodsBean.importPrice"
 						cssClass="form-control form-control-sm" />
 					<s:fielderror fieldName="goodsBean.importPrice" />
 				</div>
 
 				<div class="form-group col-md-3">
 					<label>Giá bán</label>
-					<s:textfield name="goodsBean.exportPrice"
+					<s:textfield id="goodsExportPrice" name="goodsBean.exportPrice"
 						cssClass="form-control form-control-sm" />
 					<s:fielderror fieldName="goodsBean.exportPrice" />
 				</div>
@@ -114,25 +113,25 @@
 			<div class="form-row">
 				<div class="form-group col-md-2">
 					<label>Số lô</label>
-					<s:textfield name="goodsBean.lotNumber"
+					<s:textfield id="goodsLotNumber" name="goodsBean.lotNumber"
 						cssClass="form-control form-control-sm" />
 				</div>
 				<div class="form-group col-md-3">
 					<label>Số lượng tồn kho</label>
-					<s:textfield name="inventoryBean.quantity"
+					<s:textfield id="inventoryQuantity" name="inventoryBean.quantity"
 						cssClass="form-control form-control-sm" />
 					<s:fielderror fieldName="inventoryBean.quantity" />
 				</div>
 			</div>
 
 			<div class="form-group">
-				<s:checkbox name="goodsBean.newBrand" id="newBrand" />
+				<s:checkbox id="goodsNewBrand" name="goodsBean.newBrand" />
 				<label for="newBrand">Nhãn hàng mới?</label>
 			</div>
 
 			<div class="form-group">
 				<label>Trạng thái</label>
-				<s:radio list="actives" name="goodsBean.active"
+				<s:radio id="goodsActive" list="actives" name="goodsBean.active"
 					value="goodsBean.active" />
 			</div>
 
@@ -141,11 +140,32 @@
 				lại</button>
 		</s:form>
 	</div>
+	
 	<jsp:include page="../fragment/js.jsp" />
 	<script>
 		$(document).ready(function() {
 			$("#backBtn").click(function(e) {
 				window.history.back()
+			});
+			$("#goodsCodeField").blur(function(e){
+				var goodsCode = $(this).val();
+				var stockId = $("#stockId").val();
+				$.get("/stock-management/goods/checkExistsGoodsCode?goodsCode=" + goodsCode + "&stockId=" + stockId, function(data){
+					var goods = data.goodsExists;
+					if(goods!=null){
+						$("#goodsId").val(goods.id);
+						$("#categoryId").val(goods.category.id);
+						$("#producerId").val(goods.producer.id);
+						$("#supplierId").val(goods.supplier.id);
+						$("#goodsName").val(goods.name);
+						$("#goodsFeature").val(goods.feature);
+						$("#goodsUnit").val(goods.unit);
+						$("#goodsExpiration").val(goods.expiration);
+						$("#goodsImportPrice").val(goods.importPrice);
+						$("#goodsExportPrice").val(goods.exportPrice);
+						$("#goodsLotNumber").val(goods.lotNumber);
+					}
+				});
 			});
 		});
 	</script>

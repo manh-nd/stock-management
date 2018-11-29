@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.struts2.json.annotations.JSON;
 import org.hibernate.validator.Length;
 
 @Entity
@@ -65,6 +66,7 @@ public class Stock implements Serializable {
 		this.name = name;
 	}
 
+	@JSON(serialize = false)
 	public Set<Inventory> getInventories() {
 		return this.inventories;
 	}

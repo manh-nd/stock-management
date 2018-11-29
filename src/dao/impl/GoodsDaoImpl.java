@@ -37,7 +37,8 @@ public class GoodsDaoImpl extends BasicCrudImplDao<Goods, Integer> implements Go
 	public List<GoodsDto> findByStockId(Integer stockId) {
 		try {
 			Query query = session.createQuery(
-					"SELECT new dto.GoodsDto(g.id, g.code, g.name, g.expiration, i.quantity) FROM Stock s INNER JOIN s.inventories i INNER JOIN i.goods g WHERE s.id = :stockId AND g.active = :active");
+					"SELECT new dto.GoodsDto(g.id, g.code, g.name, g.expiration, i.quantity) FROM Stock s INNER JOIN s.inventories i INNER JOIN i.goods g "
+					+ "WHERE s.id = :stockId AND g.active = :active AND g.category.active = :active AND g.supplier.active = :active AND g.producer.active = :active");
 			query.setParameter("stockId", stockId);
 			query.setParameter("active", true);
 			List<GoodsDto> list = (List<GoodsDto>) query.list();

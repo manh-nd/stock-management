@@ -2,6 +2,9 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.apache.struts2.json.annotations.JSON;
+
 import java.util.Set;
 
 @Entity
@@ -53,6 +56,7 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 
+	@JSON(serialize = false)
 	public Set<Goods> getGoods() {
 		return this.goods;
 	}
