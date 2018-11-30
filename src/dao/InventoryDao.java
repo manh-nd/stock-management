@@ -10,5 +10,7 @@ import model.Inventory;
 public interface InventoryDao extends BasicCrudDao<Inventory, Integer> {
 
 	Inventory findInventoryByStockIdAndGoodsId(Integer stockId, Integer goodsId);
+	
+	Inventory findInventoryByStockIdAndGoodsCode(Integer stockId, String goodsCode);
 
 }

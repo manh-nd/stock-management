@@ -3,6 +3,7 @@ package action;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.convention.annotation.ParentPackage;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -11,6 +12,7 @@ import dao.AccountDao;
 import dao.impl.AccountDaoImpl;
 import model.Account;
 
+@ParentPackage("default")
 public class LoginAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;

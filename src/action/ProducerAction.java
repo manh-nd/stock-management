@@ -20,7 +20,7 @@ import dao.impl.ProducerDaoImpl;
 import model.Producer;
 import util.WebUtil;
 
-@ParentPackage("producer-package")
+@ParentPackage("default")
 @Namespace("/producer")
 @ResultPath("/")
 public class ProducerAction extends ActionSupport implements IAction {

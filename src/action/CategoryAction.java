@@ -20,7 +20,7 @@ import dao.impl.CategoryDaoImpl;
 import model.Category;
 import util.WebUtil;
 
-@ParentPackage("category-package")
+@ParentPackage("default")
 @Namespace("/category")
 @ResultPath("/")
 public class CategoryAction extends ActionSupport implements IAction {

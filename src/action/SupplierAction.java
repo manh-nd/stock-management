@@ -20,7 +20,7 @@ import dao.impl.SupplierDaoImpl;
 import model.Supplier;
 import util.WebUtil;
 
-@ParentPackage("supplier-package")
+@ParentPackage("default")
 @Namespace("/supplier")
 @ResultPath("/")
 public class SupplierAction extends ActionSupport implements IAction {

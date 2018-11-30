@@ -41,5 +41,7 @@ public interface GoodsService {
 	Stock findByStockId(Integer id);
 
 	Inventory findInventoryByStockIdAndGoodsId(Integer stockid, Integer goodsId);
+	
+	Inventory findInventoryByStockIdAndGoodsCode(Integer stockId, String goodsCode);
 
 }

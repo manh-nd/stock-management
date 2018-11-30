@@ -97,4 +97,9 @@ public class GoodsServiceImpl implements GoodsService {
 		return inventoryDao.findInventoryByStockIdAndGoodsId(stockId, goodsId);
 	}
 
+	@Override
+	public Inventory findInventoryByStockIdAndGoodsCode(Integer stockId, String goodsCode) {
+		return inventoryDao.findInventoryByStockIdAndGoodsCode(stockId, goodsCode);
+	}
+
 }

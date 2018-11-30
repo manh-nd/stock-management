@@ -13,7 +13,7 @@ import dao.AccountDao;
 import dao.impl.AccountDaoImpl;
 import util.WebUtil;
 
-@ParentPackage("webapp-package")
+@ParentPackage("default")
 public class HomeAction extends ActionSupport {
 
 	private static final long serialVersionUID = 4863847536708834980L;

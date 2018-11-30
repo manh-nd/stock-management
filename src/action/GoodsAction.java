@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -46,7 +44,7 @@ import util.WebUtil;
  * @author Manh Nguyen
  *
  */
-@ParentPackage("goods-package")
+@ParentPackage("default")
 @Namespace("/goods")
 @ResultPath("/")
 public class GoodsAction extends ActionSupport implements IAction {
@@ -63,8 +61,6 @@ public class GoodsAction extends ActionSupport implements IAction {
 	private Stock stockBean = new Stock();
 	private Inventory inventoryBean = new Inventory();
 	private InputStream inputStream;
-
-	Goods goodsExists = new Goods();
 
 	@Action(value = "list", results = { @Result(name = SUCCESS, location = Page.GOODS_LIST_PAGE) })
 	public String list() {
@@ -124,13 +120,18 @@ public class GoodsAction extends ActionSupport implements IAction {
 		return SUCCESS;
 	}
 
-	@Action(value = "checkExistsGoodsCode", results = @Result(name = SUCCESS, type = "json"))
-	public String findGoodsCode() {
-		String code = WebUtil.getHttpServletRequest().getParameter("goodsCode");
-		goodsExists = goodsService.findByGoodsCode(code);
-		if (goodsExists != null) {
-			
-		}
+	@Action(value = "existsGoodsInStock", results = @Result(name = SUCCESS, type = "json"))
+	public String existsGoodsInStock() {
+		String goodsCode = WebUtil.getHttpServletRequest().getParameter("goodsCode");
+		Integer stockId = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("stockId"));
+		inventoryBean = goodsService.findInventoryByStockIdAndGoodsCode(stockId, goodsCode);
+		return SUCCESS;
+	}
+
+	@Action(value = "existsGoodsCode", results = @Result(name = SUCCESS, type = "json"))
+	public String existsGoodsCode() {
+		String goodsCode = WebUtil.getHttpServletRequest().getParameter("goodsCode");
+		goodsBean = goodsService.findByGoodsCode(goodsCode);
 		return SUCCESS;
 	}
 
@@ -171,7 +172,6 @@ public class GoodsAction extends ActionSupport implements IAction {
 		return SUCCESS;
 	}
 
-	@JSON(serialize = false)
 	public Goods getGoodsBean() {
 		return goodsBean;
 	}
@@ -214,7 +214,6 @@ public class GoodsAction extends ActionSupport implements IAction {
 		this.stockBean = stockBean;
 	}
 
-	@JSON(serialize = false)
 	public Inventory getInventoryBean() {
 		return inventoryBean;
 	}
@@ -233,22 +232,6 @@ public class GoodsAction extends ActionSupport implements IAction {
 	}
 
 	@JSON(serialize = false)
-	public Date getMinValue() {
-		return new Date();
-	}
-
-	@JSON(serialize = false)
-	public Date getMaxValue() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(2020, 11, 30);
-		return calendar.getTime();
-	}
-
-	public Goods getGoodsExists() {
-		return goodsExists;
-	}
-
-	@JSON(serialize = false)
 	public Map<Boolean, String> getActives() {
 		HashMap<Boolean, String> actives = new HashMap<>();
 		actives.put(true, "Hoạt động");
@@ -256,15 +239,17 @@ public class GoodsAction extends ActionSupport implements IAction {
 		return actives;
 	}
 
+	@JSON(serialize = false)
+	public Boolean getDefaultActiveValue() {
+		if (goodsBean.getActive() == null) {
+			goodsBean.setActive(true);
+		}
+		return goodsBean.getActive();
+	}
+
 	@Override
 	public void validate() {
 		System.out.println("Validate Goods....");
-		if(goodsBean.getExpiration().before(new Date())) {
-			addFieldError("goodsBean.expiration", "Hạn sử dụng phải trước ngày hôm nay!");
-		}
-		if(goodsBean.getImportPrice() > goodsBean.getExportPrice()) {
-			addFieldError("goodsBean.importPrice", "Giá nhập phải nhỏ hơn giá bán!");
-		}
 	}
 
 }

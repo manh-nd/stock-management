@@ -36,7 +36,7 @@
 			<param name="minLength">6</param>
 			<param name="maxLength">64</param>
 			<param name="trim">true</param>
-			<message key="errors.goodsBean.name" />
+			<message>Tên hàng hóa phải từ 6 - 64 ký tự!</message>
 		</field-validator>
 	</field>
 	<field name="goodsBean.exportPrice">
@@ -48,6 +48,10 @@
 			<param name="max">1000000000</param>
 			<message>Giá nhập phải từ 0 - 1.000.000.000</message>
 		</field-validator>
+		<field-validator type="fieldexpression">
+			<param name="expression"><![CDATA[goodsBean.importPrice < goodsBean.exportPrice]]></param>
+			<message>Giá bán phải lớn hơn giá nhập.</message>
+		</field-validator>
 	</field>
 	<field name="goodsBean.importPrice">
 		<field-validator type="required">
@@ -56,26 +60,27 @@
 		<field-validator type="int">
 			<param name="min">0</param>
 			<param name="max">1000000000</param>
-			<message>Giá bán phải từ 0 - 1.000.000.000</message>
+			<message>Giá nhập phải từ 0 - 1.000.000.000</message>
+		</field-validator>
+		<field-validator type="fieldexpression">
+			<param name="expression"><![CDATA[goodsBean.importPrice < goodsBean.exportPrice]]></param>
+			<message>Giá nhập không được lớn hơn giá bán.</message>
 		</field-validator>
 	</field>
 	<field name="goodsBean.unit">
+		<field-validator type="requiredstring">
+			<message key="errors.goodsBean.unit" />
+		</field-validator>
 		<field-validator type="stringlength">
 			<param name="minLength">3</param>
 			<param name="maxLength">16</param>
 			<param name="trim">true</param>
-			<message key="errors.goodsBean.unit" />
+			<message>Đơn vị tính phải từ 3 - 16 ký tự.</message>
 		</field-validator>
 	</field>
 	<field name="goodsBean.expiration">
 		<field-validator type="required">
 			<message>Bạn chưa nhập hạn sử dụng</message>
-		</field-validator>
-		<field-validator type="date">
-			<param name="minExpression">${minValue}</param> <!-- will be evaluated as: Date getMinValue() -->
-			<param name="maxExpression">${maxValue}</param> <!-- will be evaluated as: Date getMaxValue() -->
-			<message>Ngày hết hạn phải trong khoảng từ ${min} đến ${max}
-			</message>
 		</field-validator>
 	</field>
 	<field name="inventoryBean.quantity">

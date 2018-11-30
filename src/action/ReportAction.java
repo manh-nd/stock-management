@@ -17,7 +17,7 @@ import dto.CategoryGoodsReport;
 import dto.ExpirationGoodsReport;
 import dto.SupplierGoodsReport;
 
-@ParentPackage("report-package")
+@ParentPackage("default")
 @Namespace("/report")
 @ResultPath("/")
 public class ReportAction extends ActionSupport {

@@ -21,12 +21,14 @@
 		<div class="row">
 			<div class="col-md-3">
 				<div class="list-group">
+					<s:set var="stockId" value="%{#parameters.stockId}" />
 					<s:iterator value="stockList">
 						<s:url var="stockURL" value="list" namespace="/goods">
 							<s:param name="stockId" value="id" />
 						</s:url>
+						<s:text name="%{#stockId} == %{id} ? 'active' : ''" var="active"/>
 						<s:a href="%{stockURL}"
-							cssClass="list-group-item list-group-item-action">
+							cssClass="list-group-item list-group-item-action %{#active}">
 							<s:property value="name" />
 						</s:a>
 					</s:iterator>

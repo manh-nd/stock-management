@@ -13,7 +13,7 @@ import dao.AccountDao;
 import dao.impl.AccountDaoImpl;
 import model.Account;
 
-@ParentPackage("account-package")
+@ParentPackage("default")
 @Namespace("/account")
 public class AccountAction extends ActionSupport {
 
@@ -41,7 +41,7 @@ public class AccountAction extends ActionSupport {
 				.get(ServletActionContext.HTTP_REQUEST);
 		Account account = (Account) request.getSession().getAttribute("user");
 		account = accountDao.changePassword(account.getId(), newPassword);
-		if(account==null) {
+		if (account == null) {
 			addActionMessage("Đổi mật khẩu thất bại!");
 			return INPUT;
 		}
@@ -55,7 +55,7 @@ public class AccountAction extends ActionSupport {
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
 				.get(ServletActionContext.HTTP_REQUEST);
 		Account account = (Account) request.getSession().getAttribute("user");
-		if(!currentPassword.equals(account.getPassword()))
+		if (!currentPassword.equals(account.getPassword()))
 			addFieldError("currentPassword", "Mật khẩu hiện tại không đúng!");
 	}
 

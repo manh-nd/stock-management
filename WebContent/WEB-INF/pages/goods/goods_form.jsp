@@ -20,16 +20,21 @@
 </head>
 <body>
 	<jsp:include page="../fragment/navbar.jsp" />
+
 	<div class="container pt-5 pb-5">
+
+		<h3 id="stockName">
+			<s:property value="stockBean.name" />
+		</h3>
+		<hr>
+
 		<s:form action="save" namespace="/goods">
 			<s:hidden id="goodsId" name="goodsBean.id" />
 			<s:hidden id="stockId" name="stockBean.id" />
 			<s:hidden id="inventoryId" name="inventoryBean.id" />
-			<h3>
-				<s:property value="stockBean.name" />
-			</h3>
-			<hr>
-
+			
+			<div style="color: red" id="goodsMessage"></div>
+			
 			<div class="form-row">
 				<div class="form-group col-md-2">
 					<label>Mã hàng hóa</label>
@@ -39,25 +44,28 @@
 				</div>
 				<div class="form-group col-md-4">
 					<label>Phân loại</label>
-					<s:select id="categoryId" name="goodsBean.category.id" list="categoryList"
-						listKey="id" listValue="name" value="goodsBean.category.id"
-						headerKey="" headerValue="Chọn phân loại"
+					<s:select id="categoryId" name="goodsBean.category.id"
+						list="categoryList" listKey="id" listValue="name"
+						value="goodsBean.category.id" headerKey=""
+						headerValue="Chọn phân loại"
 						cssClass="form-control form-control-sm" />
 					<s:fielderror fieldName="goodsBean.category.id" />
 				</div>
 				<div class="form-group col-md-3">
 					<label>Hãng sản xuất</label>
-					<s:select id="producerId" name="goodsBean.producer.id" list="producerList"
-						listKey="id" listValue="name" value="goodsBean.producer.id"
-						headerKey="" headerValue="Chọn hãng sản xuất"
+					<s:select id="producerId" name="goodsBean.producer.id"
+						list="producerList" listKey="id" listValue="name"
+						value="goodsBean.producer.id" headerKey=""
+						headerValue="Chọn hãng sản xuất"
 						cssClass="form-control form-control-sm" />
 					<s:fielderror fieldName="goodsBean.producer.id" />
 				</div>
 				<div class="form-group col-md-3">
 					<label>Nhà cung cấp</label>
-					<s:select id="supplierId" name="goodsBean.supplier.id" list="supplierList"
-						listKey="id" listValue="name" value="goodsBean.supplier.id"
-						headerKey="" headerValue="Chọn nhà cung cấp"
+					<s:select id="supplierId" name="goodsBean.supplier.id"
+						list="supplierList" listKey="id" listValue="name"
+						value="goodsBean.supplier.id" headerKey=""
+						headerValue="Chọn nhà cung cấp"
 						cssClass="form-control form-control-sm" />
 					<s:fielderror fieldName="goodsBean.supplier.id" />
 				</div>
@@ -126,13 +134,13 @@
 
 			<div class="form-group">
 				<s:checkbox id="goodsNewBrand" name="goodsBean.newBrand" />
-				<label for="newBrand">Nhãn hàng mới?</label>
+				<label for="goodsNewBrand">Nhãn hàng mới?</label>
 			</div>
 
 			<div class="form-group">
 				<label>Trạng thái</label>
 				<s:radio id="goodsActive" list="actives" name="goodsBean.active"
-					value="goodsBean.active" />
+					value="defaultActiveValue" />
 			</div>
 
 			<s:submit value="Lưu" cssClass="btn btn-primary" />
@@ -140,34 +148,8 @@
 				lại</button>
 		</s:form>
 	</div>
-	
+
 	<jsp:include page="../fragment/js.jsp" />
-	<script>
-		$(document).ready(function() {
-			$("#backBtn").click(function(e) {
-				window.history.back()
-			});
-			$("#goodsCodeField").blur(function(e){
-				var goodsCode = $(this).val();
-				var stockId = $("#stockId").val();
-				$.get("/stock-management/goods/checkExistsGoodsCode?goodsCode=" + goodsCode + "&stockId=" + stockId, function(data){
-					var goods = data.goodsExists;
-					if(goods!=null){
-						$("#goodsId").val(goods.id);
-						$("#categoryId").val(goods.category.id);
-						$("#producerId").val(goods.producer.id);
-						$("#supplierId").val(goods.supplier.id);
-						$("#goodsName").val(goods.name);
-						$("#goodsFeature").val(goods.feature);
-						$("#goodsUnit").val(goods.unit);
-						$("#goodsExpiration").val(goods.expiration);
-						$("#goodsImportPrice").val(goods.importPrice);
-						$("#goodsExportPrice").val(goods.exportPrice);
-						$("#goodsLotNumber").val(goods.lotNumber);
-					}
-				});
-			});
-		});
-	</script>
+	<script src="<s:url value="/js/goods.js"/>"></script>
 </body>
 </html>

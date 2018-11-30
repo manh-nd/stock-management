@@ -20,7 +20,7 @@ import dao.impl.StockDaoImpl;
 import model.Stock;
 import util.WebUtil;
 
-@ParentPackage("stock-package")
+@ParentPackage("default")
 @Namespace("/stock")
 @ResultPath("/")
 public class StockAction extends ActionSupport implements IAction {

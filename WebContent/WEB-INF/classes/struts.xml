@@ -7,19 +7,14 @@
 	<constant name="struts.ui.theme" value="simple" />
 	<constant name="struts.custom.i18n.resources"
 		value="application" />
+	<constant name="struts.patternMatcher" value="namedVariable" />
 
 	<!-- default package -->
-	<package name="webapp-package" extends="hibernate-default"
-		namespace="/">
-		<result-types>
-			<result-type name="json"
-				class="org.apache.struts2.json.JSONResult" />
-		</result-types>
+	<package name="default"
+		extends="hibernate-default, json-default" namespace="/">
 		<interceptors>
 			<interceptor name="authentication"
 				class="interceptor.LoginInterceptor" />
-			<interceptor name="json"
-				class="org.apache.struts2.json.JSONInterceptor" />
 			<interceptor-stack name="securityStack">
 				<interceptor-ref name="authentication" />
 				<interceptor-ref name="json" />
@@ -46,41 +41,6 @@
 			<result name="input">/WEB-INF/pages/auth/login.jsp</result>
 		</action>
 
-	</package>
-
-	<!-- stock package -->
-	<package name="stock-package" extends="webapp-package"
-		namespace="/stock">
-	</package>
-
-	<!-- producer package -->
-	<package name="producer-package" extends="webapp-package"
-		namespace="/producer">
-	</package>
-
-	<!-- goods package -->
-	<package name="goods-package" extends="webapp-package"
-		namespace="/goods">
-	</package>
-
-	<!-- supplier package -->
-	<package name="supplier-package" extends="webapp-package"
-		namespace="/supplier">
-	</package>
-
-	<!-- category package -->
-	<package name="category-package" extends="webapp-package"
-		namespace="/category">
-	</package>
-
-	<!-- report package -->
-	<package name="report-package" extends="webapp-package"
-		namespace="/report">
-	</package>
-
-	<!-- account package -->
-	<package name="account-package" extends="webapp-package"
-		namespace="/account">
 		<action name="logout" class="action.AccountAction"
 			method="logout">
 			<result name="success" type="redirect">/</result>
@@ -97,6 +57,9 @@
 			<result name="input">/WEB-INF/pages/auth/password_form.jsp</result>
 			<result name="success" type="redirect">/</result>
 		</action>
+
 	</package>
+
+
 
 </struts>
