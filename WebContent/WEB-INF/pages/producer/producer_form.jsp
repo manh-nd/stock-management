@@ -19,28 +19,31 @@
 	<jsp:include page="../fragment/navbar.jsp" />
 	<div class="container pt-5 pb-5">
 		<s:form action="save" namespace="/producer">
-			<s:hidden name="producerBean.id" />
+			<s:hidden id="proId" name="producerBean.id" />
 
 			<div class="form-group">
 				<label>Mã Nhà sản xuất</label>
-				<s:textfield name="producerBean.code" cssClass="form-control" />
+				<s:textfield id="proCode" name="producerBean.code" cssClass="form-control" />
 				<s:fielderror fieldName="producerBean.code" />
 			</div>
 
 			<div class="form-group">
 				<label>Tên Nhà sản xuất</label>
-				<s:textfield name="producerBean.name" cssClass="form-control" />
+				<s:textfield id="proName" name="producerBean.name" cssClass="form-control" />
 				<s:fielderror fieldName="producerBean.name" />
 			</div>
 			<div class="form-group">
 				<label>Trạng thái</label>
-				<s:radio list="actives" name="producerBean.active" value="producerBean.active"/>
+				<s:radio id="proActive" list="actives" name="producerBean.active" value="producerBean.active"/>
 			</div>
 			<div class="form-group">
 				<s:submit value="Lưu" cssClass="btn btn-success" />
+				<button id="backBtn" type="button" class="btn btn-success">Quay
+				lại</button>
 			</div>
 		</s:form>
 	</div>
 	<jsp:include page="../fragment/js.jsp"></jsp:include>
+	<script src="<s:url value="/js/producer.js"/>"></script>
 </body>
 </html>

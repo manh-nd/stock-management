@@ -34,5 +34,19 @@ public class ProducerDaoImpl extends BasicCrudImplDao<Producer, Integer> impleme
 			return false;
 		}
 	}
-	
+
+	@Override
+	public boolean existsGoods(Integer producerId) {
+		try {
+			Long count = (Long) session.createQuery("SELECT count(g) FROM Goods g WHERE g.producer.id = :producerId")
+					.setParameter("producerId", producerId).uniqueResult();
+			if (count > 0) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }
