@@ -20,4 +20,14 @@ public class StockDaoImpl extends BasicCrudImplDao<Stock, Integer> implements St
 		}
 	}
 
+	@Override
+	public Stock findByCode(String code) {
+		return null;
+	}
+
+	@Override
+	public Stock findByName(String name) {
+		return null;
+	}
+
 }

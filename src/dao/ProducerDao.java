@@ -1,6 +1,7 @@
 package dao;
 
 import model.Producer;
+import model.Supplier;
 
 /**
  * Giao diện ProducerDao thực hiện các nghiệp vụ liên quan đến đối tượng
@@ -9,15 +10,13 @@ import model.Producer;
  * @author maudd
  *
  */
-public interface ProducerDao extends BasicCrudDao<Producer, Integer>, LogicDao<Producer> {
+public interface ProducerDao extends BasicCrudDao<Producer, Integer>, LogicDao<Producer>, GenericFindBy<Producer> {
 
 	/**
 	 * Tìm nhà cung cấp <code>Producer</code> bằng mã <code>code</code>
 	 * @param code - Mã nhà cung cấp
 	 * @return trả về 1 nhà cung cấp <code>Producer</code> có mã là <code>code</code>
 	 */
-	Producer findByCode(String code);
-	
 	boolean existsGoods(Integer producerId);
 	
 }

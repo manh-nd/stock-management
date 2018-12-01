@@ -34,7 +34,7 @@
 			</div>
 			<div class="form-group">
 				<label>Trạng thái</label>
-				<s:radio id="proActive" list="actives" name="producerBean.active" value="producerBean.active"/>
+				<s:radio list="actives" name="producerBean.active" value="defaultActiveValue"/>
 			</div>
 			<div class="form-group">
 				<s:submit value="Lưu" cssClass="btn btn-success" />

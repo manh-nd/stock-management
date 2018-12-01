@@ -10,6 +10,7 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
+import org.apache.struts2.json.annotations.JSON;
 import org.hibernate.validator.Valid;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -28,6 +29,7 @@ public class CategoryAction extends ActionSupport implements IAction {
 	private static final long serialVersionUID = 8493665757717540594L;
 
 	private CategoryDao categoryDao = new CategoryDaoImpl();
+	private Boolean existsGoods;
 
 	@Valid
 	private Category categoryBean = new Category();
@@ -62,10 +64,39 @@ public class CategoryAction extends ActionSupport implements IAction {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
 			@Result(name = INPUT, location = Page.CATEGORY_FORM_PAGE) })
 	public String save() {
+		if(categoryDao.findByName(categoryBean.getName()) != null) {
+			addFieldError("categoryBean.name", "Tên chủng loại đã tồn tại. Vui lòng kiểm tra lại!");
+			return INPUT;
+		}
 		categoryDao.saveOrUpdate(categoryBean);
 		return SUCCESS;
 	}
 
+	@Action(value = "existsCategoryCode", results = @Result(name = SUCCESS, type = "json"))
+	public String existsGoodsCode() {
+		String categoryCode = WebUtil.getHttpServletRequest().getParameter("categoryCode");
+		categoryBean = categoryDao.findByCode(categoryCode);
+		return SUCCESS;
+	}
+
+	@Action(value = "existsCategoryId", results = @Result(name = SUCCESS, type = "json"))
+	public String existsGoodsId() {
+		Integer categoryId = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("categoryId"));
+		existsGoods = categoryDao.existsGoods(categoryId);
+		return SUCCESS;
+	}
+	
+	@JSON(serialize = false)
+	public Boolean getDefaultActiveValue() {
+		if (categoryBean.getActive() == null) {
+			categoryBean.setActive(true);
+		}
+		return categoryBean.getActive();
+	}
+	
+	public Boolean getExistsGoods() {
+		return existsGoods;
+	}
 	public Category getCategoryBean() {
 		return categoryBean;
 	}

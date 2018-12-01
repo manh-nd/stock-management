@@ -10,6 +10,7 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
+import org.apache.struts2.json.annotations.JSON;
 import org.hibernate.validator.Valid;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -28,6 +29,7 @@ public class SupplierAction extends ActionSupport implements IAction {
 	private static final long serialVersionUID = 8493665757717540594L;
 
 	private SupplierDao supplierDao = new SupplierDaoImpl();
+	private Boolean existsGoods;
 
 	@Valid
 	private Supplier supplierBean = new Supplier();
@@ -61,11 +63,41 @@ public class SupplierAction extends ActionSupport implements IAction {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
 			@Result(name = INPUT, location = Page.SUPPLIER_FORM_PAGE) })
 	public String save() {
-		System.out.println(supplierBean);
+		if(supplierDao.findByName(supplierBean.getName()) != null) {
+			addFieldError("supplierBean.name", "Tên nhà cung cấp đã tồn tại. Vui lòng kiểm tra lại!");
+			return INPUT;
+		}
 		supplierDao.saveOrUpdate(supplierBean);
 		return SUCCESS;
 	}
 
+	@Action(value = "existsSupplierCode", results = @Result(name = SUCCESS, type = "json"))
+	public String existsGoodsCode() {
+		String supplierCode = WebUtil.getHttpServletRequest().getParameter("supplierCode");
+		supplierBean = supplierDao.findByCode(supplierCode);
+		return SUCCESS;
+	}
+
+	@Action(value = "existsSupplierId", results = @Result(name = SUCCESS, type = "json"))
+	public String existsGoodsId() {
+		Integer supplierId = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("supplierId"));
+		existsGoods = supplierDao.existsGoods(supplierId);
+		return SUCCESS;
+	}
+	
+	@JSON(serialize = false)
+	public Boolean getDefaultActiveValue() {
+		if (supplierBean.getActive() == null) {
+			supplierBean.setActive(true);
+		}
+		return supplierBean.getActive();
+	}
+	
+	public Boolean getExistsGoods() {
+		return existsGoods;
+	}
+	
+	
 	public Supplier getSupplierBean() {
 		return supplierBean;
 	}

@@ -39,7 +39,8 @@
 						<td class="text-center"><s:url action="delete"
 								var="deleteURL" namespace="/category">
 								<s:param name="id" value="id" />
-							</s:url> <s:a href="%{deleteURL}" cssClass="btn btn-sm btn-danger delete">Xóa</s:a>
+							</s:url> <s:a href="%{deleteURL}" cssClass="btn btn-sm btn-danger delete"
+							id="%{id}">Xóa</s:a>
 						</td>
 					</tr>
 				</s:iterator>
@@ -47,16 +48,6 @@
 		</table>
 	</div>
 	<jsp:include page="../fragment/js.jsp" />
-	<script>
-		$(document).ready(function() {
-			$(".delete").click(function(e) {
-				var result = confirm("Bạn có muốn xóa chủng loại này không?");
-				if (result) {
-					return true;
-				}
-				return false;
-			});
-		});
-	</script>
+	<script src="<s:url value="/js/category.js"/>"></script>
 </body>
 </html>

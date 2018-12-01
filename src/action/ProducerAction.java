@@ -10,6 +10,7 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
+import org.apache.struts2.json.annotations.JSON;
 import org.hibernate.validator.Valid;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -58,8 +59,11 @@ public class ProducerAction extends ActionSupport implements IAction {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
 			@Result(name = INPUT, location = Page.PRODUCER_FORM_PAGE) })
 	@Override
-	public String save() {
-		System.out.println("Producer Bean: " + producerBean);
+	public String save() {	
+		if(producerDao.findByName(producerBean.getName()) != null) {
+			addFieldError("producerBean.name", "Tên nhà sản xuất đã tồn tại. Vui lòng kiểm tra lại!");
+			return INPUT;
+		}
 		producerDao.saveOrUpdate(producerBean);
 		return SUCCESS;
 	}
@@ -80,14 +84,22 @@ public class ProducerAction extends ActionSupport implements IAction {
 		producerBean = producerDao.findByCode(proCode);
 		return SUCCESS;
 	}
-
+	
 	@Action(value = "existsProducerId", results = @Result(name = SUCCESS, type = "json"))
 	public String existsGoodsId() {
 		Integer producerId = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("producerId"));
 		existsGoods = producerDao.existsGoods(producerId);
 		return SUCCESS;
 	}
-
+	
+	@JSON(serialize = false)
+	public Boolean getDefaultActiveValue() {
+		if (producerBean.getActive() == null) {
+			producerBean.setActive(true);
+		}
+		return producerBean.getActive();
+	}
+	
 	public Producer getProducerBean() {
 		return producerBean;
 	}

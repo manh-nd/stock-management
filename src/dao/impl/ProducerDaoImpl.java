@@ -21,17 +21,15 @@ public class ProducerDaoImpl extends BasicCrudImplDao<Producer, Integer> impleme
 	}
 
 	@Override
-	public boolean delete(Producer object) {
+	public Producer findByName(String name) {
 		try {
-			int rowAffected = session.createQuery("UPDATE Producer p SET p.active = false WHERE p.id = :id")
-					.setParameter("id", object.getId()).executeUpdate();
-			if (rowAffected > 0)
-				return true;
-			else
-				return false;
+			Query query = session.createQuery("SELECT p FROM Producer p WHERE p.name = :name");
+			query.setParameter("name", name);
+			Producer object = (Producer) query.uniqueResult();
+			return object;
 		} catch (Exception e) {
-			transaction.rollback();
-			return false;
+			e.printStackTrace();
+			return null;
 		}
 	}
 
@@ -47,6 +45,21 @@ public class ProducerDaoImpl extends BasicCrudImplDao<Producer, Integer> impleme
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public boolean delete(Producer object) {
+		try {
+			int rowAffected = session.createQuery("UPDATE Producer p SET p.active = false WHERE p.id = :id")
+					.setParameter("id", object.getId()).executeUpdate();
+			if (rowAffected > 0)
+				return true;
+			else
+				return false;
+		} catch (Exception e) {
+			transaction.rollback();
+			return false;
+		}
 	}
 
 }
