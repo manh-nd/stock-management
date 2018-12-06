@@ -1,86 +1,107 @@
 package action;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.*;
+import org.hibernate.validator.Valid;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import constant.Page;
 import dao.AccountDao;
 import dao.impl.AccountDaoImpl;
 import model.Account;
+import util.WebUtil;
 
 @ParentPackage("default")
 @Namespace("/account")
-public class AccountAction extends ActionSupport {
+@ResultPath("/")
+public class AccountAction extends ActionSupport implements IAction {
 
-	private static final long serialVersionUID = 1L;
 
+	private static final long serialVersionUID = 5308858196899901212L;
 	private AccountDao accountDao = new AccountDaoImpl();
+	
+	@Valid
+	private Account account = new Account();
 
-	private String currentPassword;
-	private String newPassword;
-	private String verifyPassword;
-
-	public String logout() {
-		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
-				.get(ServletActionContext.HTTP_REQUEST);
-		request.getSession().invalidate();
+	@Action(value = "list", results = @Result(name = SUCCESS, location = Page.ACCOUNT_LIST))
+	public String list() {
+		System.out.println("account list");
 		return SUCCESS;
 	}
 
-	public String goPasswordForm() {
+	@Action(value = "add", results = @Result(name = SUCCESS, location = Page.ACCOUNT_FORM))
+	public String add() {
 		return SUCCESS;
 	}
 
-	public String changePassword() {
-		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
-				.get(ServletActionContext.HTTP_REQUEST);
-		Account account = (Account) request.getSession().getAttribute("user");
-		account = accountDao.changePassword(account.getId(), newPassword);
-		if (account == null) {
-			addActionMessage("Đổi mật khẩu thất bại!");
-			return INPUT;
-		}
-		request.getSession().setAttribute("user", account);
+	@Action(value = "edit", results = @Result(name = SUCCESS, location = Page.ACCOUNT_FORM))
+	public String edit() {
+		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
+		account = accountDao.findById(id);
 		return SUCCESS;
 	}
 
+	@Action(value = "delete", results = @Result(name = SUCCESS, location = "list", type = "redirect"))
+	public String delete() {
+		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
+		account = accountDao.findById(id);
+		accountDao.delete(account);
+		return SUCCESS;
+	}
+
+	
+	@Action(value = "save", interceptorRefs = @InterceptorRef("defaultStackHibernateStrutsValidation"), results = {
+			@Result(name = SUCCESS, location = "list", type = "redirect"),
+			@Result(name = INPUT, location = Page.ACCOUNT_FORM) })
+	public String save() {
+		System.out.println(account);
+		accountDao.saveOrUpdate(account);
+		System.out.println("insert");
+		return SUCCESS;
+	}
+
+	@Action(value = "block", results = @Result(name = SUCCESS, location = Page.ACCOUNT_BLOCK))
+	public String block() {
+		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
+		account = accountDao.findById(id);
+		return SUCCESS;
+	}
+	
+	@Action(value = "update", interceptorRefs = @InterceptorRef("defaultStackHibernateStrutsValidation"), results = {
+			@Result(name = SUCCESS, location = "list", type = "redirect"),
+			@Result(name = INPUT, location = Page.ACCOUNT_BLOCK) })
+	public String update() {
+		System.out.println(account);
+		accountDao.saveOrUpdate(account);
+		System.out.println("insert");
+		return SUCCESS;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public List<Account> getAccountList() {
+		return accountDao.findAll();
+	}
+	
+	public Map<Boolean, String> getActives() {
+		HashMap<Boolean, String> actives = new HashMap<>();
+		actives.put(true, "Hoạt động");
+		actives.put(false, "Khóa");
+		return actives;
+	}
 	@Override
 	public void validate() {
-		System.out.println("validation password");
-		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
-				.get(ServletActionContext.HTTP_REQUEST);
-		Account account = (Account) request.getSession().getAttribute("user");
-		if (!currentPassword.equals(account.getPassword()))
-			addFieldError("currentPassword", "Mật khẩu hiện tại không đúng!");
+		System.out.println("Validate Account...");
+		
 	}
-
-	public String getCurrentPassword() {
-		return currentPassword;
-	}
-
-	public void setCurrentPassword(String currentPassword) {
-		this.currentPassword = currentPassword;
-	}
-
-	public String getNewPassword() {
-		return newPassword;
-	}
-
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
-
-	public String getVerifyPassword() {
-		return verifyPassword;
-	}
-
-	public void setVerifyPassword(String verifyPassword) {
-		this.verifyPassword = verifyPassword;
-	}
-
 }

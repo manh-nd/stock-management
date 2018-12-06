@@ -23,8 +23,14 @@ public class Account implements Serializable {
 	@Column(name="ACCOUNT_USERNAME", nullable=false, length=16)
 	private String username;
 	
-	@Column(name="ACCOUNT_ACTIVE", nullable=false)
+	@Column(name="ACCOUNT_ACTIVE")
 	private Boolean active;
+	
+	@Column(name="ACCOUNT_ROLES", nullable=false, length=10)
+	private String role;
+	
+	@Column(name="ACCOUNT_REPORT", nullable=true, length=255)
+	private String report;
 
 	public Account() {
 	}
@@ -68,11 +74,31 @@ public class Account implements Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+	
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
+	
+
+	public String getReport() {
+		return report;
+	}
+
+	public void setReport(String report) {
+		this.report = report;
+	}
 
 	@Override
 	public String toString() {
-		return String.format("Account (id=%s, fullname=%s, password=%s, username=%s, active=%s)", id, fullname,
-				password, username, active);
+		return String.format("Account (id=%s, fullname=%s, password=%s, username=%s, active=%s,roles=%s)", id, fullname,
+				password, username, active,role);
 	}
 
 }

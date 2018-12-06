@@ -2,23 +2,29 @@
 <!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN" 
 "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
 <validators>
-	<field name="currentPassword">
+	<field name="account.fullname">
 		<field-validator type="requiredstring">
-			<message>Bạn chưa nhập mật khẩu hiện tại</message>
+			<message key="errors.account.fullname" />
 		</field-validator>
 	</field>
-	<field name="newPassword">
+	<field name="account.username">
 		<field-validator type="requiredstring">
-			<message>Bạn chưa nhập mật khẩu mới</message>
+			<message key="errors.account.username" />
 		</field-validator>
 	</field>
-	<field name="verifyPassword">
+	<field name="account.password">
 		<field-validator type="requiredstring">
-			<message>Bạn chưa nhập mật khẩu xác thực</message>
+			<message key="errors.account.password" />
 		</field-validator>
-		<field-validator type="fieldexpression">
-			<param name="expression"><![CDATA[newPassword == verifyPassword]]></param>
-			<message>Mật khẩu mới và mật khẩu xác thực phải trùng nhau</message>
+	</field>
+	<field name="account.role">
+		<field-validator type="requiredstring">
+			<message key="errors.account.role" />
+		</field-validator>
+	</field>
+	<field name="account.report">
+		<field-validator type="requiredstring">
+			<message key="errors.account.report" />
 		</field-validator>
 	</field>
 </validators>

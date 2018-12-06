@@ -10,6 +10,8 @@
 <body>
 	<jsp:include page="../fragment/navbar.jsp" />
 	<div class="container pt-5 pb-5">
+	<s:if
+			test="%{#session.user.role == 'admin' || #session.user.role == 'Quản lý kho'}">
 		<h3>Danh sách kho hàng</h3>
 		<hr>
 
@@ -45,6 +47,11 @@
 				</s:iterator>
 			</tbody>
 		</table>
+				</s:if>
+		<s:else>
+	
+		<h3>Bạn không có quyền truy cập</h3>
+	</s:else>
 	</div>
 	<jsp:include page="../fragment/js.jsp" />
 	<script>

@@ -1,5 +1,8 @@
 package dao.impl;
 
+
+import java.util.List;
+
 import dao.AccountDao;
 import model.Account;
 
@@ -23,6 +26,18 @@ public class AccountDaoImpl extends BasicCrudImplDao<Account, Integer> implement
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Account> getlistRoles() {
+		List<Account> list = null;
+		try {
+			list = session.createQuery("from Account").list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }

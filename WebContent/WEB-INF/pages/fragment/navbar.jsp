@@ -8,6 +8,8 @@
 <s:url action="list" namespace="/producer" var="producerListURL" />
 <s:url action="list" namespace="/goods" var="goodsListURL" />
 <s:url action="list" namespace="/category" var="categoryListURL" />
+<s:url action="list" namespace="/account" var="accountListURL" />
+
 
 <s:url action="category-report" namespace="/report"
 	var="categoryReportURL" />
@@ -54,12 +56,35 @@
 					<s:a cssClass="dropdown-item" href="%{categoryReportURL}"> Chủng loại </s:a>
 					<s:a cssClass="dropdown-item" href="%{supplierReportURL}"> Nhà cung cấp </s:a>
 					<s:a cssClass="dropdown-item" href="%{expirationGoodsReportURL}"> Hàng sắp hết hạn </s:a>
-				</div></li>
+				</div>
+			</li>
+			<li class="nav-item">
+				<s:a href="%{accountListURL}"
+					cssClass="nav-link">Tài Khoản</s:a>
+			</li>
+			
 			<s:if test="%{#session.user != null}">
-				<li class="nav-item"><s:a cssClass="nav-link"
-						href="%{changePasswordURL}">Đổi mật khẩu</s:a></li>
-				<li class="nav-item"><s:a cssClass="nav-link"
-						href="%{logoutURL}">Đăng xuất</s:a></li>
+			<%-- 	<li class="nav-item dropdown"><s:a cssClass="nav-link">Welcome: <s:property
+							value="#session.user.fullname" />
+					</s:a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					<s:a cssClass="dropdown-item"> Vai trò:  <s:property value="#session.user.role" /></s:a>
+					<s:a cssClass="nav-link" href="%{changePasswordURL}">Đổi mật khẩu</s:a>
+					<s:a cssClass="dropdown-item" href="%{logoutURL}"> Đăng xuất </s:a>
+					</div>
+					</li> --%>
+					
+					<div class="dropdown dropright " style="position:relative;left:0 " >
+					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<font color="blue">Xin Chào:</font> <font color="red"><s:property value="#session.user.fullname" /></font>
+					  </button>
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					   <s:a cssClass="dropdown-item disabled"> Vai trò:  <s:property value="#session.user.role" /></s:a>
+					    <s:a cssClass="dropdown-item" href="%{changePasswordURL}">Đổi mật khẩu</s:a>
+					   <s:a cssClass="dropdown-item" href="%{logoutURL}"> Đăng xuất </s:a>
+					  </div>
+</div>
+
 			</s:if>
 		</ul>
 	</div>

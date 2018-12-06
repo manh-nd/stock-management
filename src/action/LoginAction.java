@@ -28,9 +28,13 @@ public class LoginAction extends ActionSupport {
 			addActionMessage("Sai tài khoản hoặc mật khẩu");
 			return INPUT;
 		}
+		
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
 				.get(ServletActionContext.HTTP_REQUEST);
 		request.getSession().setAttribute("user", account);
+		
+		System.out.println(account);
+		System.out.println(account.getFullname());
 		return SUCCESS;
 	}
 

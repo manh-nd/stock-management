@@ -16,7 +16,7 @@
 			<interceptor name="authentication"
 				class="interceptor.LoginInterceptor" />
 			<interceptor-stack name="securityStack">
-				<interceptor-ref name="authentication" />
+				<interceptor-ref name="authentication"/>
 				<interceptor-ref name="json" />
 				<interceptor-ref name="hibernateSessionInterceptor" />
 			</interceptor-stack>
@@ -27,6 +27,7 @@
 		<global-results>
 			<result name="login">/WEB-INF/pages/auth/login.jsp</result>
 			<result name="error">/WEB-INF/pages/java_error.jsp</result>
+			<result name="active">/WEB-INF/pages/java_active.jsp</result>
 		</global-results>
 
 		<global-exception-mappings>
@@ -41,15 +42,18 @@
 			<result name="input">/WEB-INF/pages/auth/login.jsp</result>
 		</action>
 
-		<action name="logout" class="action.AccountAction"
+		<action name="logout" class="action.ChangePassAction"
 			method="logout">
 			<result name="success" type="redirect">/</result>
 		</action>
-		<action name="change-password" class="action.AccountAction"
+		
+
+
+		<action name="change-password" class="action.ChangePassAction"
 			method="goPasswordForm">
 			<result name="success">/WEB-INF/pages/auth/password_form.jsp</result>
 		</action>
-		<action name="change" class="action.AccountAction"
+		<action name="change" class="action.ChangePassAction"
 			method="changePassword">
 			<interceptor-ref name="securityStack" />
 			<interceptor-ref
@@ -59,7 +63,4 @@
 		</action>
 
 	</package>
-
-
-
 </struts>

@@ -39,4 +39,7 @@ public interface Page {
 	// Dương
 	
 	// Văn 
+	String ACCOUNT_LIST = "/WEB-INF/pages/account/account_list.jsp";
+	String ACCOUNT_FORM = "/WEB-INF/pages/account/account_form.jsp";
+	String ACCOUNT_BLOCK = "/WEB-INF/pages/account/block_form.jsp";
 }

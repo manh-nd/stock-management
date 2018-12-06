@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div class="container pt-5 pb-5">
+	<s:if
+			test="%{#session.user.role == 'admin' }">
 	<h3>Danh sách hàng hóa sẽ hết hạn trong vòng 30 ngày tới</h3>
 	<br>
 	<table class="table table-sm">
@@ -30,4 +32,10 @@
 			</tr>
 		</s:iterator>
 	</table>
+	</s:if>
+		<s:else>
+	
+		<h3>Bạn không có quyền truy cập</h3>
+	</s:else>
+	
 </div>
