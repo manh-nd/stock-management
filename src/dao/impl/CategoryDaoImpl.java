@@ -64,12 +64,20 @@ public class CategoryDaoImpl extends BasicCrudImplDao<Category, Integer> impleme
 
 	@Override
 	public String findNameById(Integer id) {
-		return null;
+		return (String) session.createQuery("SELECT c.name FROM Category c WHERE c.id = :id").setParameter("id", id)
+				.uniqueResult();
 	}
 
 	@Override
 	public boolean isDuplicateAnotherName(String name, Integer id) {
-		// TODO Auto-generated method stub
+		try {
+			Long count = (Long) session.createQuery("SELECT count(c) FROM Category c WHERE c.name = :name AND c.id <> :id")
+					.setParameter("name", name).setParameter("id", id).uniqueResult();
+			if (count > 0)
+				return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 	

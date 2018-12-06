@@ -63,9 +63,22 @@ public class SupplierAction extends ActionSupport implements IAction {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
 			@Result(name = INPUT, location = Page.SUPPLIER_FORM_PAGE) })
 	public String save() {
-		if(supplierDao.findByName(supplierBean.getName()) != null) {
-			addFieldError("supplierBean.name", "Tên nhà cung cấp đã tồn tại. Vui lòng kiểm tra lại!");
-			return INPUT;
+		// add
+		Integer id = supplierBean.getId();
+		if (id == null) {
+			if (supplierDao.findByName(supplierBean.getName()) != null) {
+				addFieldError("supplierBean.name", "Tên nhà sản xuất đã tồn tại. Vui lòng kiểm tra lại!");
+				return INPUT;
+			}
+		} else { // update
+			String formName = supplierBean.getName();
+			String currentName = supplierDao.findNameById(id);
+			if (!formName.equalsIgnoreCase(currentName)) { // Không trùng với tên hiện tại
+				if (supplierDao.isDuplicateAnotherName(formName, id)) {
+					addFieldError("supplierBean.name", "Tên nhà sản xuất đã tồn tại.");
+					return INPUT;
+				}
+			}
 		}
 		supplierDao.saveOrUpdate(supplierBean);
 		return SUCCESS;
@@ -84,7 +97,7 @@ public class SupplierAction extends ActionSupport implements IAction {
 		existsGoods = supplierDao.existsGoods(supplierId);
 		return SUCCESS;
 	}
-	
+
 	@JSON(serialize = false)
 	public Boolean getDefaultActiveValue() {
 		if (supplierBean.getActive() == null) {
@@ -92,12 +105,11 @@ public class SupplierAction extends ActionSupport implements IAction {
 		}
 		return supplierBean.getActive();
 	}
-	
+
 	public Boolean getExistsGoods() {
 		return existsGoods;
 	}
-	
-	
+
 	public Supplier getSupplierBean() {
 		return supplierBean;
 	}

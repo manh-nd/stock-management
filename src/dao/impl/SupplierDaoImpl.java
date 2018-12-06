@@ -64,13 +64,20 @@ public class SupplierDaoImpl extends BasicCrudImplDao<Supplier, Integer> impleme
 
 	@Override
 	public String findNameById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return (String) session.createQuery("SELECT s.name FROM Supplier s WHERE s.id = :id").setParameter("id", id)
+				.uniqueResult();
 	}
 
 	@Override
 	public boolean isDuplicateAnotherName(String name, Integer id) {
-		// TODO Auto-generated method stub
+		try {
+			Long count = (Long) session.createQuery("SELECT count(s) FROM Supplier s WHERE s.name = :name AND s.id <> :id")
+					.setParameter("name", name).setParameter("id", id).uniqueResult();
+			if (count > 0)
+				return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
