@@ -62,4 +62,23 @@ public class ProducerDaoImpl extends BasicCrudImplDao<Producer, Integer> impleme
 		}
 	}
 
+	@Override
+	public String findNameById(Integer id) {
+		return (String) session.createQuery("SELECT p.name FROM Producer p WHERE p.id = :id").setParameter("id", id)
+				.uniqueResult();
+	}
+
+	@Override
+	public boolean isDuplicateAnotherName(String name, Integer id) {
+		try {
+			Long count = (Long) session.createQuery("SELECT count(p) FROM Producer p WHERE p.name = :name AND p.id <> :id")
+					.setParameter("name", name).setParameter("id", id).uniqueResult();
+			if (count > 0)
+				return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

@@ -30,4 +30,16 @@ public class StockDaoImpl extends BasicCrudImplDao<Stock, Integer> implements St
 		return null;
 	}
 
+	@Override
+	public String findNameById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isDuplicateAnotherName(String name, Integer id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

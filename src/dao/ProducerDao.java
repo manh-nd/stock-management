@@ -1,7 +1,6 @@
 package dao;
 
 import model.Producer;
-import model.Supplier;
 
 /**
  * Giao diện ProducerDao thực hiện các nghiệp vụ liên quan đến đối tượng
@@ -18,5 +17,6 @@ public interface ProducerDao extends BasicCrudDao<Producer, Integer>, LogicDao<P
 	 * @return trả về 1 nhà cung cấp <code>Producer</code> có mã là <code>code</code>
 	 */
 	boolean existsGoods(Integer producerId);
+	
 	
 }

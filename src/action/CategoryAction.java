@@ -64,9 +64,13 @@ public class CategoryAction extends ActionSupport implements IAction {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
 			@Result(name = INPUT, location = Page.CATEGORY_FORM_PAGE) })
 	public String save() {
-		if(categoryDao.findByName(categoryBean.getName()) != null) {
-			addFieldError("categoryBean.name", "Tên chủng loại đã tồn tại. Vui lòng kiểm tra lại!");
-			return INPUT;
+		if(categoryDao.findById(categoryBean.getId()) != null) {
+			if(categoryDao.findByName(categoryBean.getName()) != null) {
+				addFieldError("categoryBean.name", "Tên chủng loại đã tồn tại. Vui lòng kiểm tra lại!");
+				return INPUT;
+			}
+		}else {
+			
 		}
 		categoryDao.saveOrUpdate(categoryBean);
 		return SUCCESS;

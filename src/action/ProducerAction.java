@@ -45,7 +45,7 @@ public class ProducerAction extends ActionSupport implements IAction {
 	public String add() {
 		return SUCCESS;
 	}
-	
+
 	@Action(value = "edit", results = { @Result(name = SUCCESS, location = Page.PRODUCER_FORM_PAGE), })
 	@Override
 	public String edit() {
@@ -59,15 +59,28 @@ public class ProducerAction extends ActionSupport implements IAction {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
 			@Result(name = INPUT, location = Page.PRODUCER_FORM_PAGE) })
 	@Override
-	public String save() {	
-		if(producerDao.findByName(producerBean.getName()) != null) {
-			addFieldError("producerBean.name", "Tên nhà sản xuất đã tồn tại. Vui lòng kiểm tra lại!");
-			return INPUT;
+	public String save() {
+		// add
+		Integer id = producerBean.getId();
+		if (id == null) {
+			if (producerDao.findByName(producerBean.getName()) != null) {
+				addFieldError("producerBean.name", "Tên nhà sản xuất đã tồn tại. Vui lòng kiểm tra lại!");
+				return INPUT;
+			}
+		} else { // update
+			String formName = producerBean.getName();
+			String currentName = producerDao.findNameById(id);
+			if (!formName.equalsIgnoreCase(currentName)) { // Không trùng với tên hiện tại
+				if(producerDao.isDuplicateAnotherName(formName, id)) {
+					addFieldError("producerBean.name", "Tên nhà sản xuất đã tồn tại.");
+					return INPUT;
+				}
+			}
 		}
 		producerDao.saveOrUpdate(producerBean);
 		return SUCCESS;
 	}
-	
+
 	@Action(value = "delete", results = { @Result(name = SUCCESS, location = "list", type = "redirect") })
 	@Override
 	public String delete() {
@@ -84,14 +97,14 @@ public class ProducerAction extends ActionSupport implements IAction {
 		producerBean = producerDao.findByCode(proCode);
 		return SUCCESS;
 	}
-	
+
 	@Action(value = "existsProducerId", results = @Result(name = SUCCESS, type = "json"))
 	public String existsGoodsId() {
 		Integer producerId = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("producerId"));
 		existsGoods = producerDao.existsGoods(producerId);
 		return SUCCESS;
 	}
-	
+
 	@JSON(serialize = false)
 	public Boolean getDefaultActiveValue() {
 		if (producerBean.getActive() == null) {
@@ -99,7 +112,7 @@ public class ProducerAction extends ActionSupport implements IAction {
 		}
 		return producerBean.getActive();
 	}
-	
+
 	public Producer getProducerBean() {
 		return producerBean;
 	}

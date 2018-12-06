@@ -62,4 +62,16 @@ public class SupplierDaoImpl extends BasicCrudImplDao<Supplier, Integer> impleme
 		return false;
 	}
 
+	@Override
+	public String findNameById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isDuplicateAnotherName(String name, Integer id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

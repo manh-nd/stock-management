@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -103,7 +104,7 @@ public class GoodsAction extends ActionSupport implements IAction {
 	}
 
 	@Action(value = "save", interceptorRefs = @InterceptorRef("defaultStackHibernateStrutsValidation"), results = {
-			@Result(name = SUCCESS, location = "list", type = "redirect"),
+			@Result(name = SUCCESS, location = "list", type = "redirect", params = { "stockId", "${stockBean.id}" }),
 			@Result(name = INPUT, location = Page.GOODS_FORM_PAGE) })
 	public String save() {
 
@@ -250,6 +251,19 @@ public class GoodsAction extends ActionSupport implements IAction {
 	@Override
 	public void validate() {
 		System.out.println("Validate Goods....");
+		if (goodsBean.getId() == null) {
+			Date expiration = goodsBean.getExpiration();
+			if (expiration != null) {
+				if (expiration.before(new Date())) {
+					addFieldError("goodsBean.expiration", "Hạn sử dụng phải sau ngày hôm nay!");
+				}
+			}
+		}
+		if(goodsBean.getLotNumber()!=null) {
+			if(goodsBean.getLotNumber().length() > 16) {
+				addFieldError("goodsBean.lotNumber", "Độ dài số lô phải nhỏ hơn 17 ký tự!");
+			}
+		}
 	}
 
 }

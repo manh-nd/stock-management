@@ -62,6 +62,16 @@ public class CategoryDaoImpl extends BasicCrudImplDao<Category, Integer> impleme
 		return false;
 	}
 
+	@Override
+	public String findNameById(Integer id) {
+		return null;
+	}
+
+	@Override
+	public boolean isDuplicateAnotherName(String name, Integer id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 
 }
