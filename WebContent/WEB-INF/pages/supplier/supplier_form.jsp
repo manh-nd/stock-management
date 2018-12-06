@@ -21,26 +21,29 @@
 		<h1>Biểu mẫu nhà cung cấp</h1>
 		<hr>
 		<s:form action="save" namespace="/supplier">
-			<s:hidden name="supplierBean.id" />
+			<s:hidden id="supplierId" name="supplierBean.id" />
 			<div class="form-group">
 				<label>Mã nhà cung cấp</label>
-				<s:textfield name="supplierBean.code" cssClass="form-control" />
+				<s:textfield id="supplierCode" name="supplierBean.code" cssClass="form-control" />
 				<s:fielderror fieldName="supplierBean.code"/>
 			</div>
 			<div class="form-group">
 				<label>Tên nhà cung cấp</label>
-				<s:textfield name="supplierBean.name" cssClass="form-control" />
+				<s:textfield id="supplierName" name="supplierBean.name" cssClass="form-control" />
 				<s:fielderror fieldName="supplierBean.name"/>
 			</div>
 			<div class="form-group">
 				<label>Trạng thái</label>
-				<s:radio list="actives" name="supplierBean.active" value="supplierBean.active"/>
+				<s:radio list="actives" name="supplierBean.active" value="defaultActiveValue"/>
 			</div>
 			<div class="form-group">
 				<s:submit value="Lưu" cssClass="btn btn-primary" />
+				<button id="backBtn" type="button" class="btn btn-success">Quay
+				lại</button>
 			</div>
 		</s:form>
 	</div>
 	<jsp:include page="../fragment/js.jsp" />
+	<script src="<s:url value="/js/supplier.js"/>"></script>
 </body>
 </html>

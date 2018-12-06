@@ -10,6 +10,7 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
+import org.apache.struts2.json.annotations.JSON;
 import org.hibernate.validator.Valid;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -31,6 +32,8 @@ public class ProducerAction extends ActionSupport implements IAction {
 	private Producer producerBean = new Producer();
 	private ProducerDao producerDao = new ProducerDaoImpl();
 
+	private Boolean existsGoods;
+
 	@Action(value = "list", results = @Result(name = SUCCESS, location = Page.PRODUCER_LIST_PAGE))
 	@Override
 	public String list() {
@@ -43,16 +46,6 @@ public class ProducerAction extends ActionSupport implements IAction {
 		return SUCCESS;
 	}
 
-	@Action(value = "save", interceptorRefs = @InterceptorRef("defaultStackHibernateStrutsValidation"), results = {
-			@Result(name = SUCCESS, location = "list", type = "redirect"),
-			@Result(name = INPUT, location = Page.PRODUCER_FORM_PAGE) })
-	@Override
-	public String save() {
-		System.out.println("Producer Bean: " + producerBean);
-		producerDao.saveOrUpdate(producerBean);
-		return SUCCESS;
-	}
-
 	@Action(value = "edit", results = { @Result(name = SUCCESS, location = Page.PRODUCER_FORM_PAGE), })
 	@Override
 	public String edit() {
@@ -62,16 +55,65 @@ public class ProducerAction extends ActionSupport implements IAction {
 		return SUCCESS;
 	}
 
+	@Action(value = "save", interceptorRefs = @InterceptorRef("defaultStackHibernateStrutsValidation"), results = {
+			@Result(name = SUCCESS, location = "list", type = "redirect"),
+			@Result(name = INPUT, location = Page.PRODUCER_FORM_PAGE) })
+	@Override
+	public String save() {
+		// add
+		Integer id = producerBean.getId();
+		if (id == null) {
+			if (producerDao.findByName(producerBean.getName()) != null) {
+				addFieldError("producerBean.name", "Tên nhà sản xuất đã tồn tại. Vui lòng kiểm tra lại!");
+				return INPUT;
+			}
+		} else { // update
+			String formName = producerBean.getName();
+			String currentName = producerDao.findNameById(id);
+			if (!formName.equalsIgnoreCase(currentName)) { // Không trùng với tên hiện tại
+				if(producerDao.isDuplicateAnotherName(formName, id)) {
+					addFieldError("producerBean.name", "Tên nhà sản xuất đã tồn tại.");
+					return INPUT;
+				}
+			}
+		}
+		producerDao.saveOrUpdate(producerBean);
+		return SUCCESS;
+	}
+
 	@Action(value = "delete", results = { @Result(name = SUCCESS, location = "list", type = "redirect") })
 	@Override
 	public String delete() {
+		System.err.println("delete");
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
 		producerBean = producerDao.findById(id);
 		producerDao.delete(producerBean);
 		return SUCCESS;
 	}
 
-	public Producer getProducerBean() { 
+	@Action(value = "existsProducerCode", results = @Result(name = SUCCESS, type = "json"))
+	public String existsGoodsCode() {
+		String proCode = WebUtil.getHttpServletRequest().getParameter("producerCode");
+		producerBean = producerDao.findByCode(proCode);
+		return SUCCESS;
+	}
+
+	@Action(value = "existsProducerId", results = @Result(name = SUCCESS, type = "json"))
+	public String existsGoodsId() {
+		Integer producerId = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("producerId"));
+		existsGoods = producerDao.existsGoods(producerId);
+		return SUCCESS;
+	}
+
+	@JSON(serialize = false)
+	public Boolean getDefaultActiveValue() {
+		if (producerBean.getActive() == null) {
+			producerBean.setActive(true);
+		}
+		return producerBean.getActive();
+	}
+
+	public Producer getProducerBean() {
 		return producerBean;
 	}
 
@@ -82,12 +124,20 @@ public class ProducerAction extends ActionSupport implements IAction {
 	public List<Producer> getProducerList() {
 		return producerDao.findAll(true);
 	}
-	
+
 	public Map<Boolean, String> getActives() {
 		HashMap<Boolean, String> actives = new HashMap<>();
 		actives.put(true, "Hoạt động");
 		actives.put(false, "Tạm dừng");
 		return actives;
+	}
+
+	public Boolean getExistsGoods() {
+		return existsGoods;
+	}
+
+	public void setExistsGoods(Boolean existsGoods) {
+		this.existsGoods = existsGoods;
 	}
 
 	@Override

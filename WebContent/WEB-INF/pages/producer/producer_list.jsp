@@ -28,18 +28,28 @@
 			<tbody>
 				<s:iterator value="producerList" status="status">
 					<tr>
-						<td><s:property value="%{#status.count}" /></td>
-						<td><s:property value="code" /></td>
-						<td><s:property value="name" /></td>
-						<td class="text-center"><s:url var="editURL" action="edit"
-								namespace="/producer">
+						<td>
+							<s:property value="%{#status.count}" />
+						</td>
+						<td>
+							<s:property value="code" />
+						</td>
+						<td>
+							<s:property value="name" />
+						</td>
+						<td class="text-center">
+							<s:url var="editURL" action="edit" namespace="/producer">
 								<s:param name="id" value="%{id}"></s:param>
-							</s:url> <s:a href="%{editURL}" cssClass="btn btn-sm btn-warning">Sửa</s:a></td>
-						<td class="text-center"><s:url var="deleteURL"
-								action="delete">
-								<s:param name="id" value="%{id}"></s:param>
-							</s:url> <s:a href="%{deleteURL}" cssClass="btn btn-sm btn-danger delete">Xóa</s:a></td>
-
+							</s:url>
+							<s:a href="%{editURL}" cssClass="btn btn-sm btn-warning">Sửa</s:a>
+						</td>
+						<td class="text-center">
+							<s:url var="deleteURL" action="delete">
+								<s:param name="id" value="%{id}" />
+							</s:url>
+							<s:a href="%{deleteURL}" cssClass="btn btn-sm btn-danger delete" 
+								id="%{id}" >Xóa</s:a>
+						</td>
 					</tr>
 				</s:iterator>
 			</tbody>
@@ -51,16 +61,6 @@
 	</s:else>
 	</div>
 	<jsp:include page="../fragment/js.jsp" />
-	<script>
-		$(document).ready(function() {
-			$(".delete").click(function(e) {
-				var result = confirm("Bạn có muốn xóa hãng sản xuất này không?");
-				if (result) {
-					return true;
-				}
-				return false;
-			});
-		});
-	</script>
+	<script src="<s:url value="/js/producer.js"/>"></script>
 </body>
 </html>

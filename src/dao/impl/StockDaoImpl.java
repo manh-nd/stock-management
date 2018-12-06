@@ -20,4 +20,33 @@ public class StockDaoImpl extends BasicCrudImplDao<Stock, Integer> implements St
 		}
 	}
 
+	@Override
+	public Stock findByCode(String code) {
+		return null;
+	}
+
+	@Override
+	public Stock findByName(String name) {
+		return null;
+	}
+
+	@Override
+	public String findNameById(Integer id) {
+		return (String) session.createQuery("SELECT s.name FROM Stock s WHERE p.id = :id").setParameter("id", id)
+				.uniqueResult();
+	}
+
+	@Override
+	public boolean isDuplicateAnotherName(String name, Integer id) {
+		try {
+			Long count = (Long) session.createQuery("SELECT count(s) FROM Stock s WHERE s.name = :name AND s.id <> :id")
+					.setParameter("name", name).setParameter("id", id).uniqueResult();
+			if (count > 0)
+				return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

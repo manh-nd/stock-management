@@ -22,15 +22,15 @@
 		<h1>Biểu mẫu kho hàng</h1>
 		<hr>
 		<s:form action="save" namespace="/stock">
-			<s:hidden name="stockBean.id" />
+			<s:hidden id = "stockId" name="stockBean.id" />
 			<div class="form-group">
 				<label>Mã kho hàng</label>
-				<s:textfield name="stockBean.code" cssClass="form-control" />
+				<s:textfield id="stockCode" name="stockBean.code" cssClass="form-control" />
 				<s:fielderror fieldName="stockBean.code"/>
 			</div>
 			<div class="form-group">
 				<label>Tên kho hàng</label>
-				<s:textfield name="stockBean.name" cssClass="form-control" />
+				<s:textfield id="stockName" name="stockBean.name" cssClass="form-control" />
 				<s:fielderror fieldName="stockBean.name"/>
 			</div>
 			<div class="form-group">
@@ -39,9 +39,12 @@
 			</div>
 			<div class="form-group">
 				<s:submit value="Lưu" cssClass="btn btn-primary" />
+				<button id="backBtn" type="button" class="btn btn-success">Quay
+				lại</button>
 			</div>
 		</s:form>
 	</div>
-	<jsp:include page="../fragment/js.jsp" />
+	<jsp:include page="../fragment/js.jsp"></jsp:include>
+	<script src="<s:url value="/js/stock.js"/>"></script>
 </body>
 </html>

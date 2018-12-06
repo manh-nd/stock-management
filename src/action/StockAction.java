@@ -62,6 +62,23 @@ public class StockAction extends ActionSupport implements IAction {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
 			@Result(name = INPUT, location = Page.STOCK_FORM_PAGE) })
 	public String save() {
+		// add
+		Integer id = stockBean.getId();
+		if (id == null) {
+			if (stockDao.findByName(stockBean.getName()) != null) {
+				addFieldError("stockBean.name", "Tên nhà sản xuất đã tồn tại. Vui lòng kiểm tra lại!");
+				return INPUT;
+			}
+		} else { // update
+			String formName = stockBean.getName();
+			String currentName = stockDao.findNameById(id);
+			if (!formName.equalsIgnoreCase(currentName)) { // Không trùng với tên hiện tại
+				if (stockDao.isDuplicateAnotherName(formName, id)) {
+					addFieldError("stockBean.name", "Tên nhà sản xuất đã tồn tại.");
+					return INPUT;
+				}
+			}
+		}
 		stockDao.saveOrUpdate(stockBean);
 		return SUCCESS;
 	}
@@ -77,7 +94,7 @@ public class StockAction extends ActionSupport implements IAction {
 	public List<Stock> getStockList() {
 		return stockDao.findAll(true);
 	}
-	
+
 	public Map<Boolean, String> getActives() {
 		HashMap<Boolean, String> actives = new HashMap<>();
 		actives.put(true, "Hoạt động");
