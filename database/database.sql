@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `stock_management` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `stock_management`;
--- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: stock_management
+-- Host: 127.0.0.1    Database: stock_management
 -- ------------------------------------------------------
--- Server version	8.0.13
+-- Server version	8.0.12
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -71,7 +71,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'CL01','Điện thoại',1),(2,'CL02','Thực phẩm',1),(3,'CL03','Điện máy',1),(4,'CL04','Gia dụng',1),(5,'CL05','Nội thất',1),(8,'cl010','Hà Nội',1),(9,'cl011','a',1);
+INSERT INTO `category` VALUES (1,'CL01','Điện thoại',1),(2,'CL02','Thực phẩm',1),(3,'CL03','Điện máy',1),(4,'CL04','Gia dụng',1),(5,'CL05','Nội thất',1);
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,7 +201,7 @@ CREATE TABLE `stock` (
 
 LOCK TABLES `stock` WRITE;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (1,'K01','Kho điện thoại',1),(2,'K02','Kho điện máy',1),(3,'K03','Kho thực phẩm',1),(4,'K04','Kho gia dụng',1),(5,'K05','Kho nội thất',1),(6,'K012','Kho điện thoại Iphone 9',1);
+INSERT INTO `stock` VALUES (1,'K01','Kho điện thoại',1),(2,'K02','Kho điện máy',1),(3,'K03','Kho thực phẩm',1),(4,'K04','Kho gia dụng',1),(5,'K05','Kho nội thất',1);
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,4 +242,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-08 20:11:40
+-- Dump completed on 2018-12-09  5:37:34

@@ -67,7 +67,7 @@ public class SupplierAction extends ActionSupport implements IAction {
 		Integer id = supplierBean.getId();
 		if (id == null) {
 			if (supplierDao.findByName(supplierBean.getName()) != null) {
-				addFieldError("supplierBean.name", "Tên nhà sản xuất đã tồn tại. Vui lòng kiểm tra lại!");
+				addFieldError("supplierBean.name", "Tên nhà cung cấp đã tồn tại!");
 				return INPUT;
 			}
 		} else { // update
@@ -75,7 +75,7 @@ public class SupplierAction extends ActionSupport implements IAction {
 			String currentName = supplierDao.findNameById(id);
 			if (!formName.equalsIgnoreCase(currentName)) { // Không trùng với tên hiện tại
 				if (supplierDao.isDuplicateAnotherName(formName, id)) {
-					addFieldError("supplierBean.name", "Tên nhà sản xuất đã tồn tại.");
+					addFieldError("supplierBean.name", "Tên nhà cung cấp đã tồn tại!");
 					return INPUT;
 				}
 			}

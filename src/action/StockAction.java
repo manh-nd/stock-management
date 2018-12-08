@@ -67,7 +67,7 @@ public class StockAction extends ActionSupport implements IAction {
 		Integer id = stockBean.getId();
 		if (id == null) {
 			if (stockDao.findByName(stockBean.getName()) != null) {
-				addFieldError("stockBean.name", "Tên nhà sản xuất đã tồn tại. Vui lòng kiểm tra lại!");
+				addFieldError("stockBean.name", "Tên kho đã tồn tại.");
 				return INPUT;
 			}
 		} else { // update
@@ -75,7 +75,7 @@ public class StockAction extends ActionSupport implements IAction {
 			String currentName = stockDao.findNameById(id);
 			if (!formName.equalsIgnoreCase(currentName)) { // Không trùng với tên hiện tại
 				if (stockDao.isDuplicateAnotherName(formName, id)) {
-					addFieldError("stockBean.name", "Tên nhà sản xuất đã tồn tại.");
+					addFieldError("stockBean.name", "Tên kho đã tồn tại.");
 					return INPUT;
 				}
 			}

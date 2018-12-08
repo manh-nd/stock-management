@@ -79,7 +79,7 @@ public class Goods implements Serializable {
 	private Integer exportPrice;
 
 	@NotEmpty(message = "Đơn vị không được để trống!")
-	@Length(min = 5, max = 16, message = "Đơn vị tính phải từ 5 - 16 ký tự!")
+	@Length(min = 3, max = 16, message = "Đơn vị tính phải từ 3 - 16 ký tự!")
 	@Column(name = "GOODS_UNIT", nullable = false, length = 16)
 	private String unit;
 

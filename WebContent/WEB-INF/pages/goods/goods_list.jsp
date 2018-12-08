@@ -66,25 +66,41 @@
 									<th>Tên hàng hóa</th>
 									<th>Hạn sử dụng</th>
 									<th>Tồn kho</th>
-									<th>Sửa</th>
-									<th>Xóa</th>
+									<th class="text-center" width="60px">Sửa</th>
+									<th class="text-center" width="60px">Xóa</th>
 								</tr>
 								<s:iterator value="goodsList" status="status">
 									<tr>
-										<td><s:property value="#status.count" /></td>
-										<td><s:property value="code" /></td>
-										<td><s:property value="name" /></td>
-										<td><s:date name="expiration" format="dd/MM/yyyy" /></td>
-										<td><s:property value="inStock" /></td>
-										<td><s:url action="edit" var="editURL" namespace="/goods">
+										<td>
+											<s:property value="#status.count" />
+										</td>
+										<td>
+											<s:property value="code" />
+										</td>
+										<td>
+											<s:property value="name" />
+										</td>
+										<td>
+											<s:date name="expiration" format="dd/MM/yyyy" />
+										</td>
+										<td>
+											<s:property value="inStock" />
+										</td>
+										<td width="60px">
+											<s:url action="edit" var="editURL" namespace="/goods">
 												<s:param name="id" value="id" />
 												<s:param name="stockId" value="%{#parameters.stockId}" />
-											</s:url> <s:a href="%{editURL}">Sửa</s:a></td>
-										<td><s:url action="delete" var="deleteURL"
-												namespace="/goods">
+											</s:url>
+											<s:a href="%{editURL}" cssClass="btn btn-sm btn-warning">Sửa</s:a>
+										</td>
+										<td width="60px">
+											<s:url action="delete" var="deleteURL" namespace="/goods">
 												<s:param name="id" value="id" />
 												<s:param name="stockId" value="%{#parameters.stockId}" />
-											</s:url> <s:a href="%{deleteURL}" cssClass="delete">Xóa</s:a></td>
+											</s:url>
+											<s:a href="%{deleteURL}"
+												cssClass="btn btn-sm btn-danger delete">Xóa</s:a>
+										</td>
 									</tr>
 								</s:iterator>
 							</table>

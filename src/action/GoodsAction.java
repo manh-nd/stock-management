@@ -23,6 +23,8 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.json.annotations.JSON;
+import org.hibernate.validator.InvalidStateException;
+import org.hibernate.validator.InvalidValue;
 import org.hibernate.validator.Valid;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -112,8 +114,17 @@ public class GoodsAction extends ActionSupport implements IAction {
 		Set<Inventory> inventories = new HashSet<>();
 		inventories.add(inventoryBean);
 		goodsBean.setInventories(inventories);
-
-		goodsService.saveOrUpdate(goodsBean);
+		
+		try {
+			goodsService.saveOrUpdate(goodsBean);
+		} catch (InvalidStateException  e) {
+			for (InvalidValue invalidValue : e.getInvalidValues()) {
+		        System.out.println(("Instance of bean class: " + invalidValue.getBeanClass().getSimpleName() +
+		                 " has an invalid property: " + invalidValue.getPropertyName() +
+		                 " with message: " + invalidValue.getMessage()));
+		    }
+			return INPUT;
+		}
 		System.out.println("Saved Goods Bean: " + goodsBean);
 
 		return SUCCESS;
