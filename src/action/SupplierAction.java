@@ -98,14 +98,6 @@ public class SupplierAction extends ActionSupport implements IAction {
 		return SUCCESS;
 	}
 
-	@JSON(serialize = false)
-	public Boolean getDefaultActiveValue() {
-		if (supplierBean.getActive() == null) {
-			supplierBean.setActive(true);
-		}
-		return supplierBean.getActive();
-	}
-
 	public Boolean getExistsGoods() {
 		return existsGoods;
 	}
@@ -122,6 +114,14 @@ public class SupplierAction extends ActionSupport implements IAction {
 		return supplierDao.findAll(true);
 	}
 
+	@JSON(serialize = false)
+	public Boolean getDefaultActiveValue() {
+		if (supplierBean.getActive() == null) {
+			supplierBean.setActive(true);
+		}
+		return supplierBean.getActive();
+	}
+	
 	public Map<Boolean, String> getActives() {
 		HashMap<Boolean, String> actives = new HashMap<>();
 		actives.put(true, "Hoạt động");

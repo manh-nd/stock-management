@@ -4,16 +4,19 @@
 <validators>
 	<field name="currentPassword">
 		<field-validator type="requiredstring">
+			<param name="trim">true</param>
 			<message>Bạn chưa nhập mật khẩu hiện tại</message>
 		</field-validator>
 	</field>
 	<field name="newPassword">
 		<field-validator type="requiredstring">
+			<param name="trim">true</param>
 			<message>Bạn chưa nhập mật khẩu mới</message>
 		</field-validator>
 	</field>
 	<field name="verifyPassword">
 		<field-validator type="requiredstring">
+			<param name="trim">true</param>
 			<message>Bạn chưa nhập mật khẩu xác thực</message>
 		</field-validator>
 		<field-validator type="fieldexpression">

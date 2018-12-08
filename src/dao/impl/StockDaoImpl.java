@@ -22,17 +22,19 @@ public class StockDaoImpl extends BasicCrudImplDao<Stock, Integer> implements St
 
 	@Override
 	public Stock findByCode(String code) {
-		return null;
+		return (Stock) session.createQuery("SELECT s FROM Stock s WHERE s.code = :code").setParameter("code", code)
+				.uniqueResult();
 	}
 
 	@Override
 	public Stock findByName(String name) {
-		return null;
+		return (Stock) session.createQuery("SELECT s FROM Stock s WHERE s.name = :name").setParameter("name", name)
+				.uniqueResult();
 	}
 
 	@Override
 	public String findNameById(Integer id) {
-		return (String) session.createQuery("SELECT s.name FROM Stock s WHERE p.id = :id").setParameter("id", id)
+		return (String) session.createQuery("SELECT s.name FROM Stock s WHERE s.id = :id").setParameter("id", id)
 				.uniqueResult();
 	}
 

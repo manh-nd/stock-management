@@ -10,6 +10,7 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
+import org.apache.struts2.json.annotations.JSON;
 import org.hibernate.validator.Valid;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -83,6 +84,14 @@ public class StockAction extends ActionSupport implements IAction {
 		return SUCCESS;
 	}
 
+	
+	@Action(value = "existsStockCode", results = @Result(name = SUCCESS, type = "json"))
+	public String existsStockCode() {
+		String stockCode = WebUtil.getHttpServletRequest().getParameter("stockCode");
+		stockBean = stockDao.findByCode(stockCode);
+		return SUCCESS;
+	}
+	
 	public Stock getStockBean() {
 		return stockBean;
 	}
@@ -95,6 +104,14 @@ public class StockAction extends ActionSupport implements IAction {
 		return stockDao.findAll(true);
 	}
 
+	@JSON(serialize = false)
+	public Boolean getDefaultActiveValue() {
+		if (stockBean.getActive() == null) {
+			stockBean.setActive(true);
+		}
+		return stockBean.getActive();
+	}
+	
 	public Map<Boolean, String> getActives() {
 		HashMap<Boolean, String> actives = new HashMap<>();
 		actives.put(true, "Hoạt động");

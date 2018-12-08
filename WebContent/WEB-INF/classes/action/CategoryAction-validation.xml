@@ -4,12 +4,31 @@
 <validators>
 	<field name="categoryBean.code">
 		<field-validator type="requiredstring">
-			<message key="errors.categoryBean.code" />
+			<param name="trim">true</param>
+			<message key="errors.empty.categoryBean.code" />
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="trim">true</param>
+			<param name="minLength">3</param>
+			<param name="maxLength">6</param>
+			<message key="errors.length.categoryBean.code" />
+		</field-validator>
+		<field-validator type="regex">
+			<param name="trim">true</param>
+			<param name="expression"><![CDATA[[a-zA-Z0-9]+]]></param>
+			<message key="errors.invalid.categoryBean.code" />
 		</field-validator>
 	</field>
 	<field name="categoryBean.name">
 		<field-validator type="requiredstring">
-			<message key="errors.categoryBean.name" />
+			<param name="trim">true</param>
+			<message key="errors.empty.categoryBean.name" />
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="trim">true</param>
+			<param name="minLength">6</param>
+			<param name="maxLength">45</param>
+			<message key="errors.empty.categoryBean.name" />
 		</field-validator>
 	</field>
 </validators>
