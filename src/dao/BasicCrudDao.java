@@ -61,5 +61,7 @@ public interface BasicCrudDao<T, ID extends Serializable> { // Lưu ý, không s
 	List<T> findAll();
 
 	List<T> findAll(boolean active);
+	
+	List<T> findAll(String key, boolean active);
 
 }

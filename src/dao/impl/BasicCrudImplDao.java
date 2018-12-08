@@ -125,4 +125,22 @@ public class BasicCrudImplDao<T, ID extends Serializable> implements BasicCrudDa
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findAll(String key, boolean active) {
+		try {
+			Query query = session.createQuery(
+					String.format("FROM %s o WHERE (o.code like :code OR o.name like :name) AND o.active = :active",
+							clazz.getName()));
+			query.setParameter("code", key + "%");
+			query.setParameter("name", key + "%");
+			query.setParameter("active", active);
+			List<T> result = query.list();
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

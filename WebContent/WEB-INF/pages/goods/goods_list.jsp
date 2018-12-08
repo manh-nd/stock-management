@@ -42,7 +42,22 @@
 						<s:url action="add" namespace="/goods" var="addURL">
 							<s:param name="stockId" value="%{#parameters.stockId}" />
 						</s:url>
-						<s:a href="%{#addURL}" cssClass="btn btn-primary">Thêm mới hàng hóa</s:a>
+
+						<div class="row">
+							<div class="col-xs-12 col-md-3">
+								<s:a href="%{#addURL}" cssClass="btn btn-primary">Thêm mới hàng hóa</s:a>
+							</div>
+							<div class="col-xs-12 col-md-9">
+								<form class="form-inline float-right my-lg-0">
+									<s:hidden name="stockId" value="%{#parameters.stockId}" />
+									<input name="find" class="form-control mr-sm-2" type="search"
+										placeholder="Tìm theo mã hoặc tên" aria-label="Tìm kiếm">
+									<button class="btn btn-success my-2 my-sm-0" type="submit">Tìm
+										kiếm</button>
+								</form>
+							</div>
+						</div>
+
 						<s:if test="goodsList.size() > 0">
 							<table class="table mt-3">
 								<tr>
@@ -75,6 +90,7 @@
 							</table>
 							<s:url action="export" namespace="/goods" var="exportURL">
 								<s:param name="stockId" value="%{#parameters.stockId}" />
+								<s:param name="find" value="%{#parameters.find}" />
 							</s:url>
 							<s:a href="%{exportURL}">Kết xuất</s:a>
 						</s:if>

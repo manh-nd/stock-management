@@ -28,7 +28,7 @@
 			<param name="trim">true</param>
 			<param name="minLength">6</param>
 			<param name="maxLength">45</param>
-			<message key="errors.empty.categoryBean.name" />
+			<message key="errors.length.categoryBean.name" />
 		</field-validator>
 	</field>
 </validators>

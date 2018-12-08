@@ -11,8 +11,8 @@ import org.apache.struts2.convention.annotation.ResultPath;
 import com.opensymphony.xwork2.ActionSupport;
 
 import constant.Page;
-import dao.GoodsDao;
-import dao.impl.GoodsDaoImpl;
+import dao.ReportDao;
+import dao.impl.ReportDaoImpl;
 import dto.CategoryGoodsReport;
 import dto.ExpirationGoodsReport;
 import dto.SupplierGoodsReport;
@@ -24,7 +24,7 @@ public class ReportAction extends ActionSupport {
 
 	private static final long serialVersionUID = 9059811791190723026L;
 
-	private GoodsDao goodsDao = new GoodsDaoImpl();
+	private ReportDao reportDao = new ReportDaoImpl();
 
 	private String title;
 	private String page;
@@ -51,15 +51,15 @@ public class ReportAction extends ActionSupport {
 	}
 
 	public List<CategoryGoodsReport> getCategoryGoodsReport() {
-		return goodsDao.getCategoryGoodsReport();
+		return reportDao.getCategoryGoodsReport();
 	}
 
 	public List<SupplierGoodsReport> getSupplierGoodsReport() {
-		return goodsDao.getSupplierGoodsReport();
+		return reportDao.getSupplierGoodsReport();
 	}
 
 	public List<ExpirationGoodsReport> getExpirationGoodsReport() {
-		return goodsDao.getExpirationGoodsReport();
+		return reportDao.getExpirationGoodsReport();
 	}
 
 	public String getTitle() {

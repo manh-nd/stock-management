@@ -66,6 +66,11 @@ public class GoodsServiceImpl implements GoodsService {
 	public List<GoodsDto> findGoodsByStockId(Integer stockId) {
 		return goodsDao.findByStockId(stockId);
 	}
+	
+	@Override
+	public List<GoodsDto> findGoodsByStockId(Integer stockId, String key) {
+		return goodsDao.findByStockId(stockId, key);
+	}
 
 	@Override
 	public List<Stock> getStocks() {
@@ -101,5 +106,11 @@ public class GoodsServiceImpl implements GoodsService {
 	public Inventory findInventoryByStockIdAndGoodsCode(Integer stockId, String goodsCode) {
 		return inventoryDao.findInventoryByStockIdAndGoodsCode(stockId, goodsCode);
 	}
+
+	@Override
+	public List<Goods> findAll(String find, boolean active) {
+		return goodsDao.findAll(find, active);
+	}
+	
 
 }

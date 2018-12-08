@@ -122,7 +122,12 @@ public class ProducerAction extends ActionSupport implements IAction {
 	}
 
 	public List<Producer> getProducerList() {
-		return producerDao.findAll(true);
+		String find = WebUtil.getHttpServletRequest().getParameter("find");
+		if (find != null) {
+			return producerDao.findAll(find, true);
+		} else {
+			return producerDao.findAll(true);
+		}
 	}
 
 	public Map<Boolean, String> getActives() {

@@ -1,6 +1,5 @@
 package action;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,15 +30,12 @@ public class CategoryAction extends ActionSupport implements IAction {
 
 	private CategoryDao categoryDao = new CategoryDaoImpl();
 	private Boolean existsGoods;
-	private List<Category> listT = new ArrayList<>();
-	String name = WebUtil.getHttpServletRequest().getParameter("name");
-	
+
 	@Valid
 	private Category categoryBean = new Category();
 
 	@Action(value = "list", results = @Result(name = SUCCESS, location = Page.CATEGORY_LIST_PAGE))
 	public String list() {
-		System.out.println("category list");
 		return SUCCESS;
 	}
 
@@ -71,7 +67,7 @@ public class CategoryAction extends ActionSupport implements IAction {
 		Integer id = categoryBean.getId();
 		if (id == null) {
 			if (categoryDao.findByName(categoryBean.getName()) != null) {
-				addFieldError("categoryBean.name", "Tên nhà sản xuất đã tồn tại. Vui lòng kiểm tra lại!");
+				addFieldError("categoryBean.name", "Tên phân loại đã tồn tại!");
 				return INPUT;
 			}
 		} else { // update
@@ -79,7 +75,7 @@ public class CategoryAction extends ActionSupport implements IAction {
 			String currentName = categoryDao.findNameById(id);
 			if (!formName.equalsIgnoreCase(currentName)) { // Không trùng với tên hiện tại
 				if (categoryDao.isDuplicateAnotherName(formName, id)) {
-					addFieldError("categoryBean.name", "Tên nhà sản xuất đã tồn tại.");
+					addFieldError("categoryBean.name", "Tên phân loại đã tồn tại!");
 					return INPUT;
 				}
 			}
@@ -91,7 +87,6 @@ public class CategoryAction extends ActionSupport implements IAction {
 	@Action(value = "existsCategoryCode", results = @Result(name = SUCCESS, type = "json"))
 	public String existsGoodsCode() {
 		String categoryCode = WebUtil.getHttpServletRequest().getParameter("categoryCode");
-		
 		categoryBean = categoryDao.findByCode(categoryCode);
 		return SUCCESS;
 	}
@@ -101,25 +96,6 @@ public class CategoryAction extends ActionSupport implements IAction {
 		Integer categoryId = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("categoryId"));
 		existsGoods = categoryDao.existsGoods(categoryId);
 		return SUCCESS;
-	}
-	
-	@Action(value="search", 
-			results =
-			{@Result(name=SUCCESS, location =Page.CATEGORY_SEARCH)}
-			)
-	public String search() {
-		System.out.println(name);
-			listT.add((Category) categoryDao.getListCategory(name));
-			return SUCCESS;
-	}
-
-
-	public List<Category> getListT() {
-		return listT;
-	}
-
-	public void setListT(List<Category> listT) {
-		this.listT = listT;
 	}
 
 	@JSON(serialize = false)
@@ -143,12 +119,13 @@ public class CategoryAction extends ActionSupport implements IAction {
 	}
 
 	public List<Category> getCategoryList() {
-		return categoryDao.findAll(true);
+		String find = WebUtil.getHttpServletRequest().getParameter("find");
+		if (find != null) {
+			return categoryDao.findAll(find, true);
+		} else {
+			return categoryDao.findAll(true);
+		}
 	}
-	
-	
-
-
 
 	public Map<Boolean, String> getActives() {
 		HashMap<Boolean, String> actives = new HashMap<>();

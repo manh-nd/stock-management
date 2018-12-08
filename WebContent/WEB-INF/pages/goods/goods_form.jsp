@@ -32,9 +32,9 @@
 			<s:hidden id="goodsId" name="goodsBean.id" />
 			<s:hidden id="stockId" name="stockBean.id" />
 			<s:hidden id="inventoryId" name="inventoryBean.id" />
-			
+
 			<div style="color: red" id="goodsMessage"></div>
-			
+
 			<div class="form-row">
 				<div class="form-group col-md-2">
 					<label>Mã hàng hóa</label>

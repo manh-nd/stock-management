@@ -101,7 +101,12 @@ public class StockAction extends ActionSupport implements IAction {
 	}
 
 	public List<Stock> getStockList() {
-		return stockDao.findAll(true);
+		String find = WebUtil.getHttpServletRequest().getParameter("find");
+		if (find != null) {
+			return stockDao.findAll(find, true);
+		} else {
+			return stockDao.findAll(true);
+		}
 	}
 
 	@JSON(serialize = false)

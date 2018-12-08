@@ -32,7 +32,7 @@
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<ul class="navbar-nav mr-auto">
+		<ul class="col-md-8 navbar-nav">
 			<li class="nav-item">
 				<s:a href="%{homePageURL}" cssClass="nav-link">Trang chủ</s:a>
 			</li>
@@ -64,26 +64,27 @@
 			<li class="nav-item">
 				<s:a href="%{accountListURL}" cssClass="nav-link">Tài Khoản</s:a>
 			</li>
-
-			<s:if test="%{#session.user != null}">
-				<div class="dropdown dropdown-menu-right" style="position: relative; left: 0">
-					<button class="btn btn-secondary dropdown-toggle" type="button"
-						id="dropdownMenuButton" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">
-						<font color="blue">Xin Chào:</font>
-						<font color="red">
-							<s:property value="#session.user.fullname" />
-						</font>
-					</button>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-						<s:a cssClass="dropdown-item disabled"> Vai trò:  <s:property
-								value="#session.user.role" />
-						</s:a>
-						<s:a cssClass="dropdown-item" href="%{changePasswordURL}">Đổi mật khẩu</s:a>
-						<s:a cssClass="dropdown-item" href="%{logoutURL}"> Đăng xuất </s:a>
-					</div>
-				</div>
-			</s:if>
 		</ul>
+		<s:if test="%{#session.user != null}">
+			<div class="col-md-4 dropdown dropdown-menu-right">
+				<button class="btn btn-secondary dropdown-toggle float-right" type="button"
+					id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false">
+					Xin chào: [
+					<strong>
+						<s:property value="#session.user.fullname" />
+					</strong>
+					]
+				</button>
+				<div class="dropdown-menu dropdown-menu-right"
+					aria-labelledby="dropdownMenuButton">
+					<s:a cssClass="dropdown-item disabled"> Vai trò:  <s:property
+							value="#session.user.role" />
+					</s:a>
+					<s:a cssClass="dropdown-item" href="%{changePasswordURL}">Đổi mật khẩu</s:a>
+					<s:a cssClass="dropdown-item" href="%{logoutURL}"> Đăng xuất </s:a>
+				</div>
+			</div>
+		</s:if>
 	</div>
 </nav>

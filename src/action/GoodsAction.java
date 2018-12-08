@@ -65,15 +65,13 @@ public class GoodsAction extends ActionSupport implements IAction {
 
 	@Action(value = "list", results = { @Result(name = SUCCESS, location = Page.GOODS_LIST_PAGE) })
 	public String list() {
-		String stockIdParam = WebUtil.getHttpServletRequest().getParameter("stockId");
-		if (stockIdParam != null) {
-			try {
-				Integer stockId = Integer.parseInt(stockIdParam);
-				goodsList = goodsService.findGoodsByStockId(stockId);
-			} catch (Exception e) {
-			}
-		}
 		return SUCCESS;
+	}
+
+	@Override
+	public String input() throws Exception {
+		System.out.println("input");
+		return INPUT;
 	}
 
 	@Action(value = "add", results = { @Result(name = SUCCESS, location = Page.GOODS_FORM_PAGE) })
@@ -143,7 +141,7 @@ public class GoodsAction extends ActionSupport implements IAction {
 		try (HSSFWorkbook workbook = new HSSFWorkbook()) {
 			Integer stockId = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("stockId"));
 			String stockName = goodsService.findByStockId(stockId).getName();
-			goodsList = goodsService.findGoodsByStockId(stockId);
+			goodsList = getGoodsList();
 			HSSFSheet sheet = workbook.createSheet(stockName);
 
 			Row rowHeading = sheet.createRow(0);
@@ -183,6 +181,18 @@ public class GoodsAction extends ActionSupport implements IAction {
 
 	@JSON(serialize = false)
 	public List<GoodsDto> getGoodsList() {
+		String sStockId = WebUtil.getHttpServletRequest().getParameter("stockId");
+		if (sStockId != null) {
+			try {
+				Integer stockId = Integer.parseInt(sStockId);
+				String find = WebUtil.getHttpServletRequest().getParameter("find");
+				if (find != null)
+					goodsList = goodsService.findGoodsByStockId(stockId, find);
+				else
+					goodsList = goodsService.findGoodsByStockId(stockId);
+			} catch (Exception e) {
+			}
+		}
 		return goodsList;
 	}
 
@@ -208,11 +218,16 @@ public class GoodsAction extends ActionSupport implements IAction {
 
 	@JSON(serialize = false)
 	public Stock getStockBean() {
+		if (stockBean.getId() != null)
+			stockBean = goodsService.findByStockId(stockBean.getId());
 		return stockBean;
 	}
 
 	public void setStockBean(Stock stockBean) {
-		this.stockBean = stockBean;
+		if (stockBean.getId() != null)
+			this.stockBean = goodsService.findByStockId(stockBean.getId());
+		else
+			this.stockBean = stockBean;
 	}
 
 	public Inventory getInventoryBean() {
@@ -251,6 +266,7 @@ public class GoodsAction extends ActionSupport implements IAction {
 	@Override
 	public void validate() {
 		System.out.println("Validate Goods....");
+		stockBean = getStockBean();
 		if (goodsBean.getId() == null) {
 			Date expiration = goodsBean.getExpiration();
 			if (expiration != null) {
@@ -259,8 +275,8 @@ public class GoodsAction extends ActionSupport implements IAction {
 				}
 			}
 		}
-		if(goodsBean.getLotNumber()!=null) {
-			if(goodsBean.getLotNumber().length() > 16) {
+		if (goodsBean.getLotNumber() != null) {
+			if (goodsBean.getLotNumber().length() > 16) {
 				addFieldError("goodsBean.lotNumber", "Độ dài số lô phải nhỏ hơn 17 ký tự!");
 			}
 		}

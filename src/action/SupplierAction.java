@@ -111,7 +111,12 @@ public class SupplierAction extends ActionSupport implements IAction {
 	}
 
 	public List<Supplier> getSupplierList() {
-		return supplierDao.findAll(true);
+		String find = WebUtil.getHttpServletRequest().getParameter("find");
+		if (find != null) {
+			return supplierDao.findAll(find, true);
+		} else {
+			return supplierDao.findAll(true);
+		}
 	}
 
 	@JSON(serialize = false)

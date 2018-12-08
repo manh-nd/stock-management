@@ -1,8 +1,5 @@
 package dao.impl;
 
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 
 import dao.CategoryDao;
@@ -83,16 +80,6 @@ public class CategoryDaoImpl extends BasicCrudImplDao<Category, Integer> impleme
 			e.printStackTrace();
 		}
 		return false;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Category> getListCategory(String name) {
-		StringBuilder hql = new StringBuilder();
-		hql.append("SELECT count(*) FROM Category WHERE name like :name");
-		Query query = session.createQuery(hql.toString())
-		.setParameter("name", "%" + name + "%");	
-		return query.list();
 	}
 
 }

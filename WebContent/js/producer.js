@@ -6,14 +6,14 @@ $(document).ready(function() {
 	});
 	
 	// Sự kiện khi rời khỏi mã hàng hóa
-	$("#proCode").blur(function(e) {
+	$("#producerCode").blur(function(e) {
 		var producerCode = $(this).val();
 		// Kiểm tra mã hàng hóa này đã tồn tại trong kho này chưa
 		$.get("/stock-management/producer/existsProducerCode?producerCode=" + producerCode , function(data) {
 			producer = data.producerBean;
 			if(producer == null){
-				$("#proId").val(null);
-				$("#proName").val(null);
+				$("#producerId").val(null);
+				$("#producerName").val(null);
 				$("input:radio[name='producerBean.active']").val(true);
 			}else{
 				if(!producer.active){
@@ -21,12 +21,12 @@ $(document).ready(function() {
 					if(result){
 						$("input:radio[name='producerBean.active']").val([true]);
 					}
-					$("#proId").val(producer.id);
-					$("#proName").val(producer.name);
+					$("#producerId").val(producer.id);
+					$("#producerName").val(producer.name);
 				}
 				else{
-					$("#proId").val(producer.id);
-					$("#proName").val(producer.name);
+					$("#producerId").val(producer.id);
+					$("#producerName").val(producer.name);
 					$("input:radio[name='producerBean.active']").val([true]);
 				}
 			}
@@ -46,7 +46,6 @@ $(document).ready(function() {
 				if(existsGoods){
 					var cc = confirm("Nhà sản xuất này đang có hàng hóa. Bạn vẫn muốn xóa chứ?");
 					if(cc){
-						alert("xyz");
 						return true;
 					}
 				}else{ // Không tồn tại, xóa

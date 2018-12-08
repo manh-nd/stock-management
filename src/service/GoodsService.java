@@ -29,6 +29,8 @@ public interface GoodsService {
 	List<Goods> findAll();
 
 	List<GoodsDto> findGoodsByStockId(Integer stockId);
+	
+	List<GoodsDto> findGoodsByStockId(Integer stockId, String key);
 
 	List<Stock> getStocks();
 
@@ -43,5 +45,9 @@ public interface GoodsService {
 	Inventory findInventoryByStockIdAndGoodsId(Integer stockid, Integer goodsId);
 	
 	Inventory findInventoryByStockIdAndGoodsCode(Integer stockId, String goodsCode);
+
+	List<Goods> findAll(String find, boolean active);
+
+	
 
 }

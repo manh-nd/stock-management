@@ -52,11 +52,15 @@ public class ChangePassAction extends ActionSupport {
 	@Override
 	public void validate() {
 		System.out.println("validation password");
-		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
-				.get(ServletActionContext.HTTP_REQUEST);
-		Account account = (Account) request.getSession().getAttribute("user");
-		if (!currentPassword.equals(account.getPassword()))
-			addFieldError("currentPassword", "Mật khẩu hiện tại không đúng!");
+		if (currentPassword != null) {
+			if (!currentPassword.isEmpty()) {
+				HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
+						.get(ServletActionContext.HTTP_REQUEST);
+				Account account = (Account) request.getSession().getAttribute("user");
+				if (!currentPassword.equals(account.getPassword()))
+					addFieldError("currentPassword", "Mật khẩu hiện tại không đúng!");
+			}
+		}
 	}
 
 	public String getCurrentPassword() {
