@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `stock_management` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `stock_management`;
--- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: stock_management
+-- Host: localhost    Database: stock_management
 -- ------------------------------------------------------
--- Server version	8.0.12
+-- Server version	8.0.13
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,9 +30,11 @@ CREATE TABLE `account` (
   `ACCOUNT_USERNAME` varchar(16) NOT NULL,
   `ACCOUNT_PASSWORD` varchar(16) NOT NULL,
   `ACCOUNT_ACTIVE` tinyint(1) NOT NULL DEFAULT '1',
+  `ACCOUNT_ROLES` varchar(45) NOT NULL,
+  `ACCOUNT_REPORT` varchar(255) DEFAULT 'No Comment',
   PRIMARY KEY (`ACCOUNT_ID`),
   UNIQUE KEY `ACCOUNT_USERNAME_UNIQUE` (`ACCOUNT_USERNAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +43,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,'Dinh Khanh Duong','duongdk','123',1),(2,'Do Duy Mau','maudd','123',1),(3,'Nguyen Duc Manh','manhnd','123',1),(4,'Vu Van','Vanv','123',1);
+INSERT INTO `account` VALUES (1,'Dinh Khanh Duong','duongdk','123',1,'admin','qqeqưeqwqewq'),(2,'Do Duy Mau','maudd','123',0,'Quản lý kho','Ơ. thích khóa đấy'),(3,'Nguyen Duc Manh','manhnd','123',1,'Quản lý tài khoản','none'),(4,'Vu Van','Vanv','1234',1,'Quản lý kho','No Comment');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,7 +62,7 @@ CREATE TABLE `category` (
   PRIMARY KEY (`CATEGORY_ID`),
   UNIQUE KEY `CATEGORY_CODE_UNIQUE` (`CATEGORY_CODE`),
   UNIQUE KEY `CATEGORY_NAME_UNIQUE` (`CATEGORY_NAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +71,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'CL01','Điện thoại',1),(2,'CL02','Thực phẩm',1),(3,'CL03','Điện máy',1),(4,'CL04','Gia dụng',1),(5,'CL05','Nội thất',1);
+INSERT INTO `category` VALUES (1,'CL01','Điện thoại',1),(2,'CL02','Thực phẩm',1),(3,'CL03','Điện máy',1),(4,'CL04','Gia dụng',1),(5,'CL05','Nội thất',1),(8,'cl010','Hà Nội',1),(9,'cl011','a',1);
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +192,7 @@ CREATE TABLE `stock` (
   PRIMARY KEY (`STOCK_ID`),
   UNIQUE KEY `STOCK_CODE_UNIQUE` (`STOCK_CODE`),
   UNIQUE KEY `STOCK_NAME_UNIQUE` (`STOCK_NAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,7 +201,7 @@ CREATE TABLE `stock` (
 
 LOCK TABLES `stock` WRITE;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (1,'K01','Kho điện thoại',1),(2,'K02','Kho điện máy',1),(3,'K03','Kho thực phẩm',1),(4,'K04','Kho gia dụng',1),(5,'K05','Kho nội thất',1);
+INSERT INTO `stock` VALUES (1,'K01','Kho điện thoại',1),(2,'K02','Kho điện máy',1),(3,'K03','Kho thực phẩm',1),(4,'K04','Kho gia dụng',1),(5,'K05','Kho nội thất',1),(6,'K012','Kho điện thoại Iphone 9',1);
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,4 +242,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-27 15:05:14
+-- Dump completed on 2018-12-08 20:11:40

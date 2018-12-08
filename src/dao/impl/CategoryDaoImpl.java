@@ -1,5 +1,8 @@
 package dao.impl;
 
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 
 import dao.CategoryDao;
@@ -21,7 +24,7 @@ public class CategoryDaoImpl extends BasicCrudImplDao<Category, Integer> impleme
 			return false;
 		}
 	}
-	
+
 	@Override
 	public Category findByCode(String code) {
 		try {
@@ -34,7 +37,7 @@ public class CategoryDaoImpl extends BasicCrudImplDao<Category, Integer> impleme
 			return null;
 		}
 	}
-	
+
 	@Override
 	public Category findByName(String name) {
 		try {
@@ -71,7 +74,8 @@ public class CategoryDaoImpl extends BasicCrudImplDao<Category, Integer> impleme
 	@Override
 	public boolean isDuplicateAnotherName(String name, Integer id) {
 		try {
-			Long count = (Long) session.createQuery("SELECT count(c) FROM Category c WHERE c.name = :name AND c.id <> :id")
+			Long count = (Long) session
+					.createQuery("SELECT count(c) FROM Category c WHERE c.name = :name AND c.id <> :id")
 					.setParameter("name", name).setParameter("id", id).uniqueResult();
 			if (count > 0)
 				return true;
@@ -80,6 +84,15 @@ public class CategoryDaoImpl extends BasicCrudImplDao<Category, Integer> impleme
 		}
 		return false;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Category> getListCategory(String name) {
+		StringBuilder hql = new StringBuilder();
+		hql.append("SELECT count(*) FROM Category WHERE name like :name");
+		Query query = session.createQuery(hql.toString())
+		.setParameter("name", "%" + name + "%");	
+		return query.list();
+	}
 
 }

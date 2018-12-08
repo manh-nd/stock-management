@@ -17,11 +17,9 @@
 			<hr>
 			
 			<s:form action="search">
-				Search:<s:textfield name="name" cssClass="form-control" />
-				
-				<s:submit value="Search" cssClass="btn btn-primary"/>
+				Name:<s:textfield name="name" />
+				<s:submit value="Search"/>
 			</s:form>
-			<br/>
 
 			<s:a cssClass="btn btn-primary" href="add" name="/category">Thêm danh mục phân loại mới</s:a>
 
@@ -36,11 +34,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<s:iterator value="categoryList" status="status">
+				
+					<s:iterator var="S" value="listT" status="status">
 						<tr>
 							<td><s:property value="#status.count" /></td>
 							<td><s:property value="code" /></td>
-							<td><s:property value="name" /></td>
+							<td><s:property value="#S.name" /></td>
 							<td class="text-center"><s:url action="edit" var="editURL"
 									namespace="/category">
 									<s:param name="id" value="id" />
@@ -53,6 +52,8 @@
 									cssClass="btn btn-sm btn-danger delete">Xóa</s:a></td>
 						</tr>
 					</s:iterator>
+			
+					
 				</tbody>
 			</table>
 		</s:if>

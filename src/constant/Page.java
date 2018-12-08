@@ -42,4 +42,5 @@ public interface Page {
 	String ACCOUNT_LIST = "/WEB-INF/pages/account/account_list.jsp";
 	String ACCOUNT_FORM = "/WEB-INF/pages/account/account_form.jsp";
 	String ACCOUNT_BLOCK = "/WEB-INF/pages/account/block_form.jsp";
+	String CATEGORY_SEARCH ="/WEB-INF/pages/category/show.jsp";
 }

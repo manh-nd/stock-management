@@ -1,5 +1,6 @@
 package action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,9 @@ public class CategoryAction extends ActionSupport implements IAction {
 
 	private CategoryDao categoryDao = new CategoryDaoImpl();
 	private Boolean existsGoods;
-
+	private List<Category> listT = new ArrayList<>();
+	String name = WebUtil.getHttpServletRequest().getParameter("name");
+	
 	@Valid
 	private Category categoryBean = new Category();
 
@@ -88,6 +91,7 @@ public class CategoryAction extends ActionSupport implements IAction {
 	@Action(value = "existsCategoryCode", results = @Result(name = SUCCESS, type = "json"))
 	public String existsGoodsCode() {
 		String categoryCode = WebUtil.getHttpServletRequest().getParameter("categoryCode");
+		
 		categoryBean = categoryDao.findByCode(categoryCode);
 		return SUCCESS;
 	}
@@ -97,6 +101,25 @@ public class CategoryAction extends ActionSupport implements IAction {
 		Integer categoryId = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("categoryId"));
 		existsGoods = categoryDao.existsGoods(categoryId);
 		return SUCCESS;
+	}
+	
+	@Action(value="search", 
+			results =
+			{@Result(name=SUCCESS, location =Page.CATEGORY_SEARCH)}
+			)
+	public String search() {
+		System.out.println(name);
+			listT.add((Category) categoryDao.getListCategory(name));
+			return SUCCESS;
+	}
+
+
+	public List<Category> getListT() {
+		return listT;
+	}
+
+	public void setListT(List<Category> listT) {
+		this.listT = listT;
 	}
 
 	@JSON(serialize = false)
@@ -122,6 +145,10 @@ public class CategoryAction extends ActionSupport implements IAction {
 	public List<Category> getCategoryList() {
 		return categoryDao.findAll(true);
 	}
+	
+	
+
+
 
 	public Map<Boolean, String> getActives() {
 		HashMap<Boolean, String> actives = new HashMap<>();
