@@ -44,9 +44,11 @@
 						</s:url>
 
 						<div class="row">
+						<s:if test="%{#session.user.role == 'Quản lý kho'}">
 							<div class="col-xs-12 col-md-3">
 								<s:a href="%{#addURL}" cssClass="btn btn-primary">Thêm mới hàng hóa</s:a>
 							</div>
+							</s:if>
 							<div class="col-xs-12 col-md-9">
 								<form class="form-inline float-right my-lg-0">
 									<s:hidden name="stockId" value="%{#parameters.stockId}" />
@@ -66,8 +68,10 @@
 									<th>Tên hàng hóa</th>
 									<th>Hạn sử dụng</th>
 									<th>Tồn kho</th>
+									<s:if test="%{#session.user.role == 'Quản lý kho'}">
 									<th class="text-center" width="60px">Sửa</th>
 									<th class="text-center" width="60px">Xóa</th>
+									</s:if>
 								</tr>
 								<s:iterator value="goodsList" status="status">
 									<tr>
@@ -86,6 +90,7 @@
 										<td>
 											<s:property value="inStock" />
 										</td>
+										<s:if test="%{#session.user.role == 'Quản lý kho'}">
 										<td width="60px">
 											<s:url action="edit" var="editURL" namespace="/goods">
 												<s:param name="id" value="id" />
@@ -101,6 +106,7 @@
 											<s:a href="%{deleteURL}"
 												cssClass="btn btn-sm btn-danger delete">Xóa</s:a>
 										</td>
+										</s:if>
 									</tr>
 								</s:iterator>
 							</table>

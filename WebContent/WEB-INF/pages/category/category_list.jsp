@@ -17,9 +17,11 @@
 			<hr>
 
 			<div class="row">
-				<div class="col-xs-12 col-md-3">
-					<s:a cssClass="btn btn-primary" href="add" name="/category">Thêm danh mục phân loại mới</s:a>
-				</div>
+				<s:if test="%{#session.user.role == 'Quản lý kho'}">
+					<div class="col-xs-12 col-md-3">
+						<s:a cssClass="btn btn-primary" href="add" name="/category">Thêm danh mục phân loại mới</s:a>
+					</div>
+				</s:if>
 				<div class="col-xs-12 col-md-9">
 					<form class="form-inline float-right my-lg-0">
 						<input name="find" class="form-control mr-sm-2" type="search"
@@ -37,8 +39,10 @@
 							<th>STT</th>
 							<th>Mã danh mục phân loại</th>
 							<th>Tên danh mục phân loại</th>
-							<th width="60px" class="text-center">Sửa</th>
-							<th width="60px" class="text-center">Xóa</th>
+							<s:if test="%{#session.user.role == 'Quản lý kho'}">
+								<th width="60px" class="text-center">Sửa</th>
+								<th width="60px" class="text-center">Xóa</th>
+							</s:if>
 						</tr>
 					</thead>
 					<tbody>
@@ -47,16 +51,18 @@
 								<td><s:property value="#status.count" /></td>
 								<td><s:property value="code" /></td>
 								<td><s:property value="name" /></td>
-								<td class="text-center"><s:url action="edit" var="editURL"
-										namespace="/category">
-										<s:param name="id" value="id" />
-									</s:url> <s:a href="%{editURL}" cssClass="btn btn-sm btn-warning">Sửa</s:a>
-								</td>
-								<td class="text-center"><s:url action="delete"
-										var="deleteURL" namespace="/category">
-										<s:param name="id" value="id" />
-									</s:url> <s:a href="%{deleteURL}"
-										cssClass="btn btn-sm btn-danger delete">Xóa</s:a></td>
+								<s:if test="%{#session.user.role == 'Quản lý kho'}">
+									<td class="text-center"><s:url action="edit" var="editURL"
+											namespace="/category">
+											<s:param name="id" value="id" />
+										</s:url> <s:a href="%{editURL}" cssClass="btn btn-sm btn-warning">Sửa</s:a>
+									</td>
+									<td class="text-center"><s:url action="delete"
+											var="deleteURL" namespace="/category">
+											<s:param name="id" value="id" />
+										</s:url> <s:a href="%{deleteURL}"
+											cssClass="btn btn-sm btn-danger delete">Xóa</s:a></td>
+								</s:if>
 							</tr>
 						</s:iterator>
 					</tbody>

@@ -3,9 +3,10 @@ package dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
+
 import dao.AccountDao;
 import model.Account;
-
 public class AccountDaoImpl extends BasicCrudImplDao<Account, Integer> implements AccountDao {
 
 	@Override
@@ -40,4 +41,18 @@ public class AccountDaoImpl extends BasicCrudImplDao<Account, Integer> implement
 		return list;
 	}
 
+	@SuppressWarnings("unused")
+	@Override
+	public Account fillbyUsername(String username) {
+		try {
+			Query query = session.createQuery("SELECT p FROM Account p WHERE p.username = :username");
+			query.setParameter("username", username);
+			Account object = (Account) query.uniqueResult();
+			return object;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		
+	}
+	}
 }

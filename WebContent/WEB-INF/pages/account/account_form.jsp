@@ -49,6 +49,8 @@
 				<label>Trạng thái</label>
 				<s:radio list="actives" name="account.active" value="account.active" />
 			</div>
+			<s:hidden name="account.report" value="No Comment" />
+			
 
 			<div class="form-group">
 				<s:submit value="Lưu" cssClass="btn btn-primary" />

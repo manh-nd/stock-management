@@ -41,6 +41,7 @@ public class CategoryAction extends ActionSupport implements IAction {
 
 	@Action(value = "add", results = @Result(name = SUCCESS, location = Page.CATEGORY_FORM_PAGE))
 	public String add() {
+	
 		return SUCCESS;
 	}
 

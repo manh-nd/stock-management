@@ -16,9 +16,11 @@
 			<hr>
 
 			<div class="row">
+			<s:if test="%{#session.user.role == 'Quản lý kho'}">
 				<div class="col-xs-12 col-md-3">
 					<s:a cssClass="btn btn-primary" href="add" name="/supplier">Thêm nhà cung cấp mới</s:a>
 				</div>
+				</s:if>
 				<div class="col-xs-12 col-md-9">
 					<form class="form-inline float-right my-lg-0">
 						<input name="find" class="form-control mr-sm-2" type="search"
@@ -36,8 +38,10 @@
 							<th>STT</th>
 							<th>Mã nhà cung cấp</th>
 							<th>Tên nhà cung cấp</th>
+							<s:if test="%{#session.user.role == 'Quản lý kho'}">
 							<th width="60px" class="text-center">Sửa</th>
 							<th width="60px" class="text-center">Xóa</th>
+							</s:if>
 						</tr>
 					</thead>
 					<tbody>
@@ -52,6 +56,7 @@
 								<td>
 									<s:property value="name" />
 								</td>
+								<s:if test="%{#session.user.role == 'Quản lý kho'}">
 								<td class="text-center">
 									<s:url action="edit" var="editURL" namespace="/supplier">
 										<s:param name="id" value="id" />
@@ -65,6 +70,7 @@
 									<s:a href="%{deleteURL}"
 										cssClass="btn btn-sm btn-danger delete">Xóa</s:a>
 								</td>
+								</s:if>
 							</tr>
 						</s:iterator>
 					</tbody>

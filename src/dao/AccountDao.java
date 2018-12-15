@@ -11,5 +11,9 @@ public interface AccountDao extends BasicCrudDao<Account, Integer> {
 	Account changePassword(Integer id, String password);
 	
 	List<Account> getlistRoles();
+	
+	Account fillbyUsername(String username);
+	
+	
 
 }

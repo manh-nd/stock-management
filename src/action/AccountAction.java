@@ -49,6 +49,7 @@ public class AccountAction extends ActionSupport implements IAction {
 	public String delete() {
 		Integer id = Integer.parseInt(WebUtil.getHttpServletRequest().getParameter("id"));
 		account = accountDao.findById(id);
+		
 		accountDao.delete(account);
 		return SUCCESS;
 	}
@@ -58,10 +59,20 @@ public class AccountAction extends ActionSupport implements IAction {
 			@Result(name = SUCCESS, location = "list", type = "redirect"),
 			@Result(name = INPUT, location = Page.ACCOUNT_FORM) })
 	public String save() {
+		
+		String username = account.getUsername();
+		System.out.println(username);
+		
+		if(accountDao.fillbyUsername(username) !=null) {
+			addFieldError("account.username", "Tài khoản đã tồn tại. Vui lòng sử dụng tên khác !");
+			return INPUT;
+		}
+		else {
 		System.out.println(account);
 		accountDao.saveOrUpdate(account);
 		System.out.println("insert");
 		return SUCCESS;
+		}
 	}
 
 	@Action(value = "block", results = @Result(name = SUCCESS, location = Page.ACCOUNT_BLOCK))
@@ -101,6 +112,15 @@ public class AccountAction extends ActionSupport implements IAction {
 	}
 	@Override
 	public void validate() {
+		
+//		String fullname = account.getFullname();
+//		String password = account.getPassword();
+// 		if(fullname.length() < 6) {
+//			addFieldError("account.fullname", "Ten day du phai lon hon 6 ki tu");
+//		}
+// 		if(password.length() < 6) {
+// 			addFieldError("account.password", "Mat khau phai lon hon 6 ki tu");
+// 		}
 		System.out.println("Validate Account...");
 		
 	}
